@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Xamarin.Forms;
 
 namespace MobileExample.Droid.Services
 {
@@ -60,7 +61,7 @@ namespace MobileExample.Droid.Services
 
         public void comenzarContador()
         {
-            timer = new Timer(1000);
+            timer = new Timer(10000);
             comenzarTareaTimer();
         }
 
@@ -72,7 +73,15 @@ namespace MobileExample.Droid.Services
 
         private void accionTimer(object sender, ElapsedEventArgs e)
         {
-            Console.WriteLine("El timer va por el numero: {contador}", contador++);
+            //Console.WriteLine("El timer va por el numero: {contador}", contador++);
+            Handler mainHandler = new Handler(Looper.MainLooper);
+            Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
+            {
+                var duration = ToastLength.Long;
+                Toast.MakeText(ApplicationContext, "Sincronizacion " + contador++, duration).Show();
+            });
+
+            mainHandler.Post(runnableToast);
         }
 
         public void pararContador()
