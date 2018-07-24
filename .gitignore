@@ -1,8 +1,8 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-MobileExample/MobileExample/bin
-MobileExample/MobileExample/obj
-MobileExample/MobileExample.Android/bin
-MobileExample/MobileExample.Android/obj
+MobileExample/MobileExample/bin/
+MobileExample/MobileExample/obj/
+MobileExample/MobileExample.Android/bin/
+MobileExample/MobileExample.Android/obj/
 !/tools/bin
 
 # Windows explorer settings file
@@ -22,11 +22,6 @@ desktop.ini
 
 *.DS_Store
 .DS_Store
-code/acom/ACOM.Web/App_Data/ACOM.Web.XML
-code/acom/.idea/config/applicationhost.config
-code/acom/.idea/modules.xml
-code/acom/.idea/workspace.xml
-code/acom/acom.sln.iml
 
 node_modules/
 .settings/
