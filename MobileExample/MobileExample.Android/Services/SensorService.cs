@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Timers;
@@ -10,6 +11,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MobileExample.Tables;
+using SQLite;
 using Xamarin.Forms;
 
 namespace MobileExample.Droid.Services
@@ -57,28 +60,23 @@ namespace MobileExample.Droid.Services
 
         private Timer timer;
 
-        long oldTime = 0;
-
         public void comenzarContador()
         {
             timer = new Timer(10000);
-            comenzarTareaTimer();
-        }
-
-        public void comenzarTareaTimer()
-        {
             timer.Elapsed += new ElapsedEventHandler(accionTimer);
             timer.Enabled = true;
         }
 
         private void accionTimer(object sender, ElapsedEventArgs e)
         {
-            //Console.WriteLine("El timer va por el numero: {contador}", contador++);
             Handler mainHandler = new Handler(Looper.MainLooper);
             Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
             {
                 var duration = ToastLength.Long;
-                Toast.MakeText(ApplicationContext, "Sincronizacion " + contador++, duration).Show();
+                var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
+                var db = new SQLiteConnection(path);
+                int cantidadMochilas = db.Table<Mochila>().Count();
+                Toast.MakeText(ApplicationContext, "Hay " + cantidadMochilas + " mochilas.", duration).Show();
             });
 
             mainHandler.Post(runnableToast);

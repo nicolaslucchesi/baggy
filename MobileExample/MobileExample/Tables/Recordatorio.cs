@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +19,8 @@ namespace MobileExample.Tables
         public int Minuto { get; set; }
 
         public int IdMochila { get; set; }
-
-        public List<int> Elementos { get; set; }
+        
+        [ManyToMany(typeof(ElementoRecordatorio))]
+        public List<Elemento> Elementos { get; set; }
     }
 }

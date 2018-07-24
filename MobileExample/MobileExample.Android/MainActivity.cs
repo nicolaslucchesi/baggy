@@ -8,6 +8,9 @@ using Android.Widget;
 using Android.OS;
 using Android.Content;
 using MobileExample.Droid.Services;
+using SQLite;
+using System.IO;
+using MobileExample.Tables;
 
 namespace MobileExample.Droid
 {
@@ -32,14 +35,8 @@ namespace MobileExample.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            contexto = this;
-            servicioSegundoPlano = new SensorService(this.obtenerContexto());
-            intentSegundoPlano = new Intent(this.obtenerContexto(), typeof(SensorService));
-            if (!servicioCorriendo(servicioSegundoPlano))
-            {
-                StartService(intentSegundoPlano);
-            }
-
+            IniciarServicioSegundoPlano();
+         
             LoadApplication(new App());
         }
 
@@ -48,6 +45,17 @@ namespace MobileExample.Droid
             StopService(intentSegundoPlano);
             Console.WriteLine("Servicio parado.");
             base.OnDestroy();
+        }
+
+        private void IniciarServicioSegundoPlano()
+        {
+            contexto = this;
+            servicioSegundoPlano = new SensorService(this.obtenerContexto());
+            intentSegundoPlano = new Intent(this.obtenerContexto(), typeof(SensorService));
+            if (!servicioCorriendo(servicioSegundoPlano))
+            {
+                StartService(intentSegundoPlano);
+            }
         }
 
         private Boolean servicioCorriendo(SensorService servicioBackground)

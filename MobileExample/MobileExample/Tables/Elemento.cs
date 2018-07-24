@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,5 +21,8 @@ namespace MobileExample.Tables
         public bool Vinculado { get; set; }
 
         public string UUID { get; set; }
+
+        [ManyToMany(typeof(ElementoRecordatorio))]
+        public List<Recordatorio> Recordatorios { get; set; }
     }
 }

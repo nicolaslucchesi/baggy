@@ -2,6 +2,9 @@
 using Xamarin.Forms;
 using MobileExample.Views;
 using Xamarin.Forms.Xaml;
+using System.IO;
+using SQLite;
+using MobileExample.Tables;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace MobileExample
@@ -13,6 +16,7 @@ namespace MobileExample
 		{
 			InitializeComponent();
 
+            IniciarDatabase();
 
 			MainPage = new MainPage();
 		}
@@ -31,5 +35,15 @@ namespace MobileExample
 		{
 			// Handle when your app resumes
 		}
-	}
+
+        private void IniciarDatabase()
+        {
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
+            var db = new SQLiteConnection(path);
+            db.CreateTable<Elemento>();
+            db.CreateTable<InformacionSincronizada>();
+            db.CreateTable<Mochila>();
+            db.CreateTable<Recordatorio>();
+        }
+    }
 }
