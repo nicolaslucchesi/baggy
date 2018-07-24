@@ -1,9 +1,0 @@
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\bin\Debug\netstandard2.0\MobileExample.deps.json
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\bin\Debug\netstandard2.0\MobileExample.dll
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\bin\Debug\netstandard2.0\MobileExample.pdb
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\obj\Debug\netstandard2.0\MobileExample.csprojAssemblyReference.cache
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\obj\Debug\netstandard2.0\MobileExample.csproj.CoreCompileInputs.cache
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\obj\Debug\netstandard2.0\MobileExample.AssemblyInfoInputs.cache
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\obj\Debug\netstandard2.0\MobileExample.AssemblyInfo.cs
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\obj\Debug\netstandard2.0\MobileExample.dll
-C:\Users\ManuelFranco\source\repos\MobileExample\MobileExample\MobileExample\obj\Debug\netstandard2.0\MobileExample.pdb
