@@ -1,6 +1,8 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-bin
-obj
+MobileExample/MobileExample/bin
+MobileExample/MobileExample/obj
+MobileExample/MobileExample.Android/bin
+MobileExample/MobileExample.Android/obj
 !/tools/bin
 
 # Windows explorer settings file
