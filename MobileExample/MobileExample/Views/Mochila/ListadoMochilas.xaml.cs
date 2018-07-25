@@ -14,15 +14,15 @@ using MobileExample.ViewModels;
 namespace MobileExample.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ItemsPage : ContentPage
+	public partial class ListadoMochilas : ContentPage
 	{
-        ItemsViewModel viewModel;
+        ListadoMochilasViewModel viewModel;
 
-        public ItemsPage()
+        public ListadoMochilas()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = viewModel = new ListadoMochilasViewModel();
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -37,17 +37,17 @@ namespace MobileExample.Views
             ItemsListView.SelectedItem = null;
         }
 
-        async void AddItem_Clicked(object sender, EventArgs e)
+        async void AgregarMochila_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
+            await Navigation.PushModalAsync(new NavigationPage(new NuevaMochila()));
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            if (viewModel.Mochilas.Count == 0)
+                viewModel.ComandoCargarMochilas.Execute(null);
         }
     }
 }

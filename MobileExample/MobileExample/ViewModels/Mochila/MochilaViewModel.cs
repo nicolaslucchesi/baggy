@@ -4,8 +4,8 @@ using System.Text;
 
 namespace MobileExample.ViewModels
 {
-    public class MochilaViewModel
-    {
+    public class MochilaViewModel : BaseViewModel
+    { 
         public int Id { get; set; }
 
         public string Descripcion { get; set; }

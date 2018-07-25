@@ -9,4 +9,13 @@
     <PackageReference Include="SQLiteNetExtensions" Version="2.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.482510" />  
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Mochila\ListadoMochilas.xaml.cs">
+      <DependentUpon>ListadoMochilas.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Mochila\NuevaMochila.xaml.cs">
+      <DependentUpon>NuevaMochila.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

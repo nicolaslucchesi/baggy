@@ -16,7 +16,7 @@ namespace MobileExample
 		{
 			InitializeComponent();
 
-            IniciarDatabase();
+            CrearBaseDeDatos();
 
 			MainPage = new MainPage();
 		}
@@ -36,7 +36,7 @@ namespace MobileExample
 			// Handle when your app resumes
 		}
 
-        private void IniciarDatabase()
+        private void CrearBaseDeDatos()
         {
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
             var db = new SQLiteConnection(path);
