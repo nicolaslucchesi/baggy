@@ -11,11 +11,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\VerMochila.xaml.cs">
+      <DependentUpon>VerMochila.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ListadoRecordatorios.xaml.cs">
+      <DependentUpon>ListadoRecordatorios.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Mochila\ListadoMochilas.xaml.cs">
       <DependentUpon>ListadoMochilas.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Mochila\NuevaMochila.xaml.cs">
       <DependentUpon>NuevaMochila.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\NuevoRecordatorio.xaml.cs">
+      <DependentUpon>NuevoRecordatorio.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

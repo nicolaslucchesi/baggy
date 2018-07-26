@@ -76,7 +76,9 @@ namespace MobileExample.Droid.Services
                 var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
                 var db = new SQLiteConnection(path);
                 int cantidadMochilas = db.Table<Mochila>().Count();
-                Toast.MakeText(ApplicationContext, "Hay " + cantidadMochilas + " mochilas.", duration).Show();
+                int cantidadRecordatorios = db.Table<Recordatorio>().Count();
+                Toast.MakeText(ApplicationContext, "Hay " + cantidadMochilas + " mochilas y "
+                    + cantidadRecordatorios + " Recordatorios." , duration).Show();
             });
 
             mainHandler.Post(runnableToast);

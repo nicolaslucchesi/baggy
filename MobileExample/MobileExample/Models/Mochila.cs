@@ -2,7 +2,7 @@
 
 namespace MobileExample.Models
 {
-    public class Item
+    public class Mochila
     {
         public string Id { get; set; }
         public string Text { get; set; }

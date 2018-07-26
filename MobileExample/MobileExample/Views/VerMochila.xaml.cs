@@ -9,28 +9,29 @@ using MobileExample.ViewModels;
 namespace MobileExample.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ItemDetailPage : ContentPage
+	public partial class VerMochila : ContentPage
 	{
-        ItemDetailViewModel viewModel;
+        VerMochilaViewModel viewModel;
 
-        public ItemDetailPage(ItemDetailViewModel viewModel)
+        public VerMochila(VerMochilaViewModel viewModel)
         {
             InitializeComponent();
 
             BindingContext = this.viewModel = viewModel;
         }
 
-        public ItemDetailPage()
+        
+        public VerMochila()
         {
-            InitializeComponent();
+           InitializeComponent();
 
-            var item = new Item
+            var item = new Mochila
             {
                 Text = "Item 1",
                 Description = "This is an item description."
             };
 
-            viewModel = new ItemDetailViewModel(item);
+            viewModel = new VerMochilaViewModel(item);
             BindingContext = viewModel;
         }
     }
