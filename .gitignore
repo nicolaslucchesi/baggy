@@ -3,6 +3,7 @@ MobileExample/MobileExample/bin/
 MobileExample/MobileExample/obj/
 MobileExample/MobileExample.Android/bin/
 MobileExample/MobileExample.Android/obj/
+MobileExample/MobileExample.Android/Resources/Resource.designer.cs
 !/tools/bin
 
 # Windows explorer settings file
