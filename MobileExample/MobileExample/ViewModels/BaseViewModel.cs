@@ -5,8 +5,7 @@ using System.Runtime.CompilerServices;
 
 using Xamarin.Forms;
 
-using MobileExample.Models;
-using MobileExample.Services;
+using MobileExample.Tables;
 
 namespace MobileExample.ViewModels
 {

@@ -3,7 +3,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using MobileExample.Models;
+using MobileExample.Tables;
 using MobileExample.ViewModels;
 
 namespace MobileExample.Views
@@ -27,8 +27,8 @@ namespace MobileExample.Views
 
             var item = new Mochila
             {
-                Text = "Item 1",
-                Description = "This is an item description."
+                UUID = "Item 1",
+                Descripcion = "This is an item description."
             };
 
             viewModel = new VerMochilaViewModel(item);

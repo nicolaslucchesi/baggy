@@ -1,6 +1,6 @@
 ﻿using System;
 
-using MobileExample.Models;
+using MobileExample.Tables;
 
 namespace MobileExample.ViewModels
 {
@@ -9,7 +9,7 @@ namespace MobileExample.ViewModels
         public Mochila Item { get; set; }
         public VerMochilaViewModel(Mochila item = null)
         {
-            Title = item?.Text;
+            Title = item?.Descripcion;
             Item = item;
         }
     }

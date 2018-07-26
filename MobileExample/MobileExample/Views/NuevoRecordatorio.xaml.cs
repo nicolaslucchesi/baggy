@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using MobileExample.Models;
 using System.IO;
 using SQLite;
 using MobileExample.Tables;
