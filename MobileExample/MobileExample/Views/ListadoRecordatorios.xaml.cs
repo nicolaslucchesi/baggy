@@ -14,16 +14,17 @@ using MobileExample.ViewModels;
 namespace MobileExample.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ListadoMochilas : ContentPage
+	public partial class ListadoRecordatorios : ContentPage
 	{
-        ListadoMochilasViewModel viewModel;
+        ListadoRecordatoriosViewModel viewModel;
 
-        public ListadoMochilas()
+        public ListadoRecordatorios()
         {
-            InitializeComponent();
 
-            BindingContext = viewModel = new ListadoMochilasViewModel();
+            InitializeComponent();
+            BindingContext = viewModel = new ListadoRecordatoriosViewModel();
         }
+        
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
@@ -31,23 +32,23 @@ namespace MobileExample.Views
             if (item == null)
                 return;
 
-             await Navigation.PushAsync(new VerMochila(new VerMochilaViewModel(item)));
-            
+          //  await Navigation.PushAsync(new NavigationPage(new VerMochila(item)));
+
             // Manually deselect item.
-            ItemsListView.SelectedItem = null;
+            ItemsListView2.SelectedItem = null;
         }
 
-        async void AgregarMochila_Clicked(object sender, EventArgs e)
+        async void AgregarRecordatorio_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NuevaMochila()));
+            await Navigation.PushModalAsync(new NavigationPage(new NuevoRecordatorio()));
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (viewModel.Mochilas.Count == 0)
-                viewModel.ComandoCargarMochilas.Execute(null);
+            if (viewModel.Recordatorios.Count == 0)
+                viewModel.ComandoCargarRecordatorios.Execute(null);
         }
     }
 }
