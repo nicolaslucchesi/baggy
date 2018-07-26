@@ -12,36 +12,36 @@ using Xamarin.Forms;
 
 namespace MobileExample.ViewModels
 {
-    public class ListadoRecordatoriosViewModel : BaseViewModel
+    public class ListadoElementosViewModel : BaseViewModel
     {
         private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
         private static SQLiteConnection db = new SQLiteConnection(path);
 
-        public ObservableCollection<Recordatorio> Recordatorios { get; set; }
+        public ObservableCollection<Elemento> Elementos { get; set; }
 
-        public Command ComandoCargarRecordatorios { get; set; }
+        public Command ComandoCargarElementos { get; set; }
 
-        public ListadoRecordatoriosViewModel()
+        public ListadoElementosViewModel()
         {
-            Title = "Mis Recordatorios";
-            Recordatorios = new ObservableCollection<Recordatorio>();
-            ComandoCargarRecordatorios = new Command(() => EjecutarComando());
+            Title = "Mis Elementos";
+            Elementos = new ObservableCollection<Elemento>();
+            ComandoCargarElementos = new Command(() => EjecutarComando());
 
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
             // La idea es que desde la vista de creación se envíe un mensaje con el texto
             // 'AgregarMochila' y el objeto viewModel, y de esa manera se ejecuta esta porçión de código.
-            MessagingCenter.Subscribe<NuevoRecordatorio, RecordatorioViewModel>(this, "AgregarRecordatorio", (obj, recordatorioViewModel) =>
+            MessagingCenter.Subscribe<NuevoElemento, ElementoViewModel>(this, "AgregarElemento", (obj, elementoViewModel) =>
             {
-                Recordatorio recordatorio = new Recordatorio
+                Elemento elemento = new Elemento
                 {
-                    DiaSemana = 5 ,
-                    Minuto = recordatorioViewModel.Minuto,
-                    Hora = recordatorioViewModel.Hora.Hours                  
-                
+                    Descripcion = elementoViewModel.Descripcion ,
+                    RutaIcono = elementoViewModel.RutaIcono,
+                    Imprescindible = elementoViewModel.Imprescindible,
+                    Vinculado = elementoViewModel.Vinculado
                 };
 
-                db.Insert(recordatorio);
-                Recordatorios.Add(recordatorio);
+                db.Insert(elemento);
+                Elementos.Add(elemento);
             });
         }
 
@@ -56,11 +56,11 @@ namespace MobileExample.ViewModels
 
             try
             {
-                Recordatorios.Clear();
-                var recordatorios = this.ObtenerRecordatorios();
-                foreach (var recordatorio in recordatorios)
+                Elementos.Clear();
+                var elementos = this.ObtenerElementos();
+                foreach (var elemento in elementos)
                 {
-                    Recordatorios.Add(recordatorio);
+                    Elementos.Add(elemento);
                 }
             }
             catch (Exception ex)
@@ -73,9 +73,9 @@ namespace MobileExample.ViewModels
             }
         }
 
-        private List<Recordatorio> ObtenerRecordatorios()
+        private List<Elemento> ObtenerElementos()
         {
-            return db.Table<Recordatorio>().ToList();
+            return db.Table<Elemento>().ToList();
         }
     }
 }
