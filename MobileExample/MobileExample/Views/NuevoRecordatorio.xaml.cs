@@ -24,11 +24,11 @@ namespace MobileExample.Views
             RecordatorioViewModel = new RecordatorioViewModel
             {
                 DiaSemana = 1,
-                Hora = 2,
+                Hora = new TimeSpan(12,0,0),
                 Minuto = 3,
             };
 
-        BindingContext = this;
+            BindingContext = this;
         }
 
         async void Guardar_Clicked(object sender, EventArgs e)

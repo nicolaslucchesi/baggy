@@ -30,7 +30,7 @@
                     </sys:DateTime>
                 </DatePicker.MaximumDate>
             </DatePicker>
-            <TimePicker VerticalOptions="CenterAndExpand" Time="{x:Static sys:DateTime.Now}"></TimePicker>
+            <TimePicker VerticalOptions="CenterAndExpand" Time="{Binding RecordatorioViewModel.Hora}"></TimePicker>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

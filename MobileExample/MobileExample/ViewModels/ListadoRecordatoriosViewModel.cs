@@ -36,7 +36,7 @@ namespace MobileExample.ViewModels
                 {
                     DiaSemana = 5 ,
                     Minuto = recordatorioViewModel.Minuto,
-                    Hora = recordatorioViewModel.Hora                   
+                    Hora = recordatorioViewModel.Hora.Hours                  
                 
                 };
 
