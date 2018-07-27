@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileExample.Views.VerMochila"
              Title="{Binding Title}">
-    <StackLayout Spacing="20" Padding="15">
+    <StackLayout Spacing="20" Padding="15" >
         <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Mochila.Text}" FontSize="Small"/>
+        <Label Text="{Binding Item.Descripcion}" FontSize="Small"/>
         <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Mochila.Description}" FontSize="Small"/>
+        <Label Text="{Binding Item.Descripcion}" FontSize="Small"/>
     </StackLayout>
 </ContentPage>

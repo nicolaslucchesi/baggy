@@ -36,5 +36,17 @@
                 <views:ListadoRecordatorios />
             </x:Arguments>
         </NavigationPage>
+
+        <NavigationPage Title="Elementos">
+            <NavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="tab_feed.png"/>
+                </OnPlatform>
+            </NavigationPage.Icon>
+            <x:Arguments>
+                <views:ListadoElementos />
+            </x:Arguments>
+        </NavigationPage>
+        
     </TabbedPage.Children>
 </TabbedPage>

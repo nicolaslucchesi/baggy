@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="MobileExample.Views.NuevoElemento"
+		     Title="Nuevo Elemento">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Guardar" Clicked="GuardarElemento_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Image Source="Obj1.png"/>
+            <Label Text="Imprescindible" FontSize="Medium" />
+            <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"></Switch>
+            <Label Text="Vinculado" FontSize="Medium" />
+            <Switch IsToggled ="{Binding ElementoViewModel.Vinculado}"></Switch>
+            <Label Text="Descripción" FontSize="Medium" />
+            <Entry Text="{Binding ElementoViewModel.Descripcion}" FontSize="Small" Placeholder="Descripción" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

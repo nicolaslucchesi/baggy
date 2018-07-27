@@ -77,8 +77,10 @@ namespace MobileExample.Droid.Services
                 var db = new SQLiteConnection(path);
                 int cantidadMochilas = db.Table<Mochila>().Count();
                 int cantidadRecordatorios = db.Table<Recordatorio>().Count();
-                Toast.MakeText(ApplicationContext, "Hay " + cantidadMochilas + " mochilas y "
-                    + cantidadRecordatorios + " Recordatorios." , duration).Show();
+                int cantidadElementos = db.Table<Elemento>().Count();
+                Toast.MakeText(ApplicationContext, "Hay " + cantidadMochilas + " mochilas, "
+                    + cantidadRecordatorios + " recordatorios y "
+                    + cantidadElementos + " elementos.", duration).Show();
             });
 
             mainHandler.Post(runnableToast);

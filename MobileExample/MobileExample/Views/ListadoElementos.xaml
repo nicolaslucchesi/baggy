@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileExample.Views.ListadoElementos"
+              Title="{Binding Title}"
+             x:Name="BrowseItemsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nuevo Elemento" Clicked="AgregarElemento_Clicked">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="add.png"/>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ItemsListView3" 
+                ItemsSource="{Binding Elementos}"
+                VerticalOptions="FillAndExpand"
+                 HasUnevenRows="true"
+                 RefreshCommand="{Binding ComandoCargarElementos}"
+                 IsPullToRefreshEnabled="true"
+                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                 CachingStrategy="RecycleElement"
+                 ItemSelected="OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eee"
+                                         Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="Obj1.png" />
+                                     <StackLayout Orientation="Vertical">
+                                        <Label  Text="{Binding Descripcion}"
+                                                FontAttributes="Bold" 
+                                                FontSize="22"/>
+
+                                        <Label  Text="{Binding RutaIcono}"
+                                            HorizontalOptions="EndAndExpand"
+                                            TextColor="#503026" />
+                                   <StackLayout Orientation="Horizontal">
+                                        
+                                        <Label  Text="Imprescindible"  
+                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            FontSize="16" />
+                                    <Switch IsToggled="{Binding Imprescindible}" IsEnabled="False"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label  Text="Vinculado"  
+                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            FontSize="16" />
+                                            <Switch IsToggled="{Binding Vinculado}" IsEnabled="False"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
