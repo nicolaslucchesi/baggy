@@ -25,7 +25,10 @@ namespace MobileExample.Droid
         {
             return contexto;
         }
-
+        /// <summary>
+        /// Este método handlea la creación de la aplicación (cuando inicia por primera vez)
+        /// </summary>
+        /// <param name="bundle"></param>
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -39,14 +42,20 @@ namespace MobileExample.Droid
          
             LoadApplication(new App());
         }
-
+        /// <summary>
+        /// Este método handlea el evento de destrucción de la aplicación.
+        /// Detiene el servicio que corre en segundo plano y envía un evento al constructor base.
+        /// </summary>
         protected override void OnDestroy()
         {
             StopService(intentSegundoPlano);
             Console.WriteLine("Servicio parado.");
             base.OnDestroy();
         }
-
+        /// <summary>
+        /// Este método inicia el servicio que corre en segundo plano
+        /// si es que no está corriendo.
+        /// </summary>
         private void IniciarServicioSegundoPlano()
         {
             contexto = this;
@@ -57,7 +66,12 @@ namespace MobileExample.Droid
                 StartService(intentSegundoPlano);
             }
         }
-
+        /// <summary>
+        /// Este método verifica si el servicio en segundo plano está corriendo
+        /// para no iniciarlo dos veces.
+        /// </summary>
+        /// <param name="servicioBackground">La instancia del tipo de servicio a verificar</param>
+        /// <returns>Un booleano que indica si el servicio está corriendo o no.</returns>
         private Boolean servicioCorriendo(SensorService servicioBackground)
         {
             ActivityManager manager = (ActivityManager)GetSystemService(Context.ActivityService);

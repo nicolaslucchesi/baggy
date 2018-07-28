@@ -34,42 +34,48 @@ namespace MobileExample.Droid.Services
 
         protected override void OnHandleIntent(Intent intent)
         {
-            Console.WriteLine("me estoy creando");
             comenzarContador();
         }
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
             base.OnStartCommand(intent, flags, startId);
-            //comenzarContador();
             return StartCommandResult.Sticky;
         }
         public override void OnCreate()
         {
             base.OnCreate();
-            Console.WriteLine("me estoy creando");
         }
         public override void OnTaskRemoved(Intent rootIntent)
         {
             base.OnTaskRemoved(rootIntent);
-            Console.WriteLine("Servicio destruido.");
             Intent broadcastIntent = new Intent("baggyFilter");
             SendBroadcast(broadcastIntent);
             pararContador();
         }
 
         private Timer timer;
-
+        /// <summary>
+        /// Este método es el que se ejecuta cuando empieza el servicio.
+        /// </summary>
         public void comenzarContador()
         {
             timer = new Timer(10000);
             timer.Elapsed += new ElapsedEventHandler(accionTimer);
             timer.Enabled = true;
         }
-
+        /// <summary>
+        /// Esta es la acción que se ejecuta cada vez que transcurre el lapso definido
+        /// en el timer.
+        /// Acá irían las actividades de sincronización y verificación de datos y demás.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void accionTimer(object sender, ElapsedEventArgs e)
         {
             Handler mainHandler = new Handler(Looper.MainLooper);
+            // Esta magia es la que dispara el toast de notifiación. Está bueno para
+            // implementarla en los mensajes de creación exitosa y demás.
             Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
             {
                 var duration = ToastLength.Long;

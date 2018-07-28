@@ -11,19 +11,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\ListadoElementos.xaml.cs">
+    <Compile Update="Views\Elemento\ListadoElementos.xaml.cs">
       <DependentUpon>ListadoElementos.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\NuevoElemento.xaml.cs">
+    <Compile Update="Views\Elemento\NuevoElemento.xaml.cs">
       <DependentUpon>NuevoElemento.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\VerElemento.xaml.cs">
+    <Compile Update="Views\Elemento\VerElemento.xaml.cs">
       <DependentUpon>VerElemento.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\VerMochila.xaml.cs">
+    <Compile Update="Views\Mochila\VerMochila.xaml.cs">
       <DependentUpon>VerMochila.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ListadoRecordatorios.xaml.cs">
+    <Compile Update="Views\Recordatorio\ListadoRecordatorios.xaml.cs">
       <DependentUpon>ListadoRecordatorios.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Mochila\ListadoMochilas.xaml.cs">
@@ -32,7 +32,7 @@
     <Compile Update="Views\Mochila\NuevaMochila.xaml.cs">
       <DependentUpon>NuevaMochila.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\NuevoRecordatorio.xaml.cs">
+    <Compile Update="Views\Recordatorio\NuevoRecordatorio.xaml.cs">
       <DependentUpon>NuevoRecordatorio.xaml</DependentUpon>
     </Compile>
   </ItemGroup>

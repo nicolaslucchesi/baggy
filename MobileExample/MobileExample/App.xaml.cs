@@ -35,7 +35,9 @@ namespace MobileExample
 		{
 			// Handle when your app resumes
 		}
-
+        /// <summary>
+        /// Este método crea la base de datos y las tablas del sistema (si es que todavia no existen)
+        /// </summary>        
         private void CrearBaseDeDatos()
         {
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");

@@ -10,9 +10,6 @@
                     <On Platform="iOS" Value="tab_about.png"/>
                 </OnPlatform>
             </NavigationPage.Icon>
-            <x:Arguments>
-                <views:AboutPage />
-            </x:Arguments>
         </NavigationPage>
 
         <NavigationPage Title="Mochilas" Icon="tab_feed.png">
