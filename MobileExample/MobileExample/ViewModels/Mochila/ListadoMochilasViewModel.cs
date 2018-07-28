@@ -17,14 +17,14 @@ namespace MobileExample.ViewModels
         private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
         private static SQLiteConnection db = new SQLiteConnection(path);
 
-        public ObservableCollection<Mochila> Mochilas { get; set; }
+        public ObservableCollection<MochilaViewModel> Mochilas { get; set; }
 
         public Command ComandoCargarMochilas { get; set; }
 
         public ListadoMochilasViewModel()
         {
             Title = "Mis mochilas";
-            Mochilas = new ObservableCollection<Mochila>();
+            Mochilas = new ObservableCollection<MochilaViewModel>();
             ComandoCargarMochilas = new Command(() => EjecutarComando());
 
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
@@ -40,7 +40,13 @@ namespace MobileExample.ViewModels
                 };
 
                 db.Insert(mochila);
-                Mochilas.Add(mochila);
+                Mochilas.Add(mochilaViewModel);
+            });
+            MessagingCenter.Subscribe<MochilaViewModel, MochilaViewModel>(this, "EliminarMochila", (sender, mochilaViewModel) =>
+            {
+                Mochila mochilaAEliminar = db.Table<Mochila>().Where(e => e.UUID.Equals(mochilaViewModel.UUID)).FirstOrDefault();
+                db.Delete(mochilaAEliminar);
+                Mochilas.Remove(mochilaViewModel);
             });
         }
 
@@ -72,9 +78,19 @@ namespace MobileExample.ViewModels
             }
         }
 
-        private List<Mochila> ObtenerMochilas()
+        private List<MochilaViewModel> ObtenerMochilas()
         {
-            return db.Table<Mochila>().ToList();
+            List<MochilaViewModel> listadoMochilas = new List<MochilaViewModel>();
+            foreach (Mochila mochila in db.Table<Mochila>().ToList())
+            {
+                MochilaViewModel mochilaViewModel = new MochilaViewModel();
+                mochilaViewModel.Activa = mochila.Activa;
+                mochilaViewModel.Descripcion = mochila.Descripcion;
+                mochilaViewModel.UUID = mochila.UUID;
+                listadoMochilas.Add(mochilaViewModel);
+            }
+
+            return listadoMochilas;
         }
     }
 }
