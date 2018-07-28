@@ -25,7 +25,7 @@ namespace MobileExample.ViewModels
         {
             Title = "Mis mochilas";
             Mochilas = new ObservableCollection<MochilaViewModel>();
-            ComandoCargarMochilas = new Command(() => EjecutarComando());
+            ComandoCargarMochilas = new Command(() => RefrescarMochilas());
 
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
             // La idea es que desde la vista de creación se envíe un mensaje con el texto
@@ -52,9 +52,33 @@ namespace MobileExample.ViewModels
                 db.Delete(mochilaAEliminar);
                 Mochilas.Remove(mochilaViewModel);
             });
+
+            MessagingCenter.Subscribe<MochilaViewModel, MochilaViewModel>(this, "ActivarMochila", (sender, mochilaViewModel) =>
+            {
+                foreach (Mochila mochila in db.Table<Mochila>().ToList())
+                {
+                    mochila.Activa = false;
+                    if (mochila.UUID.Equals(mochilaViewModel.UUID))
+                    {
+                        mochila.Activa = true;
+                    }
+                    db.Update(mochila);
+                }
+
+                foreach (MochilaViewModel mochila in Mochilas)
+                {
+                    mochila.Activa = false;
+                    if (mochila.UUID.Equals(mochilaViewModel.UUID))
+                    {
+                        mochila.Activa = true;
+                    }
+                }
+
+                this.RefrescarMochilas();
+            });
         }
 
-        private void EjecutarComando()
+        private void RefrescarMochilas()
         {
             if (IsBusy)
             {

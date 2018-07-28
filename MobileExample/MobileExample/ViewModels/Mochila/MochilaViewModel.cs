@@ -17,12 +17,19 @@ namespace MobileExample.ViewModels
         
         public Command ComandoEliminarMochila { get; set; }
 
+        public Command ComandoActivarMochila { get; set; }
+
         public MochilaViewModel() {
             this.ComandoEliminarMochila = new Command(Eliminar);
+            this.ComandoActivarMochila = new Command(Activar);
         }
 
         void Eliminar() {
             MessagingCenter.Send(this, "EliminarMochila", this);
+        }
+
+        void Activar() {
+            MessagingCenter.Send(this, "ActivarMochila", this);
         }
     }
 }
