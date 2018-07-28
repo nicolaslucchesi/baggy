@@ -19,7 +19,13 @@ namespace MobileExample.Tables
         public int Minuto { get; set; }
 
         public int IdMochila { get; set; }
-        
+
+        public bool Lunes { get; set; }
+        public bool Martes { get; set; }
+        public bool Miercoles { get; set; }
+        public bool Jueves { get; set; }
+        public bool Viernes { get; set; }
+
         [ManyToMany(typeof(ElementoRecordatorio))]
         public List<Elemento> Elementos { get; set; }
     }

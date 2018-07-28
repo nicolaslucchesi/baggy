@@ -17,14 +17,14 @@ namespace MobileExample.ViewModels
         private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
         private static SQLiteConnection db = new SQLiteConnection(path);
 
-        public ObservableCollection<Recordatorio> Recordatorios { get; set; }
+        public ObservableCollection<RecordatorioViewModel> Recordatorios { get; set; }
 
         public Command ComandoCargarRecordatorios { get; set; }
 
         public ListadoRecordatoriosViewModel()
         {
             Title = "Mis Recordatorios";
-            Recordatorios = new ObservableCollection<Recordatorio>();
+            Recordatorios = new ObservableCollection<RecordatorioViewModel>();
             ComandoCargarRecordatorios = new Command(() => EjecutarComando());
 
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
@@ -34,14 +34,25 @@ namespace MobileExample.ViewModels
             {
                 Recordatorio recordatorio = new Recordatorio
                 {
-                    DiaSemana = 5 ,
+                    DiaSemana = 5,
                     Minuto = recordatorioViewModel.Minuto,
-                    Hora = recordatorioViewModel.Hora.Hours                  
-                
+                    Hora = recordatorioViewModel.Hora.Hours,
+                    Lunes = recordatorioViewModel.Lunes,
+                    Martes = recordatorioViewModel.Martes,
+                    Miercoles = recordatorioViewModel.Miercoles,
+                    Jueves = recordatorioViewModel.Jueves,
+                    Viernes = recordatorioViewModel.Viernes
                 };
 
                 db.Insert(recordatorio);
-                Recordatorios.Add(recordatorio);
+                Recordatorios.Add(recordatorioViewModel);
+            });
+
+            MessagingCenter.Subscribe<RecordatorioViewModel, RecordatorioViewModel>(this, "EliminarRecordatorio", (sender, recordatorioViewModel) =>
+            {
+                Recordatorio recordatorioAEliminar = db.Table<Recordatorio>().Where(e => e.Id.Equals(recordatorioViewModel.Id)).FirstOrDefault();
+                db.Delete(recordatorioAEliminar);
+                Recordatorios.Remove(recordatorioViewModel);
             });
         }
 
@@ -73,9 +84,24 @@ namespace MobileExample.ViewModels
             }
         }
 
-        private List<Recordatorio> ObtenerRecordatorios()
+        private List<RecordatorioViewModel> ObtenerRecordatorios()
         {
-            return db.Table<Recordatorio>().ToList();
+            List<RecordatorioViewModel> listadoRecordatorios = new List<RecordatorioViewModel>();
+            foreach (Recordatorio recordatorio in db.Table<Recordatorio>().ToList())
+            {
+                RecordatorioViewModel recordatorioViewModel = new RecordatorioViewModel();
+                recordatorioViewModel.Id = recordatorio.Id;
+                recordatorioViewModel.DiaSemana = recordatorio.DiaSemana;
+                recordatorioViewModel.Minuto = recordatorio.Minuto;
+                recordatorioViewModel.Lunes = recordatorio.Lunes;
+                recordatorioViewModel.Martes = recordatorio.Martes;
+                recordatorioViewModel.Miercoles = recordatorio.Miercoles;
+                recordatorioViewModel.Jueves = recordatorio.Jueves;
+                recordatorioViewModel.Viernes = recordatorio.Viernes;
+                listadoRecordatorios.Add(recordatorioViewModel);
+            }
+            return listadoRecordatorios;
+            
         }
     }
 }

@@ -13,24 +13,31 @@
             <Entry Text="{Binding RecordatorioViewModel.Minuto}" FontSize="Small" Placeholder="Descripción" />
             <Label Text="UUID" FontSize="Medium" />
             <Editor Text="{Binding RecordatorioViewModel.Hora}" FontSize="Small" Margin="0" />
-            <DatePicker VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}">
-                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
-                <DatePicker.MinimumDate>
-                    <sys:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Jan 1 2000</x:String>
-                        </x:Arguments>
-                    </sys:DateTime>
-                </DatePicker.MinimumDate>
-                <DatePicker.MaximumDate>
-                    <sys:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Dec 31 2050</x:String>
-                        </x:Arguments>
-                    </sys:DateTime>
-                </DatePicker.MaximumDate>
-            </DatePicker>
-            <TimePicker VerticalOptions="CenterAndExpand" Time="{Binding RecordatorioViewModel.Hora}"></TimePicker>
+                       
+            <TimePicker  AnchorX="64" AnchorY="48" VerticalOptions="CenterAndExpand" Time="{Binding RecordatorioViewModel.Hora}"></TimePicker>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lunes" FontSize="Medium" />
+                <Switch IsToggled ="{Binding RecordatorioViewModel.Lunes}"></Switch>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Martes" FontSize="Medium" />
+                <Switch IsToggled ="{Binding RecordatorioViewModel.Martes}"></Switch>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Miercoles" FontSize="Medium" />
+                <Switch IsToggled ="{Binding RecordatorioViewModel.Miercoles}"></Switch>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Jueves" FontSize="Medium" />
+                <Switch IsToggled ="{Binding RecordatorioViewModel.Jueves}"></Switch>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Viernes" FontSize="Medium" />
+                <Switch IsToggled ="{Binding RecordatorioViewModel.Viernes}"></Switch>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

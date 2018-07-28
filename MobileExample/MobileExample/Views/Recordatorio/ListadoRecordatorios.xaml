@@ -27,16 +27,35 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding Hora}" 
-                       LineBreakMode="NoWrap" 
-                       Style="{DynamicResource ListItemTextStyle}" 
-                       FontSize="16" />
-                                <Label Text="{Binding Minuto}" 
-                       LineBreakMode="NoWrap"
-                       Style="{DynamicResource ListItemDetailTextStyle}"
-                       FontSize="16" />
+                            <StackLayout Padding="10" Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <StackLayout Padding="10" Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal" >
+                                    <Label  Text="{Binding Hora}" 
+                                        LineBreakMode="NoWrap" 
+                                        Style="{DynamicResource ListItemTextStyle}" 
+                                        FontSize="48" />
+                                        <Label Text=":" Style="{DynamicResource ListItemTextStyle}" 
+                                        FontSize="48"></Label>
+                                    <Label  Text="{Binding Minuto}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="48" />
+                                    </StackLayout>
+                                    <StackLayout Padding="10" Orientation="Horizontal">
+                                        <Label Text="Lunes" TextColor="Red" IsVisible="{Binding Lunes}"></Label>
+                                        <Label Text="Martes" TextColor="Red" IsVisible="{Binding Martes}"></Label>
+                                        <Label Text="Miercoles" TextColor="Red" IsVisible="{Binding Miercoles}"></Label>
+                                        <Label Text="Jueves" TextColor="Red" IsVisible="{Binding Jueves}"></Label>
+                                        <Label Text="Viernes" TextColor="Red" IsVisible="{Binding Viernes}"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout>
+                                <Button HorizontalOptions="End" Image="trash.png" WidthRequest="45" HeightRequest="45" Command="{Binding ComandoEliminarRecordatorio}">
+                                </Button>
+                                </StackLayout>
                             </StackLayout>
+                            
+                            
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

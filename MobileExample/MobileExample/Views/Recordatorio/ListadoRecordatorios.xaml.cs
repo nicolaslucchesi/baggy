@@ -28,12 +28,12 @@ namespace MobileExample.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Mochila;
+            var item = args.SelectedItem as Recordatorio;
             if (item == null)
                 return;
 
-          //  await Navigation.PushAsync(new NavigationPage(new VerMochila(item)));
-
+            //  await Navigation.PushAsync(new NavigationPage(new VerMochila(item)));
+            await Navigation.PushAsync(new VerRecordatorio(new VerRecordatorioViewModel(item)));
             // Manually deselect item.
             ItemsListView2.SelectedItem = null;
         }
