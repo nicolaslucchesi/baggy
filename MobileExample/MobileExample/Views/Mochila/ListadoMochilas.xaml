@@ -27,15 +27,27 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding Descripcion}" 
+                            <StackLayout Orientation="Horizontal" Padding="10">
+                                <StackLayout Padding="10">
+                                    <Label Text="{Binding Descripcion}" 
                        LineBreakMode="NoWrap" 
                        Style="{DynamicResource ListItemTextStyle}" 
                        FontSize="16" />
-                                <Label Text="{Binding UUID}" 
+                                    <Label Text="{Binding UUID}" 
                        LineBreakMode="NoWrap"
                        Style="{DynamicResource ListItemDetailTextStyle}"
                        FontSize="13" />
+                                </StackLayout>
+                                <Button Text="Activar" Command="{Binding ComandoActivarMochila}" BackgroundColor="Red">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button"
+                                            Binding="{Binding Activa}"
+                                            Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                            <Setter Property="BackgroundColor" Value="Green" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
                                 <Button Text="Eliminar" Command="{Binding ComandoEliminarMochila}">
                                 </Button>
                             </StackLayout>
