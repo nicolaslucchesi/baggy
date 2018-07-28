@@ -42,6 +42,10 @@ namespace MobileExample.ViewModels
                 db.Insert(mochila);
                 Mochilas.Add(mochilaViewModel);
             });
+
+            // Este nuevo listener escucha cuando un objeto 'mochilaViewModel' quiere ser eliminado
+            // Primero lo busca por su UUID en la base de datos y luego lo elimina tanto de la BD
+            // como de la lista interna para que desaparezca visualmente.
             MessagingCenter.Subscribe<MochilaViewModel, MochilaViewModel>(this, "EliminarMochila", (sender, mochilaViewModel) =>
             {
                 Mochila mochilaAEliminar = db.Table<Mochila>().Where(e => e.UUID.Equals(mochilaViewModel.UUID)).FirstOrDefault();
@@ -77,7 +81,12 @@ namespace MobileExample.ViewModels
                 IsBusy = false;
             }
         }
-
+        /// <summary>
+        /// Este metodo obtiene las mochilas de la base de datos y las
+        /// mapea a MochilaViewModel, donde el propio constructor se encarga de
+        /// asignarle el comando para eliminación.
+        /// </summary>
+        /// <returns></returns>
         private List<MochilaViewModel> ObtenerMochilas()
         {
             List<MochilaViewModel> listadoMochilas = new List<MochilaViewModel>();
