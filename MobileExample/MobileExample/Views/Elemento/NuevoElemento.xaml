@@ -9,13 +9,25 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
-            <Image Source="Obj1.png"/>
-            <Label Text="Imprescindible" FontSize="Medium" />
-            <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"></Switch>
-            <Label Text="Vinculado" FontSize="Medium" />
-            <Switch IsToggled ="{Binding ElementoViewModel.Vinculado}"></Switch>
-            <Label Text="Descripción" FontSize="Medium" />
-            <Entry Text="{Binding ElementoViewModel.Descripcion}" FontSize="Small" Placeholder="Descripción" />
+            <Button x:Name="ImagenSeleccionada" 
+                    Image="{Binding ElementoViewModel.RutaIcono}" 
+                    Clicked="AbrirPopup"
+                    WidthRequest="400"
+                    HeightRequest="400"/>
+            
+            <Label Text="Nombre del Elemento" FontSize="Large" />
+            <Entry Text="{Binding ElementoViewModel.Descripcion}" FontSize="Medium" Placeholder="Descripción" />
+            
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Imprescindible" FontSize="Medium" />
+                <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"></Switch>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Vinculado" FontSize="Medium" />
+                <Switch IsToggled ="{Binding ElementoViewModel.Vinculado}"></Switch>
+            </StackLayout>
+            
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
