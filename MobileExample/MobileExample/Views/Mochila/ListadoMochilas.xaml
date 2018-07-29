@@ -5,11 +5,9 @@
               Title="{Binding Title}"
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Nueva Mochila" Clicked="AgregarMochila_Clicked">
+        <ToolbarItem  Clicked="AgregarMochila_Clicked">
             <ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="UWP" Value="add.png"/>
-                </OnPlatform>
+                <FileImageSource File="mochila.png"></FileImageSource>
             </ToolbarItem.Icon>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -27,16 +25,16 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" Padding="10">
+                            <StackLayout Orientation="Horizontal" Padding="10" >
                                 <StackLayout Padding="10">
-                                    <Label Text="{Binding Descripcion}" 
-                       LineBreakMode="NoWrap" 
-                       Style="{DynamicResource ListItemTextStyle}" 
-                       FontSize="16" />
-                                    <Label Text="{Binding UUID}" 
-                       LineBreakMode="NoWrap"
-                       Style="{DynamicResource ListItemDetailTextStyle}"
-                       FontSize="13" />
+                                    <Label  Text="{Binding Descripcion}" 
+                                            LineBreakMode="NoWrap" 
+                                            Style="{DynamicResource ListItemTextStyle}" 
+                                            FontSize="16" />
+                                    <Label  Text="{Binding UUID}" 
+                                            LineBreakMode="NoWrap"
+                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            FontSize="13" />
                                 </StackLayout>
                                 <Button Text="Activar" Command="{Binding ComandoActivarMochila}" BackgroundColor="Red">
                                     <Button.Triggers>

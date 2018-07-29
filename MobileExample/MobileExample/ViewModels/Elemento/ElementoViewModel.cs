@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace MobileExample.ViewModels
 {
-    public class ElementoViewModel
+    public class ElementoViewModel : BaseViewModel
     {
         public int Id { get; set; }
 
@@ -17,5 +18,17 @@ namespace MobileExample.ViewModels
         public bool Vinculado { get; set; }
 
         public string UUID { get; set; }
+
+        public Command ComandoEliminarElemento { get; set; }
+
+        public ElementoViewModel()
+        {
+            this.ComandoEliminarElemento = new Command(Eliminar);
+        }
+
+        void Eliminar()
+        {
+          MessagingCenter.Send(this, "EliminarElemento", this);          
+        }
     }
 }

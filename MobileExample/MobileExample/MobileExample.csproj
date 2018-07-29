@@ -35,5 +35,8 @@
     <Compile Update="Views\Recordatorio\NuevoRecordatorio.xaml.cs">
       <DependentUpon>NuevoRecordatorio.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Recordatorio\VerRecordatorio.xaml.cs">
+      <DependentUpon>VerRecordatorio.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

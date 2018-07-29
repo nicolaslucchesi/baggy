@@ -17,14 +17,14 @@ namespace MobileExample.ViewModels
         private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
         private static SQLiteConnection db = new SQLiteConnection(path);
 
-        public ObservableCollection<Elemento> Elementos { get; set; }
+        public ObservableCollection<ElementoViewModel> Elementos { get; set; }
 
         public Command ComandoCargarElementos { get; set; }
 
         public ListadoElementosViewModel()
         {
             Title = "Mis Elementos";
-            Elementos = new ObservableCollection<Elemento>();
+            Elementos = new ObservableCollection<ElementoViewModel>();
             ComandoCargarElementos = new Command(() => EjecutarComando());
 
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
@@ -41,7 +41,14 @@ namespace MobileExample.ViewModels
                 };
 
                 db.Insert(elemento);
-                Elementos.Add(elemento);
+                Elementos.Add(elementoViewModel);
+            });
+
+            MessagingCenter.Subscribe<ElementoViewModel, ElementoViewModel>(this, "EliminarElemento", (sender, elementoViewModel) =>
+            {
+                Elemento elementoAEliminar = db.Table<Elemento>().Where(e => e.Id.Equals(elementoViewModel.Id)).FirstOrDefault();
+                db.Delete(elementoAEliminar);
+                Elementos.Remove(elementoViewModel);
             });
         }
 
@@ -73,9 +80,21 @@ namespace MobileExample.ViewModels
             }
         }
 
-        private List<Elemento> ObtenerElementos()
+        private List<ElementoViewModel> ObtenerElementos()
         {
-            return db.Table<Elemento>().ToList();
+            List<ElementoViewModel> listadoElementos = new List<ElementoViewModel>();
+            foreach (Elemento elemento in db.Table<Elemento>().ToList())
+            {
+                ElementoViewModel elementoViewModel = new ElementoViewModel();
+                elementoViewModel.Imprescindible = elemento.Imprescindible;
+                elementoViewModel.RutaIcono = elemento.RutaIcono;
+                elementoViewModel.Descripcion = elemento.Descripcion;
+                elementoViewModel.Vinculado = elemento.Vinculado;
+                elementoViewModel.UUID = elemento.UUID;
+                listadoElementos.Add(elementoViewModel);
+            }
+
+            return listadoElementos;
         }
     }
 }
