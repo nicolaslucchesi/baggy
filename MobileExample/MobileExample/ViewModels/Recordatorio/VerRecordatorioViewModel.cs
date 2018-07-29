@@ -6,9 +6,11 @@ namespace MobileExample.ViewModels
 {
     public class VerRecordatorioViewModel : BaseViewModel
     {
-        public Recordatorio item { get; set; }
-        public VerRecordatorioViewModel(Recordatorio item = null)
+        public RecordatorioViewModel Item { get; set; }
+        public VerRecordatorioViewModel(RecordatorioViewModel item = null)
         {
-            Title = "Recordatorio";        }
+            Title = "Recordatorio";
+            Item = item;
+        }
     }
 }

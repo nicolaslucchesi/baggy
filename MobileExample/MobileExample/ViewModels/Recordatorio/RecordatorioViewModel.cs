@@ -12,13 +12,16 @@ namespace MobileExample.ViewModels
 
         public int DiaSemana { get; set; }
 
+        public TimeSpan Horario { get; set; }
+        public string HorarioStr { get; set; }
+
         public int Minuto { get; set; }
+        public int Hora { get; set; }
 
         public int IdMochila { get; set; }
 
         public List<int> Elementos { get; set; }
 
-        public TimeSpan Hora { get; set; }
 
 
         public bool Lunes { get; set; }

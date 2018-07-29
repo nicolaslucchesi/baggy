@@ -13,7 +13,8 @@ namespace MobileExample.Tables
         public int Id { get; set; }
 
         public int DiaSemana { get; set; }
-
+        public TimeSpan Horario { get; set; }
+        public string HorarioStr { get; set; }
         public int Hora { get; set; }
 
         public int Minuto { get; set; }

@@ -17,6 +17,7 @@ namespace MobileExample.Views
 	public partial class ListadoRecordatorios : ContentPage
 	{
         ListadoRecordatoriosViewModel viewModel;
+     
 
         public ListadoRecordatorios()
         {
@@ -28,7 +29,7 @@ namespace MobileExample.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Recordatorio;
+            var item = args.SelectedItem as RecordatorioViewModel;
             if (item == null)
                 return;
 

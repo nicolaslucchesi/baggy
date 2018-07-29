@@ -25,7 +25,7 @@ namespace MobileExample.Views
         {
            InitializeComponent();
 
-            var item = new Recordatorio
+            var item = new RecordatorioViewModel
             {
                 Minuto = 7,
                 DiaSemana = 5
