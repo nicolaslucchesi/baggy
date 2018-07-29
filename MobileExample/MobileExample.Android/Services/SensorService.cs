@@ -60,7 +60,7 @@ namespace MobileExample.Droid.Services
         /// </summary>
         public void comenzarContador()
         {
-            timer = new Timer(10000);
+            timer = new Timer(15000);
             timer.Elapsed += new ElapsedEventHandler(accionTimer);
             timer.Enabled = true;
         }
@@ -73,23 +73,30 @@ namespace MobileExample.Droid.Services
         /// <param name="e"></param>
         private void accionTimer(object sender, ElapsedEventArgs e)
         {
-            Handler mainHandler = new Handler(Looper.MainLooper);
-            // Esta magia es la que dispara el toast de notifiación. Está bueno para
-            // implementarla en los mensajes de creación exitosa y demás.
-            Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
-            {
-                var duration = ToastLength.Long;
-                var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
-                var db = new SQLiteConnection(path);
-                int cantidadMochilas = db.Table<Mochila>().Count();
-                int cantidadRecordatorios = db.Table<Recordatorio>().Count();
-                int cantidadElementos = db.Table<Elemento>().Count();
-                Toast.MakeText(ApplicationContext, "Hay " + cantidadMochilas + " mochilas, "
-                    + cantidadRecordatorios + " recordatorios y "
-                    + cantidadElementos + " elementos.", duration).Show();
-            });
+            var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
+            var db = new SQLiteConnection(path);
+            int cantidadMochilas = db.Table<Mochila>().Count();
+            int cantidadRecordatorios = db.Table<Recordatorio>().Count();
+            int cantidadElementos = db.Table<Elemento>().Count();
+            string textoNotificacion = "Hay " + cantidadMochilas + " mochilas, "
+                                            + cantidadRecordatorios + " recordatorios y "
+                                            + cantidadElementos + " elementos.";
 
-            mainHandler.Post(runnableToast);
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
+            Notification.Builder builder = new Notification.Builder(this)
+                .SetContentTitle("Hola!")
+                .SetContentText(textoNotificacion)
+                // Esta linea es para que vibre y suene. Por ahora queda deshabilitada porque
+                // es un dolor de pelotas que suene todo el tiempo.
+                //.SetDefaults(NotificationDefaults.Vibrate | NotificationDefaults.Sound)
+#pragma warning restore CS0618 // El tipo o el miembro están obsoletos
+                .SetSmallIcon(Resource.Drawable.BaggyLogo1);
+
+            Notification notification = builder.Build();
+            NotificationManager notificationManager =
+                GetSystemService(Context.NotificationService) as NotificationManager;
+            const int notificationId = 0;
+            notificationManager.Notify(notificationId, notification);
         }
 
         public void pararContador()
