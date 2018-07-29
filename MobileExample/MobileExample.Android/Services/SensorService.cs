@@ -82,23 +82,19 @@ namespace MobileExample.Droid.Services
                                             + cantidadRecordatorios + " recordatorios y "
                                             + cantidadElementos + " elementos.";
 
-            NotificationChannel canalNotificacion = new NotificationChannel("canalNotificacion", "Notificacion", NotificationImportance.Default);
-            canalNotificacion.EnableVibration(true);
-
-            // Instantiate the builder and set notification elements:
-            Notification.Builder builder = new Notification.Builder(this, "canalNotificacion")
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
+            Notification.Builder builder = new Notification.Builder(this)
                 .SetContentTitle("Hola!")
                 .SetContentText(textoNotificacion)
-                .SetSmallIcon(Resource.Drawable.Obj1);
+                // Esta linea es para que vibre y suene. Por ahora queda deshabilitada porque
+                // es un dolor de pelotas que suene todo el tiempo.
+                //.SetDefaults(NotificationDefaults.Vibrate | NotificationDefaults.Sound)
+#pragma warning restore CS0618 // El tipo o el miembro están obsoletos
+                .SetSmallIcon(Resource.Drawable.BaggyLogo1);
 
-            // Build the notification:
             Notification notification = builder.Build();
-
-                // Get the notification manager:
             NotificationManager notificationManager =
                 GetSystemService(Context.NotificationService) as NotificationManager;
-
-            // Publish the notification:
             const int notificationId = 0;
             notificationManager.Notify(notificationId, notification);
         }
