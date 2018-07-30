@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage    xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="MobileExample.Views.Popup">
+   <StackLayout     VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    Padding="0" 
+                    Margin="0">
+        
+        <ListView       x:Name="ItemsListView3" 
+                        ItemsSource="{Binding Imagenes}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        HasUnevenRows="true"
+                        RefreshCommand="{Binding ComandoCargarImagenes}"
+                        IsPullToRefreshEnabled="true"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                        ItemSelected="OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                            <StackLayout>
+                                <Image Source="{Binding RutaIcono}" WidthRequest="64" HeightRequest="64"/>
+                            </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <Button Text="Cerrar" Clicked="Button_OnClicked" WidthRequest="200"></Button>
+    </StackLayout>
+ </popup:PopupPage>

@@ -32,29 +32,53 @@
                                          HorizontalOptions="CenterAndExpand"
                                          VerticalOptions="FillAndExpand">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Image Source="Obj1.png" WidthRequest="72" HeightRequest="72"/>
+                                    <Image Source="{Binding RutaIcono}" WidthRequest="120" HeightRequest="120"/>
                                      <StackLayout Orientation="Vertical">
                                         <Label  Text="{Binding Descripcion}"
                                                 FontAttributes="Bold" 
-                                                FontSize="22"/>
-                                        <Label  Text="{Binding Id}"></Label>
+                                                FontSize="40"/>
 
-                                        <Label  Text="{Binding RutaIcono}"
-                                            HorizontalOptions="EndAndExpand"
-                                            TextColor="#503026" />
-                                   <StackLayout Orientation="Horizontal">
                                         
-                                        <Label  Text="Imprescindible"  
-                                            Style="{DynamicResource ListItemDetailTextStyle}"
-                                            FontSize="16" />
-                                    <Switch IsToggled="{Binding Imprescindible}" IsEnabled="False"/>
-                                        </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label  Text="Vinculado"  
-                                            Style="{DynamicResource ListItemDetailTextStyle}"
-                                            FontSize="16" />
-                                            <Switch IsToggled="{Binding Vinculado}" IsEnabled="False"/>
-                                        </StackLayout>
+                                        <StackLayout Padding="10" Orientation="Vertical">
+                                            <Label x:Name="Imprescindible" 
+                                               Text="Imprescindible" 
+                                               FontSize="25"
+                                               WidthRequest="300" 
+                                               FontAttributes="Bold"
+                                               XAlign="Center"
+                                               TextColor="White">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
+                                                            <Setter Property="BackgroundColor" Value="Green" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="False">
+                                                            <Setter Property="BackgroundColor" Value="Red" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                               
+                                                   
+                                            <Label x:Name="Vinculado" 
+                                               Text="Vinculado" 
+                                               FontSize="25"
+                                               WidthRequest="300" 
+                                               FontAttributes="Bold"
+                                               XAlign="Center"
+                                               TextColor="White">
+                                                        <Label.Triggers>
+                                                            <DataTrigger TargetType="Label" Binding="{Binding Vinculado}" Value="True">
+                                                                <Setter Property="BackgroundColor" Value="Green" />
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Label" Binding="{Binding Vinculado}" Value="False">
+                                                                <Setter Property="BackgroundColor" Value="Red" />
+                                                            </DataTrigger>
+                                                        </Label.Triggers>
+                                                    </Label>
+
+
+                                         </StackLayout>
+
+
                                         <StackLayout>
                                             <Button Text="Eliminar" Command="{Binding ComandoEliminarElemento}"></Button>
                                         </StackLayout>

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
     <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
     <PackageReference Include="SQLiteNetExtensions" Version="2.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.482510" />  
@@ -16,6 +17,9 @@
     </Compile>
     <Compile Update="Views\Elemento\NuevoElemento.xaml.cs">
       <DependentUpon>NuevoElemento.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Elemento\Popup.xaml.cs">
+      <DependentUpon>Popup.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Elemento\VerElemento.xaml.cs">
       <DependentUpon>VerElemento.xaml</DependentUpon>
@@ -38,5 +42,11 @@
     <Compile Update="Views\Recordatorio\VerRecordatorio.xaml.cs">
       <DependentUpon>VerRecordatorio.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Elemento\Popup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
