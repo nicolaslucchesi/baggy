@@ -26,7 +26,11 @@ namespace MobileExample.Views
             BindingContext = viewModel = new ListadoRecordatoriosViewModel();
         }
         
-
+        /// <summary>
+        /// Este metodo se ejecuta cuando se selecciona un item de la lista.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var item = args.SelectedItem as RecordatorioViewModel;
