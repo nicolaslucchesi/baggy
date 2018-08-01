@@ -8,109 +8,111 @@
         <ToolbarItem Text="Guardar" Clicked="Guardar_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <StackLayout Padding="15" Orientation="Horizontal" VerticalOptions="Center">
-            <Label  x:Name="Horas" 
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15">
+                <StackLayout Padding="15" Orientation="Horizontal" VerticalOptions="Center">
+                    <Label  x:Name="Horas" 
                     Text="{Binding Source=   {x:Reference Tiempo}, Path= Time.Hours}"
                     FontSize="72">
-            </Label>
-                
-            <Label Text=":" FontSize="72"> </Label>
-            <Label  x:Name="Minutos" 
+                    </Label>
+
+                    <Label Text=":" FontSize="72"></Label>
+                    <Label  x:Name="Minutos" 
                     Text="{Binding Source=   {x:Reference Tiempo}, Path= Time.Minutes}"
                     FontSize="72">
-            </Label>
-            </StackLayout>
-            
-            <TimePicker x:Name="Tiempo" 
+                    </Label>
+                </StackLayout>
+
+                <TimePicker x:Name="Tiempo" 
                         VerticalOptions="Center" 
                         Time="{Binding RecordatorioViewModel.Horario}" 
                         >
-                
-            </TimePicker>
-            
-            
-            <Switch x:Name="EditableCheckBox" ></Switch>
-            <Label x:Name="LabelPrueba">
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding Source=   {x:Reference EditableCheckBox}, Path= IsToggled}" Value="True">
-                                <Setter Property="Text" Value="Editable" />
-                    </DataTrigger>
-                    <DataTrigger TargetType="Label" Binding="{Binding Source= {x:Reference EditableCheckBox}, Path= IsToggled}" Value="False">
-                        <Setter Property="Text" Value="NOT Editable" />
-                    </DataTrigger>
-                </Label.Triggers>
-            </Label>
 
-            <StackLayout Orientation="Horizontal">
-                <Button x:Name="BotonLunes" Text="Lunes" Clicked="ApretarBotonLunes">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchLunes}, Path= IsToggled}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchLunes}, Path= IsToggled}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                </TimePicker>
 
-                <Button x:Name="BotonMartes" Text="Martes" Clicked="ApretarBotonMartes">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMartes}, Path= IsToggled}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchMartes}, Path= IsToggled}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
 
-                <Button x:Name="BotonMiercoles" Text="Miercoles" Clicked="ApretarBotonMiercoles">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
+                <Switch x:Name="EditableCheckBox" ></Switch>
+                <Label x:Name="LabelPrueba">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Source=   {x:Reference EditableCheckBox}, Path= IsToggled}" Value="True">
+                            <Setter Property="Text" Value="Editable" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
+                        <DataTrigger TargetType="Label" Binding="{Binding Source= {x:Reference EditableCheckBox}, Path= IsToggled}" Value="False">
+                            <Setter Property="Text" Value="NOT Editable" />
                         </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                    </Label.Triggers>
+                </Label>
 
-                <Button x:Name="BotonJueves" Text="Jueves" Clicked="ApretarBotonJueves">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchJueves}, Path= IsToggled}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchJueves}, Path= IsToggled}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="BotonLunes" Text="Lunes" Clicked="ApretarBotonLunes">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchLunes}, Path= IsToggled}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchLunes}, Path= IsToggled}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
 
-                <Button x:Name="BotonViernes" Text="Viernes" Clicked="ApretarBotonViernes">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchViernes}, Path= IsToggled}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchViernes}, Path= IsToggled}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                    <Button x:Name="BotonMartes" Text="Martes" Clicked="ApretarBotonMartes">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMartes}, Path= IsToggled}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchMartes}, Path= IsToggled}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button x:Name="BotonMiercoles" Text="Miercoles" Clicked="ApretarBotonMiercoles">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button x:Name="BotonJueves" Text="Jueves" Clicked="ApretarBotonJueves">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchJueves}, Path= IsToggled}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchJueves}, Path= IsToggled}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button x:Name="BotonViernes" Text="Viernes" Clicked="ApretarBotonViernes">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchViernes}, Path= IsToggled}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchViernes}, Path= IsToggled}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Switch x:Name="SwitchLunes" IsToggled ="{Binding RecordatorioViewModel.Lunes}"></Switch>
+                    <Switch x:Name="SwitchMartes" IsToggled ="{Binding RecordatorioViewModel.Martes}"></Switch>
+                    <Switch x:Name="SwitchMiercoles" IsToggled ="{Binding RecordatorioViewModel.Miercoles}"></Switch>
+                    <Switch x:Name="SwitchJueves" IsToggled ="{Binding RecordatorioViewModel.Jueves}"></Switch>
+                    <Switch x:Name="SwitchViernes" IsToggled ="{Binding RecordatorioViewModel.Viernes}"></Switch>
+                </StackLayout>
+
+
+
 
             </StackLayout>
-            
-            <StackLayout Orientation="Horizontal">
-                <Switch x:Name="SwitchLunes" IsToggled ="{Binding RecordatorioViewModel.Lunes}"></Switch>
-                <Switch x:Name="SwitchMartes" IsToggled ="{Binding RecordatorioViewModel.Martes}"></Switch>
-                <Switch x:Name="SwitchMiercoles" IsToggled ="{Binding RecordatorioViewModel.Miercoles}"></Switch>
-                <Switch x:Name="SwitchJueves" IsToggled ="{Binding RecordatorioViewModel.Jueves}"></Switch>
-                <Switch x:Name="SwitchViernes" IsToggled ="{Binding RecordatorioViewModel.Viernes}"></Switch>
-            </StackLayout>
-
-
-
-
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

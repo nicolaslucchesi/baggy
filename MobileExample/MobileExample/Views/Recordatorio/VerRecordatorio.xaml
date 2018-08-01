@@ -3,98 +3,100 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileExample.Views.VerRecordatorio"
              Title="{Binding Title}">
-    <StackLayout Spacing="20" Padding="15" >
-        <Label Text="Hora:" FontSize="Medium" />
-        <Label Text="{Binding Item.Hora}" FontSize="Small"/>
-        <Label Text="Minuto:" FontSize="Medium" />
-        <Label Text="{Binding Item.Minuto}" FontSize="Small"/>
+    <ScrollView>
+        <StackLayout Spacing="20" Padding="15" >
+            <Label Text="Hora:" FontSize="Medium" />
+            <Label Text="{Binding Item.Hora}" FontSize="Small"/>
+            <Label Text="Minuto:" FontSize="Medium" />
+            <Label Text="{Binding Item.Minuto}" FontSize="Small"/>
 
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Descripción" FontSize="Medium" />
-            <Entry Text="{Binding RecordatorioViewModel.Minuto}" FontSize="Small" Placeholder="Descripción" />
-            <Label Text="UUID" FontSize="Medium" />
-            <Editor Text="{Binding RecordatorioViewModel.Hora}" FontSize="Small" Margin="0" />
+            <StackLayout Spacing="20" Padding="15">
+                <Label Text="Descripción" FontSize="Medium" />
+                <Entry Text="{Binding RecordatorioViewModel.Minuto}" FontSize="Small" Placeholder="Descripción" />
+                <Label Text="UUID" FontSize="Medium" />
+                <Editor Text="{Binding RecordatorioViewModel.Hora}" FontSize="Small" Margin="0" />
 
 
-            <StackLayout Padding="15" Orientation="Horizontal" VerticalOptions="Center">
-                <Label  x:Name="Horas" 
+                <StackLayout Padding="15" Orientation="Horizontal" VerticalOptions="Center">
+                    <Label  x:Name="Horas" 
                     Text="{Binding Item.Hora}"
                     FontSize="Large">
-                </Label>
+                    </Label>
 
-                <Label Text=":" FontSize="Large"></Label>
-                <Label  x:Name="Minutos" 
+                    <Label Text=":" FontSize="Large"></Label>
+                    <Label  x:Name="Minutos" 
                     Text="{Binding Item.Minuto}"
                     FontSize="Large">
-                </Label>
-            </StackLayout>
+                    </Label>
+                </StackLayout>
 
-            <TimePicker x:Name="Tiempo" 
+                <TimePicker x:Name="Tiempo" 
                         VerticalOptions="Center" 
                         AnchorX="64"
                         AnchorY="64"
                         Time="{Binding RecordatorioViewModel.Horario}" >
 
-            </TimePicker>
+                </TimePicker>
 
-            <StackLayout Orientation="Horizontal">
-                <Button x:Name="BotonLunes" Text="Lunes" >
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Lunes}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Lunes}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="BotonLunes" Text="Lunes" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Lunes}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Lunes}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
 
-                <Button x:Name="BotonMartes" Text="Martes" >
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Martes}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Martes}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                    <Button x:Name="BotonMartes" Text="Martes" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Martes}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Martes}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
 
-                <Button x:Name="BotonMiercoles" Text="Miercoles" >
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Miercoles}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Miercoles}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                    <Button x:Name="BotonMiercoles" Text="Miercoles" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Miercoles}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Miercoles}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
 
-                <Button x:Name="BotonJueves" Text="Jueves" >
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Jueves}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Jueves}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                    <Button x:Name="BotonJueves" Text="Jueves" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Jueves}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Jueves}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
 
-                <Button x:Name="BotonViernes" Text="Viernes" >
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Viernes}" Value="True">
-                            <Setter Property="BackgroundColor" Value="Green" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.Viernes}" Value="False">
-                            <Setter Property="BackgroundColor" Value="Red" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                    <Button x:Name="BotonViernes" Text="Viernes" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Viernes}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Item.Viernes}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                </StackLayout>
 
             </StackLayout>
-
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>
