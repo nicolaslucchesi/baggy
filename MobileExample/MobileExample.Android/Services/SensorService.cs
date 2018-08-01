@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Timers;
 
@@ -22,6 +23,8 @@ namespace MobileExample.Droid.Services
     public class SensorService : IntentService
     {
         public int contador = 0;
+        public HttpClient client = new HttpClient();
+        public string urlClima = "http://api.apixu.com/v1/forecast.json?key=d8c869676cba4733b9f230353180108&q=-34.669090,-58.564331&days=2";
         public SensorService(Context contexto) : base("SensorService")
         {
             Console.WriteLine("Empezó el servicio.");
@@ -71,16 +74,20 @@ namespace MobileExample.Droid.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void accionTimer(object sender, ElapsedEventArgs e)
+        private async void accionTimer(object sender, ElapsedEventArgs e)
         {
             var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
             var db = new SQLiteConnection(path);
             int cantidadMochilas = db.Table<Mochila>().Count();
             int cantidadRecordatorios = db.Table<Recordatorio>().Count();
             int cantidadElementos = db.Table<Elemento>().Count();
+
+            HttpResponseMessage respuestaClima = await client.GetAsync(urlClima);
+
             string textoNotificacion = "Hay " + cantidadMochilas + " mochilas, "
                                             + cantidadRecordatorios + " recordatorios y "
                                             + cantidadElementos + " elementos.";
+            
 
 #pragma warning disable CS0618 // El tipo o el miembro están obsoletos
             Notification.Builder builder = new Notification.Builder(this)
