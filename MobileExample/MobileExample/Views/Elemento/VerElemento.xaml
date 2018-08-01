@@ -3,14 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileExample.Views.VerElemento"
              Title="{Binding Title}">
-    <StackLayout Spacing="20" Padding="15" >
-        <Image Source="{Binding Item.RutaIcono}"/>
-        <Label Text="Imprescindible" FontSize="Medium" />
-        <Switch IsToggled ="{Binding Item.Imprescindible}"></Switch>
-        <Label Text="Vinculado" FontSize="Medium" />
-        <Switch IsToggled ="{Binding Item.Vinculado}"></Switch>
-        <Label Text="Descripción" FontSize="Medium" />
-        <Entry Text="{Binding Item.Descripcion}" FontSize="Small" Placeholder="Descripción" />
-    </StackLayout>
+    <ScrollView>
+        <StackLayout Spacing="20" Padding="15" >
+            <Image Source="{Binding Item.RutaIcono}"/>
+            <Label Text="Imprescindible" FontSize="Medium" />
+            <Switch IsToggled ="{Binding Item.Imprescindible}"></Switch>
+            <Label Text="Vinculado" FontSize="Medium" />
+            <Switch IsToggled ="{Binding Item.Vinculado}"></Switch>
+            <Label Text="Descripción" FontSize="Medium" />
+            <Entry Text="{Binding Item.Descripcion}" FontSize="Small" Placeholder="Descripción" />
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
 

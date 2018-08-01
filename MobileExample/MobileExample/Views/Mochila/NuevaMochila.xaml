@@ -7,11 +7,13 @@
         <ToolbarItem Text="Guardar" Clicked="Guardar_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Descripción" FontSize="Medium" />
-            <Entry Text="{Binding MochilaViewModel.Descripcion}" FontSize="Small" Placeholder="Descripción" />
-            <Label Text="UUID" FontSize="Medium" />
-            <Editor Text="{Binding MochilaViewModel.UUID}" FontSize="Small" Margin="0" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15">
+                <Label Text="Descripción" FontSize="Medium" />
+                <Entry Text="{Binding MochilaViewModel.Descripcion}" FontSize="Small" Placeholder="Descripción" />
+                <Label Text="UUID" FontSize="Medium" />
+                <Editor Text="{Binding MochilaViewModel.UUID}" FontSize="Small" Margin="0" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
