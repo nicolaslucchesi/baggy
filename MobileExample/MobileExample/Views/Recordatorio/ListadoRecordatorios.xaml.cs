@@ -17,11 +17,11 @@ namespace MobileExample.Views
 	public partial class ListadoRecordatorios : ContentPage
 	{
         ListadoRecordatoriosViewModel viewModel;
-     
+
+
 
         public ListadoRecordatorios()
         {
-
             InitializeComponent();
             BindingContext = viewModel = new ListadoRecordatoriosViewModel();
         }

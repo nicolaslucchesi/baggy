@@ -17,6 +17,8 @@ namespace MobileExample.ViewModels
 
         public bool Vinculado { get; set; }
 
+        public bool Seleccionado { get; set; }
+
         public string UUID { get; set; }
 
         public Command ComandoEliminarElemento { get; set; }

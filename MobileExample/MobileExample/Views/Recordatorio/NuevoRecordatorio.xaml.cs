@@ -9,8 +9,8 @@ using System.IO;
 using SQLite;
 using MobileExample.Tables;
 using MobileExample.ViewModels;
-
-
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MobileExample.Views
 {
@@ -18,8 +18,8 @@ namespace MobileExample.Views
     public partial class NuevoRecordatorio : ContentPage
     {
         public RecordatorioViewModel RecordatorioViewModel { get; set; }
-
-       
+        public ObservableCollection<int> Elementos { get; set; }
+        
         public NuevoRecordatorio()
         {
             InitializeComponent();
@@ -29,20 +29,42 @@ namespace MobileExample.Views
                 DiaSemana = 1,
                 Horario = new TimeSpan(12,0,0),
                 Hora = 0,
-                Minuto = 3,
+                Minuto = 3
             };
 
+
+            Elementos = new ObservableCollection<int>();
+
             BindingContext = this;
+            
+            MessagingCenter.Subscribe<SeleccionarElementos, ElementoViewModel>(this, "ElementoSeleccionado", (obj, elementoViewModel) =>
+            {
+                Elementos.Add(elementoViewModel.Id);
+                //TodosLosInt.Text = TodosLosInt.Text + Elementos.ToString();
+                foreach (int id in Elementos.ToList())
+                {
+                    TodosLosInt.Text = TodosLosInt.Text + id;
+                }
+                
+            });
+
+
         }
 
         async void Guardar_Clicked(object sender, EventArgs e)
         {
             // Acá se manda el mensaje con el modelo y el titulo para que el modelo de
             // listado ejecute el código de guardado.
-            MessagingCenter.Send(this, "AgregarRecordatorio", RecordatorioViewModel);
-            await Navigation.PopModalAsync();
-        }
+            RecordatorioViewModel SendRecordatorio = new RecordatorioViewModel();
+            SendRecordatorio = RecordatorioViewModel;
+            SendRecordatorio.Elementos = Elementos.ToList();
+                
 
+            //MessagingCenter.Send(this, "AgregarRecordatorio", SendRecordatorio);
+            await Navigation.PushAsync(new SeleccionarElementos(SendRecordatorio));
+
+        }
+        
 
         async void ApretarBotonLunes(object sender, EventArgs e)
         {

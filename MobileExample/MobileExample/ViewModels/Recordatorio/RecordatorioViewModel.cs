@@ -37,6 +37,27 @@ namespace MobileExample.ViewModels
             this.ComandoEliminarRecordatorio = new Command(Eliminar);
         }
 
+        public RecordatorioViewModel(RecordatorioViewModel a)
+        {
+            Id = a.Id;
+            DiaSemana = a.DiaSemana;
+            Horario = a.Horario;
+            HorarioStr = a.HorarioStr;
+            Minuto = a.Minuto;
+            Hora = a.Hora;
+
+            IdMochila = a.IdMochila;
+            Elementos = a.Elementos;
+            Lunes = a.Lunes;
+            Martes = a.Martes;
+            Miercoles = a.Miercoles;
+            Jueves = a.Jueves;
+            Viernes = a.Viernes;
+
+
+            this.ComandoEliminarRecordatorio = new Command(Eliminar);
+        }
+
         void Eliminar()
         {
             MessagingCenter.Send(this, "EliminarRecordatorio", this);

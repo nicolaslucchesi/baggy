@@ -3,48 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="MobileExample.Views.NuevoRecordatorio"
-		     Title="Nuevo Recordatorio">
+		     Title="Nuevo Recordatorio"
+              Style="{StaticResource PageStyle}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Guardar" Clicked="Guardar_Clicked" />
+        <ToolbarItem Text="Siguiente" Clicked="Guardar_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="20" Padding="15">
-                <StackLayout Padding="15" Orientation="Horizontal" VerticalOptions="Center">
-                    <Label  x:Name="Horas" 
-                    Text="{Binding Source=   {x:Reference Tiempo}, Path= Time.Hours}"
-                    FontSize="72">
-                    </Label>
-
-                    <Label Text=":" FontSize="72"></Label>
-                    <Label  x:Name="Minutos" 
-                    Text="{Binding Source=   {x:Reference Tiempo}, Path= Time.Minutes}"
-                    FontSize="72">
-                    </Label>
-                </StackLayout>
+                
 
                 <TimePicker x:Name="Tiempo" 
-                        VerticalOptions="Center" 
-                        Time="{Binding RecordatorioViewModel.Horario}" 
-                        >
+                            VerticalOptions="Center" 
+                            TextColor="White"                            
+                            FontSize="72"
+                            Time="{Binding RecordatorioViewModel.Horario}" >
 
                 </TimePicker>
 
 
-                <Switch x:Name="EditableCheckBox" ></Switch>
-                <Label x:Name="LabelPrueba">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding Source=   {x:Reference EditableCheckBox}, Path= IsToggled}" Value="True">
-                            <Setter Property="Text" Value="Editable" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label" Binding="{Binding Source= {x:Reference EditableCheckBox}, Path= IsToggled}" Value="False">
-                            <Setter Property="Text" Value="NOT Editable" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-
-                <StackLayout Orientation="Horizontal">
-                    <Button x:Name="BotonLunes" Text="Lunes" Clicked="ApretarBotonLunes">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                    <Button x:Name="BotonLunes" Text="L" Clicked="ApretarBotonLunes">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchLunes}, Path= IsToggled}" Value="True">
                                 <Setter Property="BackgroundColor" Value="Green" />
@@ -55,7 +34,7 @@
                         </Button.Triggers>
                     </Button>
 
-                    <Button x:Name="BotonMartes" Text="Martes" Clicked="ApretarBotonMartes">
+                    <Button x:Name="BotonMartes" Text="M" Clicked="ApretarBotonMartes">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMartes}, Path= IsToggled}" Value="True">
                                 <Setter Property="BackgroundColor" Value="Green" />
@@ -66,7 +45,7 @@
                         </Button.Triggers>
                     </Button>
 
-                    <Button x:Name="BotonMiercoles" Text="Miercoles" Clicked="ApretarBotonMiercoles">
+                    <Button x:Name="BotonMiercoles" Text="M" Clicked="ApretarBotonMiercoles">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="True">
                                 <Setter Property="BackgroundColor" Value="Green" />
@@ -77,7 +56,7 @@
                         </Button.Triggers>
                     </Button>
 
-                    <Button x:Name="BotonJueves" Text="Jueves" Clicked="ApretarBotonJueves">
+                    <Button x:Name="BotonJueves" Text="J" Clicked="ApretarBotonJueves">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchJueves}, Path= IsToggled}" Value="True">
                                 <Setter Property="BackgroundColor" Value="Green" />
@@ -88,7 +67,7 @@
                         </Button.Triggers>
                     </Button>
 
-                    <Button x:Name="BotonViernes" Text="Viernes" Clicked="ApretarBotonViernes">
+                    <Button x:Name="BotonViernes" Text="V" Clicked="ApretarBotonViernes">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchViernes}, Path= IsToggled}" Value="True">
                                 <Setter Property="BackgroundColor" Value="Green" />
@@ -101,7 +80,7 @@
 
                 </StackLayout>
 
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" IsVisible="False">
                     <Switch x:Name="SwitchLunes" IsToggled ="{Binding RecordatorioViewModel.Lunes}"></Switch>
                     <Switch x:Name="SwitchMartes" IsToggled ="{Binding RecordatorioViewModel.Martes}"></Switch>
                     <Switch x:Name="SwitchMiercoles" IsToggled ="{Binding RecordatorioViewModel.Miercoles}"></Switch>
@@ -109,10 +88,10 @@
                     <Switch x:Name="SwitchViernes" IsToggled ="{Binding RecordatorioViewModel.Viernes}"></Switch>
                 </StackLayout>
 
-
-
+                <Label x:Name="TodosLosInt" Text="asd"></Label>
 
             </StackLayout>
+            
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

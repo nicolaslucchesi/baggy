@@ -69,7 +69,7 @@ namespace MobileExample.Views
                 DurationOut = 800,
                 EasingIn = Easing.BounceIn,
                 EasingOut = Easing.CubicOut,
-                HasBackgroundAnimation = false
+                HasBackgroundAnimation = true
             };
 
             propertiedPopup.Animation = scaleAnimation;

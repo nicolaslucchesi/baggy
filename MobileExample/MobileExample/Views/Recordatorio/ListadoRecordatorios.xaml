@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileExample.Views.ListadoRecordatorios"
               Title="{Binding Title}"
+              Style="{StaticResource PageStyle}"
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Nuevo Recordatorio" Clicked="AgregarRecordatorio_Clicked">
@@ -30,8 +31,13 @@
                             <StackLayout Padding="10" Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                                 <StackLayout Padding="10" Orientation="Vertical">
                                     <Label  Text="{Binding HorarioStr}" 
-                                        LineBreakMode="NoWrap" 
-                                        FontSize="72" />
+                                            Style="{StaticResource labelStyle}"
+                                            LineBreakMode="NoWrap" 
+                                            FontSize="72" />
+                                    <Label  Text="{Binding Elementos}" 
+                                            Style="{StaticResource labelStyle}"
+                                            LineBreakMode="NoWrap" 
+                                            FontSize="22" />
 
                                     <StackLayout Padding="10" Orientation="Horizontal">
                                         <Label x:Name="Lunes" 

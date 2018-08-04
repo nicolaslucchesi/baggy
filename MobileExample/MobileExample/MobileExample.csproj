@@ -27,6 +27,12 @@
     <Compile Update="Views\Mochila\VerMochila.xaml.cs">
       <DependentUpon>VerMochila.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Recordatorio\SeleccionarMochilas.xaml.cs">
+      <DependentUpon>SeleccionarMochilas.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Recordatorio\SeleccionarElementos.xaml.cs">
+      <DependentUpon>SeleccionarElementos.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Recordatorio\ListadoRecordatorios.xaml.cs">
       <DependentUpon>ListadoRecordatorios.xaml</DependentUpon>
     </Compile>

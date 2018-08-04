@@ -18,6 +18,7 @@ namespace MobileExample.ViewModels
         private static SQLiteConnection db = new SQLiteConnection(path);
 
         public ObservableCollection<ElementoViewModel> Elementos { get; set; }
+        public ObservableCollection<ElementoViewModel> ElementosSeleccionados { get; set; }
 
         public Command ComandoCargarElementos { get; set; }
 
@@ -25,6 +26,8 @@ namespace MobileExample.ViewModels
         {
             Title = "Mis Elementos";
             Elementos = new ObservableCollection<ElementoViewModel>();
+            ElementosSeleccionados = new ObservableCollection<ElementoViewModel>();
+
             ComandoCargarElementos = new Command(() => EjecutarComando());
 
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
@@ -50,6 +53,39 @@ namespace MobileExample.ViewModels
                 db.Delete(elementoAEliminar);
                 Elementos.Remove(elementoViewModel);
             });
+
+            MessagingCenter.Subscribe<SeleccionarElementos, ElementoViewModel>(this, "SeleccionarElemento", (obj, elementoViewModel) =>
+            {
+                ElementoViewModel elemento = new ElementoViewModel
+                {
+                    Descripcion = elementoViewModel.Descripcion,
+                    RutaIcono = elementoViewModel.RutaIcono,
+                    Imprescindible = elementoViewModel.Imprescindible,
+                    Vinculado = elementoViewModel.Vinculado,
+                    Seleccionado = true
+                };
+
+                ElementosSeleccionados.Add(elemento);
+                Elementos.Remove(elementoViewModel); 
+                Elementos.OrderBy(item => item.Seleccionado);
+            });
+
+            MessagingCenter.Subscribe<SeleccionarElementos, ElementoViewModel>(this, "DeseleccionarElemento", (obj, elementoViewModel) =>
+            {
+                ElementoViewModel elemento = new ElementoViewModel
+                {
+                    Descripcion = elementoViewModel.Descripcion,
+                    RutaIcono = elementoViewModel.RutaIcono,
+                    Imprescindible = elementoViewModel.Imprescindible,
+                    Vinculado = elementoViewModel.Vinculado,
+                    Seleccionado = false
+                };
+
+                ElementosSeleccionados.Remove(elemento);
+                Elementos.Remove(elementoViewModel);
+                Elementos.Add(elemento);
+            });
+
         }
 
         private void EjecutarComando()
@@ -65,6 +101,7 @@ namespace MobileExample.ViewModels
             {
                 Elementos.Clear();
                 var elementos = this.ObtenerElementos();
+
                 foreach (var elemento in elementos)
                 {
                     Elementos.Add(elemento);
@@ -91,10 +128,26 @@ namespace MobileExample.ViewModels
                 elementoViewModel.Descripcion = elemento.Descripcion;
                 elementoViewModel.Vinculado = elemento.Vinculado;
                 elementoViewModel.UUID = elemento.UUID;
+                elementoViewModel.Id = elemento.Id;
                 listadoElementos.Add(elementoViewModel);
+
             }
 
             return listadoElementos;
         }
+
+        public String ObtenerElementosSeleccionados()
+        {
+            String ElementosStr = "Seleccionados: ";
+            foreach (ElementoViewModel elemento in ElementosSeleccionados.ToList())
+            {
+                ElementosStr = ElementosStr + elemento.Descripcion + ", " ;
+  
+            }
+
+            return ElementosStr;
+        }
+
+
     }
 }

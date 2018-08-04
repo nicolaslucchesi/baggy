@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileExample.Views.SeleccionarElementos"
+             Title="{Binding Title}"
+             Style="{StaticResource PageStyle}"
+             x:Name="BrowseItemsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Siguiente" Clicked="Guardar_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+<StackLayout>
+            <Label Text="Elementos para seleccionar:" Style="{StaticResource labelStyle}"/>
+            <Label x:Name="Prueba" Text="Abc"/>
+            <ListView   x:Name="ItemsListView3" 
+                        ItemsSource="{Binding Elementos}"
+                        VerticalOptions="FillAndExpand"
+                        HasUnevenRows="true"
+                        RefreshCommand="{Binding ComandoCargarElementos}"
+                        IsPullToRefreshEnabled="true"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                        ItemSelected="OnItemSelected"
+                        WidthRequest="200">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor= "{StaticResource backgroundColor}"
+                                         Orientation="Vertical"
+                                         HorizontalOptions="CenterAndExpand"
+                                         VerticalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Image Source="{Binding RutaIcono}" WidthRequest="50" HeightRequest="50"/>
+                                     <StackLayout Orientation="Vertical">
+                                        <Label  Text="{Binding Descripcion}"
+                                                FontAttributes="Bold" 
+                                                TextColor="White"
+                                                FontSize="35"/>
+                                        
+                                         <StackLayout Padding="10" Orientation="Vertical">
+                                            <Label x:Name="Imprescindible" 
+                                               Text="Imprescindible" 
+                                               FontSize="20"
+                                               WidthRequest="300" 
+                                               FontAttributes="Bold"
+                                               XAlign="Center"
+                                               TextColor="White">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
+                                                            <Setter Property="BackgroundColor" Value="Green" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="False">
+                                                            <Setter Property="BackgroundColor" Value="Red" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                               
+                                                   
+                                         
+                                        </StackLayout>
+
+
+                                        
+                                           
+                                        </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label Text="Elementos Seleccionados:" Style="{StaticResource labelStyle}"/>
+            <ListView   x:Name="ItemsListView4" 
+                        ItemsSource="{Binding ElementosSeleccionados}"
+                        BackgroundColor= "{StaticResource backgroundColor}"                                         
+                        VerticalOptions="FillAndExpand"
+                        HasUnevenRows="true"
+                        RefreshCommand="{Binding ComandoCargarElementos}"
+                        IsPullToRefreshEnabled="true"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                        WidthRequest="200"
+                        ItemSelected="OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="CenterAndExpand"
+                                         VerticalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Image Source="{Binding RutaIcono}" WidthRequest="50" HeightRequest="50"/>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label  Text="{Binding Descripcion}"
+                                                FontAttributes="Bold" 
+                                                FontSize="35"/>
+
+                                        <StackLayout Padding="10" Orientation="Vertical">
+                                            <Label x:Name="Imprescindible" 
+                                               Text="Imprescindible" 
+                                               FontSize="25"
+                                               WidthRequest="300" 
+                                               FontAttributes="Bold"
+                                               XAlign="Center"
+                                               TextColor="White">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
+                                                        <Setter Property="BackgroundColor" Value="Green" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="False">
+                                                        <Setter Property="BackgroundColor" Value="Red" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+
+
+                                     
+                                        </StackLayout>
+
+
+
+
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView> 
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

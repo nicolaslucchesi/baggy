@@ -30,7 +30,7 @@ namespace MobileExample.ViewModels
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
             // La idea es que desde la vista de creación se envíe un mensaje con el texto
             // 'AgregarMochila' y el objeto viewModel, y de esa manera se ejecuta esta porçión de código.
-            MessagingCenter.Subscribe<NuevoRecordatorio, RecordatorioViewModel>(this, "AgregarRecordatorio", (obj, recordatorioViewModel) =>
+            MessagingCenter.Subscribe<SeleccionarMochilas, RecordatorioViewModel>(this, "AgregarRecordatorio", (obj, recordatorioViewModel) =>
             {
                 string HoraStr ;
                 string MinutoStr;
