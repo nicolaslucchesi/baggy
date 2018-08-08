@@ -19,7 +19,8 @@ namespace MobileExample.Views
     {
         public ElementoViewModel ElementoViewModel { get; set; }
         
-        public String Imagen; 
+        public String Imagen;
+        public String UUID;
 
         public NuevoElemento()
         {
@@ -34,7 +35,6 @@ namespace MobileExample.Views
             };
             
             BindingContext = this;
-
             
             // Este es el mensaje que llega cuando se elige una Imagen desde el pop-up.
             // Se reemplaza la ruta del icono de ElementoViewModel por la ruta del icono que se seleccionó
@@ -42,8 +42,14 @@ namespace MobileExample.Views
             MessagingCenter.Subscribe<Popup, ImagenElementoViewModel>(this, "SeleccionarImagen", (obj, imagenelementoViewModel) =>
             {
                 ElementoViewModel.RutaIcono = imagenelementoViewModel.RutaIcono;
-                InitializeComponent();
+                //ImagenImagen.Source = imagenelementoViewModel.RutaIcono; 
             });
+
+            MessagingCenter.Subscribe<VincularElemento, ImagenElementoViewModel>(this, "VincularElemento", (obj, imagenelementoViewModel) =>
+            {
+               // Acá va el código 
+            });
+
 
         }
 
@@ -55,9 +61,9 @@ namespace MobileExample.Views
             await Navigation.PopModalAsync();
         }
 
-        async void AbrirPopup(object sender, EventArgs e)
+        async void VincularElemento_Clicked(object sender, EventArgs e)
         {
-            var propertiedPopup = new Popup();
+            var propertiedPopup = new VincularElemento();
 
             var scaleAnimation = new ScaleAnimation
             {
@@ -73,8 +79,35 @@ namespace MobileExample.Views
             };
 
             propertiedPopup.Animation = scaleAnimation;
+            propertiedPopup.CloseWhenBackgroundIsClicked = true;
+
             await PopupNavigation.PushAsync(propertiedPopup);
         }
 
+        async void AbrirPopupImagen(object sender, EventArgs e)
+        {
+            bool a = true;
+            var propertiedPopup = new Popup(a);
+
+            var scaleAnimation = new ScaleAnimation
+            {
+                PositionIn = MoveAnimationOptions.Top,
+                PositionOut = MoveAnimationOptions.Bottom,
+                ScaleIn = 1.2,
+                ScaleOut = 0.8,
+                DurationIn = 400,
+                DurationOut = 800,
+                EasingIn = Easing.BounceIn,
+                EasingOut = Easing.CubicOut,
+                HasBackgroundAnimation = true
+            };
+
+            propertiedPopup.Animation = scaleAnimation; 
+            propertiedPopup.CloseWhenBackgroundIsClicked = true;
+            
+            await PopupNavigation.PushAsync(propertiedPopup);
+        }
+
+        
     }
 }

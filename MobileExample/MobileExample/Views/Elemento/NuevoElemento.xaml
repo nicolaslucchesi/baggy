@@ -1,33 +1,45 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:local="clr-namespace:MobileExample.ViewModels"
              x:Class="MobileExample.Views.NuevoElemento"
+             Style="{StaticResource PageStyle}"
 		     Title="Nuevo Elemento">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Guardar" Clicked="GuardarElemento_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="20" Padding="15">
-                <Button x:Name="ImagenSeleccionada" 
-                    Image="{Binding ElementoViewModel.RutaIcono}" 
-                    Clicked="AbrirPopup"
-                    WidthRequest="400"
-                    HeightRequest="400"/>
+            <RelativeLayout>
+                     <Image      x:Name ="ImagenElemento"
+                                Source ="{Binding ElementoViewModel.RutaIcono}"
+                                HeightRequest="170" 
+                                WidthRequest="170" 
+                                 andorid:layout_width="200dp"
+                                />
+                    <Button     Text="C" 
+                                BorderRadius="30" BackgroundColor="Red" 
+                                HeightRequest="60"  
+                                Clicked="AbrirPopupImagen"
+                                WidthRequest="60" 
+                               />
+                    <Label Text="Descripción" FontSize="Medium" />
+                    <Entry Text="{Binding ElementoViewModel.Descripcion}" FontSize="Small" Placeholder="Descripción" />
+                    <Label Text="UUID" FontSize="Medium" />
+                    <Editor Text="{Binding MochilaViewModel.UUID}" FontSize="Small" Margin="0" />
+                    <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"  />
 
-                <Label Text="Nombre del Elemento" FontSize="Large" />
-                <Entry Text="{Binding ElementoViewModel.Descripcion}" FontSize="Medium" Placeholder="Descripción" />
 
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Imprescindible" FontSize="Medium" />
-                    <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"></Switch>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Vinculado" FontSize="Medium" />
-                    <Switch IsToggled ="{Binding ElementoViewModel.Vinculado}"></Switch>
-                </StackLayout>
-            </StackLayout>
-        </ScrollView>
+            </RelativeLayout>
+                
+                </ScrollView>
+
+
+
+
+
+                
     </ContentPage.Content>
 </ContentPage>

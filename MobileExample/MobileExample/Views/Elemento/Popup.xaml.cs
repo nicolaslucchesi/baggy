@@ -17,25 +17,42 @@ namespace MobileExample.Views
 	public partial class Popup : PopupPage
 	{
         ListadoImagenesElementosViewModel viewModel;
+        public bool b;
 
-        public Popup ()
+        public Popup (bool a)
 		{
 			InitializeComponent ();
             BindingContext = viewModel = new ListadoImagenesElementosViewModel();
+
+            if(a)
+                b = true;
+             else
+                b = false;            
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (viewModel.Imagenes.Count == 0)
+            if (viewModel.Imagenes.Count == 0 && b == true)
                 viewModel.ComandoCargarImagenes.Execute(null);
+            else if (viewModel.Imagenes.Count == 0 && b == false)
+                viewModel.ComandoCargarColores.Execute(null);
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var item = args.SelectedItem as ImagenElementoViewModel;
             // Mando un ImagenElementoViewModel pero pienso que se podria mandar un String directamente
+            string mensaje;
+            if (b)
+            {
+                mensaje = "SeleccionarImagen";
+            }
+            else
+            {
+                mensaje = "SeleccionarColor";
+            }
             MessagingCenter.Send(this, "SeleccionarImagen", item);
             await PopupNavigation.PopAsync();
         }

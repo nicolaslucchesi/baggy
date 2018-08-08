@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage    xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="MobileExample.Views.VincularElemento">
+   <StackLayout     VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    Padding="0" 
+                    Margin="0"
+                    BackgroundColor="WhiteSmoke">
+        <StackLayout BackgroundColor="#fd0900">
+            <Label Text="Introducir Elemento..." 
+                   TextColor="White"
+                   FontSize="72"
+                   Font="Bold"/>
+        </StackLayout>
+
+        <Image Source="BaggyLogo.jpg" WidthRequest="150" HeightRequest="150"/>
+
+        <Button Text="Aceptar" Clicked="Button_OnClicked" WidthRequest="200"></Button>
+    </StackLayout>
+ </popup:PopupPage>

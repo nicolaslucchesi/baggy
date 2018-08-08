@@ -16,7 +16,6 @@
                         ItemsSource="{Binding Elementos}"
                         VerticalOptions="FillAndExpand"
                         HasUnevenRows="true"
-                        RefreshCommand="{Binding ComandoCargarElementos}"
                         IsPullToRefreshEnabled="true"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                         CachingStrategy="RecycleElement"
@@ -36,8 +35,8 @@
                                                 FontAttributes="Bold" 
                                                 TextColor="White"
                                                 FontSize="35"/>
-                                        
-                                         <StackLayout Padding="10" Orientation="Vertical">
+
+                                        <StackLayout Padding="10" Orientation="Vertical">
                                             <Label x:Name="Imprescindible" 
                                                Text="Imprescindible" 
                                                FontSize="20"
@@ -45,24 +44,17 @@
                                                FontAttributes="Bold"
                                                XAlign="Center"
                                                TextColor="White">
-                                                    <Label.Triggers>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
-                                                            <Setter Property="BackgroundColor" Value="Green" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="False">
-                                                            <Setter Property="BackgroundColor" Value="Red" />
-                                                        </DataTrigger>
-                                                    </Label.Triggers>
-                                                </Label>
-                                               
-                                                   
-                                         
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
+                                                        <Setter Property="BackgroundColor" Value="Green" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="False">
+                                                        <Setter Property="BackgroundColor" Value="Red" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
                                         </StackLayout>
-
-
-                                        
-                                           
-                                        </StackLayout>
+                                    </StackLayout>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>
@@ -93,6 +85,7 @@
                                     <StackLayout Orientation="Vertical">
                                         <Label  Text="{Binding Descripcion}"
                                                 FontAttributes="Bold" 
+                                                TextColor="White"
                                                 FontSize="35"/>
 
                                         <StackLayout Padding="10" Orientation="Vertical">
@@ -112,14 +105,7 @@
                                                     </DataTrigger>
                                                 </Label.Triggers>
                                             </Label>
-
-
-                                     
                                         </StackLayout>
-
-
-
-
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>

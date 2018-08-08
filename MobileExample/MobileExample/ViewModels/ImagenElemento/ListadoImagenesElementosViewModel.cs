@@ -17,15 +17,18 @@ namespace MobileExample.ViewModels
         public ObservableCollection<ImagenElementoViewModel> Imagenes { get; set; }
 
         public Command ComandoCargarImagenes { get; set; }
+        public Command ComandoCargarColores { get; set; }
 
         public ListadoImagenesElementosViewModel()
         {
             Title = "Elegir Imagenes";
             Imagenes = new ObservableCollection<ImagenElementoViewModel>();
-            ComandoCargarImagenes = new Command(() => EjecutarComando());
+
+                ComandoCargarImagenes = new Command(() => EjecutarComandoImagenes());
+                ComandoCargarColores = new Command(() => EjecutarComandoColores()); 
         }
 
-        private void EjecutarComando()
+        private void EjecutarComandoImagenes()
         {
             if (IsBusy)
             {
@@ -37,7 +40,8 @@ namespace MobileExample.ViewModels
             try
             {
                 Imagenes.Clear();
-                var elementos = this.ObtenerImagenes();
+                bool a = true;
+                var elementos = this.ObtenerImagenes(a);
                 foreach (var elemento in elementos)
                 {
                     Imagenes.Add(elemento);
@@ -53,10 +57,40 @@ namespace MobileExample.ViewModels
             }
         }
 
-        private List<ImagenElementoViewModel> ObtenerImagenes()
+        private void EjecutarComandoColores()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                Imagenes.Clear();
+                bool a = false;
+                var elementos = this.ObtenerImagenes(a);
+                foreach (var elemento in elementos)
+                {
+                    Imagenes.Add(elemento);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private List<ImagenElementoViewModel> ObtenerImagenes(bool a)
         {
             List<ImagenElementoViewModel> listadoImagenes = new List<ImagenElementoViewModel>();
-
+            if(a)
+            { 
             ImagenElementoViewModel img1 = new ImagenElementoViewModel
             {
                 Id = 0,
@@ -73,6 +107,35 @@ namespace MobileExample.ViewModels
             };
 
             listadoImagenes.Add(img2);
+            }
+            else
+            {
+                ImagenElementoViewModel img1 = new ImagenElementoViewModel
+                {
+                    Id = 0,
+                    Descripcion = "Rojo",
+                    RutaIcono = "Color1.png"
+                };
+                listadoImagenes.Add(img1);
+
+                ImagenElementoViewModel img2 = new ImagenElementoViewModel
+                {
+                    Id = 1,
+                    Descripcion = "Azul",
+                    RutaIcono = "Color2.png"
+                };
+
+                listadoImagenes.Add(img2);
+
+                ImagenElementoViewModel img3 = new ImagenElementoViewModel
+                {
+                    Id = 2,
+                    Descripcion = "Amarillo",
+                    RutaIcono = "Color3.png"
+                };
+
+                listadoImagenes.Add(img3);
+            }
 
             return listadoImagenes;
         }

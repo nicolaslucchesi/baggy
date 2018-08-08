@@ -21,14 +21,12 @@ namespace MobileExample.Views
 
         public SeleccionarElementos()
         {
-
             InitializeComponent();
             BindingContext = viewModel = new ListadoElementosViewModel();
         }
 
         public SeleccionarElementos(RecordatorioViewModel recordatorio)
         {
-
             InitializeComponent();
             BindingContext = viewModel = new ListadoElementosViewModel();
             recordatorioCompletado = new RecordatorioViewModel();
@@ -36,7 +34,7 @@ namespace MobileExample.Views
             Prueba.Text = recordatorioCompletado.HorarioStr;
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var item = args.SelectedItem as ElementoViewModel;
             if (item == null)
@@ -44,17 +42,23 @@ namespace MobileExample.Views
 
             if (item.Seleccionado == false)
             {
-                MessagingCenter.Send(this, "SeleccionarElemento", item);
-                MessagingCenter.Send(this, "ElementoSeleccionado", item);
+                item.Seleccionado = true;
+                var itemAPasar = viewModel.Elementos.Where(e => e.IdInterno == item.IdInterno).FirstOrDefault();
+                viewModel.Elementos.Remove(itemAPasar);
+                viewModel.ElementosSeleccionados.Add(itemAPasar);
+                viewModel.ElementosSeleccionados.OrderBy(e => e.IdInterno);
             }
             else
             {
-                MessagingCenter.Send(this, "DeseleccionarElemento", item);
+                item.Seleccionado = false;
+                var itemAPasar = viewModel.ElementosSeleccionados.Where(e => e.IdInterno == item.IdInterno).FirstOrDefault();
+                viewModel.ElementosSeleccionados.Remove(itemAPasar);
+                viewModel.Elementos.Add(itemAPasar);
+                viewModel.Elementos.OrderBy(e => e.IdInterno);
             }
 
-            // item.Vinculado = true;
             ItemsListView3.SelectedItem = null;
-            //InitializeComponent();
+            
         }
 
         

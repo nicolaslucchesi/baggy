@@ -18,6 +18,9 @@
     <Compile Update="Views\Elemento\NuevoElemento.xaml.cs">
       <DependentUpon>NuevoElemento.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Elemento\VincularElemento.xaml.cs">
+      <DependentUpon>VincularElemento.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Elemento\Popup.xaml.cs">
       <DependentUpon>Popup.xaml</DependentUpon>
     </Compile>

@@ -23,6 +23,8 @@ namespace MobileExample.ViewModels
 
         public Command ComandoEliminarElemento { get; set; }
 
+        public int IdInterno { get; set; }
+
         public ElementoViewModel()
         {
             this.ComandoEliminarElemento = new Command(Eliminar);

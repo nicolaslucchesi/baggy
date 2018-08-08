@@ -120,6 +120,7 @@ namespace MobileExample.ViewModels
         private List<ElementoViewModel> ObtenerElementos()
         {
             List<ElementoViewModel> listadoElementos = new List<ElementoViewModel>();
+            int cantidad = 0;
             foreach (Elemento elemento in db.Table<Elemento>().ToList())
             {
                 ElementoViewModel elementoViewModel = new ElementoViewModel();
@@ -129,6 +130,8 @@ namespace MobileExample.ViewModels
                 elementoViewModel.Vinculado = elemento.Vinculado;
                 elementoViewModel.UUID = elemento.UUID;
                 elementoViewModel.Id = elemento.Id;
+                elementoViewModel.IdInterno = cantidad;
+                cantidad++;
                 listadoElementos.Add(elementoViewModel);
 
             }
