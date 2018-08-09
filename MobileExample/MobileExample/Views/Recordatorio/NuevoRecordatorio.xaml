@@ -6,7 +6,7 @@
 		     Title="Nuevo Recordatorio"
               Style="{StaticResource PageStyle}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Siguiente" Clicked="Guardar_Clicked" />
+        <ToolbarItem Text="Guardar" Clicked="GuardarRecordatorio" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
@@ -15,12 +15,12 @@
 
                 <TimePicker x:Name="Tiempo" 
                             VerticalOptions="Center" 
-                            TextColor="White"                            
+                            TextColor="Black"   
+                            BackgroundColor="White"
                             FontSize="72"
                             Time="{Binding RecordatorioViewModel.Horario}" >
 
                 </TimePicker>
-
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
                     <Button x:Name="BotonLunes" Text="L" Clicked="ApretarBotonLunes">
@@ -88,7 +88,12 @@
                     <Switch x:Name="SwitchViernes" IsToggled ="{Binding RecordatorioViewModel.Viernes}"></Switch>
                 </StackLayout>
 
-                <Label x:Name="TodosLosInt" Text="asd"></Label>
+                <Button     Text="Seleccionar Elementos" 
+                                BorderRadius="30" BackgroundColor="White" 
+                                HeightRequest="60"  
+                                Clicked="AbrirPopupSeleccionarElementos"
+                                WidthRequest="60" 
+                               />
 
             </StackLayout>
             

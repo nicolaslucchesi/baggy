@@ -33,9 +33,6 @@
     <Compile Update="Views\Recordatorio\SeleccionarMochilas.xaml.cs">
       <DependentUpon>SeleccionarMochilas.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Recordatorio\SeleccionarElementos.xaml.cs">
-      <DependentUpon>SeleccionarElementos.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\Recordatorio\ListadoRecordatorios.xaml.cs">
       <DependentUpon>ListadoRecordatorios.xaml</DependentUpon>
     </Compile>
@@ -55,6 +52,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Views\Elemento\Popup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Recordatorio\SeleccionarElementosPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

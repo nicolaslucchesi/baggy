@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileExample.Tables;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -33,6 +34,18 @@ namespace MobileExample.ViewModels
         void Eliminar()
         {
           MessagingCenter.Send(this, "EliminarElemento", this);          
+        }
+
+        public static explicit operator Elemento(ElementoViewModel viewModel) {
+            return new Elemento
+            {
+                Descripcion = viewModel.Descripcion,
+                Id = viewModel.Id,
+                Imprescindible = viewModel.Imprescindible,
+                RutaIcono = viewModel.RutaIcono,
+                UUID = viewModel.UUID,
+                Vinculado = viewModel.Vinculado
+            };
         }
     }
 }

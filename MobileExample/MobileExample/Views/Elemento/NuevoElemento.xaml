@@ -17,7 +17,6 @@
                                 Source ="{Binding ElementoViewModel.RutaIcono}"
                                 HeightRequest="170" 
                                 WidthRequest="170" 
-                                 andorid:layout_width="200dp"
                                 />
                     <Button     Text="C" 
                                 BorderRadius="30" BackgroundColor="Red" 

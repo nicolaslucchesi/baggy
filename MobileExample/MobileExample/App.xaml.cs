@@ -46,6 +46,7 @@ namespace MobileExample
             db.CreateTable<InformacionSincronizada>();
             db.CreateTable<Mochila>();
             db.CreateTable<Recordatorio>();
+            db.CreateTable<ElementoRecordatorio>();
         }
     }
 }

@@ -33,11 +33,14 @@
                                     <Label  Text="{Binding HorarioStr}" 
                                             Style="{StaticResource labelStyle}"
                                             LineBreakMode="NoWrap" 
-                                            FontSize="72" />
+                                            FontSize="42" />
                                     <Label  Text="{Binding Elementos}" 
                                             Style="{StaticResource labelStyle}"
                                             LineBreakMode="NoWrap" 
                                             FontSize="22" />
+                                    <Label  Text="{Binding Id}" 
+                                            IsVisible="False"
+                                            />
 
                                     <StackLayout Padding="10" Orientation="Horizontal">
                                         <Label x:Name="Lunes" 
