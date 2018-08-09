@@ -41,7 +41,8 @@ namespace MobileExample.Views
             // listado ejecute el código de guardado.
 
             // TODO: Revisar porqué no se mapea el timeSpan directamente.
-            recordatorioViewModel.Horario = Tiempo.Time;
+            this.MapearDatos();
+
             MessagingCenter.Send(this, "AgregarRecordatorio", recordatorioViewModel);
             await Navigation.PopModalAsync();
         }
@@ -70,61 +71,41 @@ namespace MobileExample.Views
             await PopupNavigation.PushAsync(PopupElementos);
         }
 
-        public void ApretarBotonLunes(object sender, EventArgs e)
+        public void ApretarBotonDia(object sender, EventArgs e)
         {
-            if (SwitchLunes.IsToggled)
+            Button boton = (Button)sender;
+            switch (boton.Text)
             {
-                SwitchLunes.IsToggled = false;
-            }
-            else
-            {
-                SwitchLunes.IsToggled = true;
-            }
-        }
-        public void ApretarBotonMartes(object sender, EventArgs e)
-        {
-            if (SwitchMartes.IsToggled)
-            {
-                SwitchMartes.IsToggled = false;
-            }
-            else
-            {
-                SwitchMartes.IsToggled = true;
-            }
-        }
-        public void ApretarBotonMiercoles(object sender, EventArgs e)
-        {
-            if (SwitchMiercoles.IsToggled)
-            {
-                SwitchMiercoles.IsToggled = false;
-            }
-            else
-            {
-                SwitchMiercoles.IsToggled = true;
-            }
-        }
-        public void ApretarBotonJueves(object sender, EventArgs e)
-        {
-            if (SwitchJueves.IsToggled)
-            {
-                SwitchJueves.IsToggled = false;
-            }
-            else
-            {
-                SwitchJueves.IsToggled = true;
-            }
-        }
-        public void ApretarBotonViernes(object sender, EventArgs e)
-        {
-            if (SwitchViernes.IsToggled)
-            {
-                SwitchViernes.IsToggled = false;
-            }
-            else
-            {
-                SwitchViernes.IsToggled = true;
+                case "Lu":
+                    SwitchLunes.IsToggled = !SwitchLunes.IsToggled;
+                    break;
+                case "Ma":
+                    SwitchMartes.IsToggled = !SwitchMartes.IsToggled;
+                    break;
+                case "Mi":
+                    SwitchMiercoles.IsToggled = !SwitchMiercoles.IsToggled;
+                    break;
+                case "Ju":
+                    SwitchJueves.IsToggled = !SwitchJueves.IsToggled;
+                    break;
+                case "Vi":
+                    SwitchViernes.IsToggled = !SwitchViernes.IsToggled;
+                    break;
+                default:
+                    break;
             }
         }
 
+        private void MapearDatos()
+        {
+            recordatorioViewModel.Horario = Tiempo.Time;
+            recordatorioViewModel.HorarioStr = Tiempo.Time.ToString(@"hh\:mm");
+            recordatorioViewModel.Lunes = SwitchLunes.IsToggled;
+            recordatorioViewModel.Martes = SwitchMartes.IsToggled;
+            recordatorioViewModel.Miercoles = SwitchMiercoles.IsToggled;
+            recordatorioViewModel.Jueves = SwitchJueves.IsToggled;
+            recordatorioViewModel.Viernes = SwitchViernes.IsToggled;
+
+        }
     }
 }

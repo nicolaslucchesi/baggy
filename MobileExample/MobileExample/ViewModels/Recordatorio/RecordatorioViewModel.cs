@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileExample.Tables;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -6,7 +7,7 @@ using Xamarin.Forms;
 
 namespace MobileExample.ViewModels
 {
-    public class RecordatorioViewModel: BaseViewModel
+    public class RecordatorioViewModel : BaseViewModel
     {
         public int Id { get; set; }
 
@@ -25,6 +26,7 @@ namespace MobileExample.ViewModels
         public RecordatorioViewModel()
         {
             this.ComandoEliminarRecordatorio = new Command(Eliminar);
+            Elementos = new ListadoElementosViewModel();
         }
 
         public RecordatorioViewModel(RecordatorioViewModel viewModel)
@@ -39,8 +41,6 @@ namespace MobileExample.ViewModels
             Miercoles = viewModel.Miercoles;
             Jueves = viewModel.Jueves;
             Viernes = viewModel.Viernes;
-
-
             this.ComandoEliminarRecordatorio = new Command(Eliminar);
         }
 
@@ -48,6 +48,30 @@ namespace MobileExample.ViewModels
         {
             MessagingCenter.Send(this, "EliminarRecordatorio", this);
         }
-        
+
+        public static explicit operator RecordatorioViewModel(Recordatorio recordatorio)
+        {
+            RecordatorioViewModel viewModel = new RecordatorioViewModel();
+            viewModel.Lunes = recordatorio.Lunes;
+            viewModel.Martes = recordatorio.Martes;
+            viewModel.Miercoles = recordatorio.Miercoles;
+            viewModel.Jueves = recordatorio.Jueves;
+            viewModel.Viernes = recordatorio.Viernes;
+            viewModel.HorarioStr = recordatorio.Horario.ToString(@"hh\:mm");
+
+            foreach (Elemento elemento in recordatorio.Elementos)
+            {
+                viewModel.Elementos.Elementos.Add(new ElementoViewModel
+                {
+                    Descripcion = elemento.Descripcion,
+                    Imprescindible = elemento.Imprescindible,
+                    RutaIcono = elemento.RutaIcono,
+                    Vinculado = elemento.Vinculado
+                });
+            }
+
+            return viewModel;
+        }
+
     }
 }

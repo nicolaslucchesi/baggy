@@ -1,4 +1,5 @@
-﻿using MobileExample.Tables;
+﻿using MobileExample.Database;
+using MobileExample.Tables;
 using MobileExample.Views;
 using SQLite;
 using System;
@@ -14,9 +15,6 @@ namespace MobileExample.ViewModels
 {
     public class ListadoMochilasViewModel : BaseViewModel
     {
-        private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
-        private static SQLiteConnection db = new SQLiteConnection(path);
-
         public ObservableCollection<MochilaViewModel> Mochilas { get; set; }
 
         public Command ComandoCargarMochilas { get; set; }
@@ -39,7 +37,7 @@ namespace MobileExample.ViewModels
                     UUID = mochilaViewModel.UUID
                 };
 
-                db.Insert(mochila);
+                DatabaseHelper.db.Insert(mochila);
                 Mochilas.Add(mochilaViewModel);
             });
 
@@ -48,21 +46,21 @@ namespace MobileExample.ViewModels
             // como de la lista interna para que desaparezca visualmente.
             MessagingCenter.Subscribe<MochilaViewModel, MochilaViewModel>(this, "EliminarMochila", (sender, mochilaViewModel) =>
             {
-                Mochila mochilaAEliminar = db.Table<Mochila>().Where(e => e.UUID.Equals(mochilaViewModel.UUID)).FirstOrDefault();
-                db.Delete(mochilaAEliminar);
+                Mochila mochilaAEliminar = DatabaseHelper.db.Table<Mochila>().Where(e => e.UUID.Equals(mochilaViewModel.UUID)).FirstOrDefault();
+                DatabaseHelper.db.Delete(mochilaAEliminar);
                 Mochilas.Remove(mochilaViewModel);
             });
 
             MessagingCenter.Subscribe<MochilaViewModel, MochilaViewModel>(this, "ActivarMochila", (sender, mochilaViewModel) =>
             {
-                foreach (Mochila mochila in db.Table<Mochila>().ToList())
+                foreach (Mochila mochila in DatabaseHelper.db.Table<Mochila>().ToList())
                 {
                     mochila.Activa = false;
                     if (mochila.UUID.Equals(mochilaViewModel.UUID))
                     {
                         mochila.Activa = true;
                     }
-                    db.Update(mochila);
+                    DatabaseHelper.db.Update(mochila);
                 }
 
                 foreach (MochilaViewModel mochila in Mochilas)
@@ -114,7 +112,7 @@ namespace MobileExample.ViewModels
         private List<MochilaViewModel> ObtenerMochilas()
         {
             List<MochilaViewModel> listadoMochilas = new List<MochilaViewModel>();
-            foreach (Mochila mochila in db.Table<Mochila>().ToList())
+            foreach (Mochila mochila in DatabaseHelper.db.Table<Mochila>().ToList())
             {
                 MochilaViewModel mochilaViewModel = new MochilaViewModel();
                 mochilaViewModel.Activa = mochila.Activa;

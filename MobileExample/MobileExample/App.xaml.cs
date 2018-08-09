@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 using System.IO;
 using SQLite;
 using MobileExample.Tables;
+using MobileExample.Database;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace MobileExample
@@ -40,13 +41,11 @@ namespace MobileExample
         /// </summary>        
         private void CrearBaseDeDatos()
         {
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
-            var db = new SQLiteConnection(path);
-            db.CreateTable<Elemento>();
-            db.CreateTable<InformacionSincronizada>();
-            db.CreateTable<Mochila>();
-            db.CreateTable<Recordatorio>();
-            db.CreateTable<ElementoRecordatorio>();
+            DatabaseHelper.db.CreateTable<Elemento>();
+            DatabaseHelper.db.CreateTable<InformacionSincronizada>();
+            DatabaseHelper.db.CreateTable<Mochila>();
+            DatabaseHelper.db.CreateTable<Recordatorio>();
+            DatabaseHelper.db.CreateTable<ElementoRecordatorio>();
         }
     }
 }

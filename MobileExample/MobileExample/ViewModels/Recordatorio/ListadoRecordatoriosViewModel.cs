@@ -1,4 +1,5 @@
-﻿using MobileExample.Tables;
+﻿using MobileExample.Database;
+using MobileExample.Tables;
 using MobileExample.Views;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
@@ -15,9 +16,6 @@ namespace MobileExample.ViewModels
 {
     public class ListadoRecordatoriosViewModel : BaseViewModel
     {
-        private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
-        private static SQLiteConnection db = new SQLiteConnection(path);
-
         public ObservableCollection<RecordatorioViewModel> Recordatorios { get; set; }
 
         public Command ComandoCargarRecordatorios { get; set; }
@@ -46,18 +44,22 @@ namespace MobileExample.ViewModels
 
                 foreach (ElementoViewModel elementoViewModel in recordatorioViewModel.Elementos.Elementos.Where(e => e.Seleccionado))
                 {
-                    Elemento elemento = db.Table<Elemento>().Where(e => e.Id == elementoViewModel.Id).FirstOrDefault();
+                    Elemento elemento = DatabaseHelper.db.Table<Elemento>().Where(e => e.Id == elementoViewModel.Id).FirstOrDefault();
                     recordatorio.Elementos.Add(elemento);
                 }
 
-                db.InsertWithChildren(recordatorio);
+                DatabaseHelper.db.InsertWithChildren(recordatorio);
+                // Se agrega el ID que se obtiene despues de insertarlo en la BD,
+                // para así poder traer los datos de los elementos para el 'ver' sin
+                // tener que refrescar la lista.
+                recordatorioViewModel.Id = recordatorio.Id;
                 Recordatorios.Add(recordatorioViewModel);
             });
 
             MessagingCenter.Subscribe<RecordatorioViewModel, RecordatorioViewModel>(this, "EliminarRecordatorio", (sender, recordatorioViewModel) =>
             {
-                Recordatorio recordatorioAEliminar = db.Table<Recordatorio>().Where(e => e.Id.Equals(recordatorioViewModel.Id)).FirstOrDefault();
-                db.Delete(recordatorioAEliminar);
+                Recordatorio recordatorioAEliminar = DatabaseHelper.db.Table<Recordatorio>().Where(e => e.Id.Equals(recordatorioViewModel.Id)).FirstOrDefault();
+                DatabaseHelper.db.Delete(recordatorioAEliminar);
                 Recordatorios.Remove(recordatorioViewModel);
             });
         }
@@ -94,7 +96,7 @@ namespace MobileExample.ViewModels
         {
             List<RecordatorioViewModel> listadoRecordatorios = new List<RecordatorioViewModel>();
 
-            foreach (Recordatorio recordatorio in db.Table<Recordatorio>().ToList())
+            foreach (Recordatorio recordatorio in DatabaseHelper.db.Table<Recordatorio>().ToList())
             {
                 RecordatorioViewModel recordatorioViewModel = new RecordatorioViewModel();
                 recordatorioViewModel.Id = recordatorio.Id;
@@ -109,7 +111,6 @@ namespace MobileExample.ViewModels
             }
 
             return listadoRecordatorios;
-
         }
     }
 }

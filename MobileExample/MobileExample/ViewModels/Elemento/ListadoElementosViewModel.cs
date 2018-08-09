@@ -1,4 +1,5 @@
-﻿using MobileExample.Tables;
+﻿using MobileExample.Database;
+using MobileExample.Tables;
 using MobileExample.Views;
 using SQLite;
 using System;
@@ -14,9 +15,6 @@ namespace MobileExample.ViewModels
 {
     public class ListadoElementosViewModel : BaseViewModel
     {
-        private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
-        private static SQLiteConnection db = new SQLiteConnection(path);
-
         public ObservableCollection<ElementoViewModel> Elementos { get; set; }
 
         public Command ComandoCargarElementos { get; set; }
@@ -41,14 +39,14 @@ namespace MobileExample.ViewModels
                     Vinculado = elementoViewModel.Vinculado
                 };
 
-                db.Insert(elemento);
+                DatabaseHelper.db.Insert(elemento);
                 Elementos.Add(elementoViewModel);
             });
 
             MessagingCenter.Subscribe<ElementoViewModel, ElementoViewModel>(this, "EliminarElemento", (sender, elementoViewModel) =>
             {
-                Elemento elementoAEliminar = db.Table<Elemento>().Where(e => e.Id.Equals(elementoViewModel.Id)).FirstOrDefault();
-                db.Delete(elementoAEliminar);
+                Elemento elementoAEliminar = DatabaseHelper.db.Table<Elemento>().Where(e => e.Id.Equals(elementoViewModel.Id)).FirstOrDefault();
+                DatabaseHelper.db.Delete(elementoAEliminar);
                 Elementos.Remove(elementoViewModel);
             });
 
@@ -88,7 +86,7 @@ namespace MobileExample.ViewModels
         {
             List<ElementoViewModel> listadoElementos = new List<ElementoViewModel>();
             int cantidad = 0;
-            foreach (Elemento elemento in db.Table<Elemento>().ToList())
+            foreach (Elemento elemento in DatabaseHelper.db.Table<Elemento>().ToList())
             {
                 ElementoViewModel elementoViewModel = new ElementoViewModel();
                 elementoViewModel.Imprescindible = elemento.Imprescindible;
