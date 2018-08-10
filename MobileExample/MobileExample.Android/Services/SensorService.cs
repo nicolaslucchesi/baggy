@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Timers;
 
@@ -11,8 +13,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MobileExample.Droid.Clima;
 using MobileExample.Database;
 using MobileExample.Tables;
+using Newtonsoft.Json;
 using SQLite;
 using Xamarin.Forms;
 
@@ -23,6 +27,8 @@ namespace MobileExample.Droid.Services
     public class SensorService : IntentService
     {
         public int contador = 0;
+        public HttpClient client = new HttpClient();
+        public string urlClima = "http://api.apixu.com/v1/forecast.json?key=d8c869676cba4733b9f230353180108&q=-34.669090,-58.564331&days=1";
         public SensorService(Context contexto) : base("SensorService")
         {
             Console.WriteLine("Empezó el servicio.");
@@ -72,7 +78,7 @@ namespace MobileExample.Droid.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void accionTimer(object sender, ElapsedEventArgs e)
+        private async void accionTimer(object sender, ElapsedEventArgs e)
         {
             int cantidadMochilas = DatabaseHelper.db.Table<Mochila>().Count();
             int cantidadRecordatorios = DatabaseHelper.db.Table<Recordatorio>().Count();
@@ -81,6 +87,21 @@ namespace MobileExample.Droid.Services
                                             + cantidadRecordatorios + " recordatorios y "
                                             + cantidadElementos + " elementos.";
 
+            HttpResponseMessage respuestaClima = await client.GetAsync(urlClima);
+            string respuestaString = await respuestaClima.Content.ReadAsStringAsync();
+            ClimaResponse respuesta = JsonConvert.DeserializeObject<ClimaResponse>(respuestaString);
+            if (CodigosLluvia.Codigos.Contains(respuesta.forecast.forecastday[0].day.condition.code))
+            {
+                textoNotificacion = "Habrá lluvias hoy. Hay " + cantidadMochilas + " mochilas, "
+                                                + cantidadRecordatorios + " recordatorios y "
+                                                + cantidadElementos + " elementos.";
+            }
+            else
+            {
+                textoNotificacion = "Hoy no llueve! Hay " + cantidadMochilas + " mochilas, "
+                                                + cantidadRecordatorios + " recordatorios y "
+                                                + cantidadElementos + " elementos.";
+            }
 #pragma warning disable CS0618 // El tipo o el miembro están obsoletos
             Notification.Builder builder = new Notification.Builder(this)
                 .SetContentTitle("Hola!")
