@@ -118,6 +118,7 @@ namespace MobileExample.ViewModels
                 mochilaViewModel.Activa = mochila.Activa;
                 mochilaViewModel.Descripcion = mochila.Descripcion;
                 mochilaViewModel.UUID = mochila.UUID;
+                mochilaViewModel.Id = mochila.Id;
                 listadoMochilas.Add(mochilaViewModel);
             }
 
