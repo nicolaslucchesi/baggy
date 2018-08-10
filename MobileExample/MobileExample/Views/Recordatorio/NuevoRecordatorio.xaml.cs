@@ -21,6 +21,7 @@ namespace MobileExample.Views
     public partial class NuevoRecordatorio : ContentPage
     {
         public RecordatorioViewModel recordatorioViewModel { get; set; }
+        public MochilaViewModel Mochila { get; set; }
 
         public NuevoRecordatorio()
         {
@@ -29,10 +30,18 @@ namespace MobileExample.Views
             recordatorioViewModel = new RecordatorioViewModel
             {
                 Horario = new TimeSpan(12, 0, 0),
-                Elementos = new ListadoElementosViewModel()
+                Elementos = new ListadoElementosViewModel(),
+                MochilaSeleccionada = new MochilaViewModel()
             };
 
+            //ListadoMochila = new ListadoMochilasViewModel();
+
             BindingContext = this;
+            
+            MessagingCenter.Subscribe<SeleccionarMochilasPopup, MochilaViewModel>(this, "SeleccionarMochila", (sender, mochilaViewModel) =>
+            {
+                recordatorioViewModel.MochilaSeleccionada = Mochila = mochilaViewModel;
+            });
         }
 
         public async void GuardarRecordatorio(object sender, EventArgs e)
@@ -49,7 +58,6 @@ namespace MobileExample.Views
 
         async void AbrirPopupSeleccionarElementos(object sender, EventArgs e)
         {
-            bool a = true;
             var PopupElementos = new SeleccionarElementosPopup(recordatorioViewModel.Elementos);
 
             var scaleAnimation = new ScaleAnimation
@@ -66,10 +74,35 @@ namespace MobileExample.Views
             };
 
             PopupElementos.Animation = scaleAnimation;
-            PopupElementos.CloseWhenBackgroundIsClicked = true;
+            PopupElementos.CloseWhenBackgroundIsClicked = false;
 
             await PopupNavigation.PushAsync(PopupElementos);
         }
+
+        async void AbrirPopupSeleccionarMochila(object sender, EventArgs e)
+        {
+            bool a = true;
+            var PopupMochilas = new SeleccionarMochilasPopup(recordatorioViewModel.MochilaSeleccionada);
+
+            var scaleAnimation = new ScaleAnimation
+            {
+                PositionIn = MoveAnimationOptions.Top,
+                PositionOut = MoveAnimationOptions.Bottom,
+                ScaleIn = 1.2,
+                ScaleOut = 0.8,
+                DurationIn = 400,
+                DurationOut = 800,
+                EasingIn = Easing.BounceIn,
+                EasingOut = Easing.CubicOut,
+                HasBackgroundAnimation = true
+            };
+
+            PopupMochilas.Animation = scaleAnimation;
+            PopupMochilas.CloseWhenBackgroundIsClicked = false;
+
+            await PopupNavigation.PushAsync(PopupMochilas);
+        }
+
 
         public void ApretarBotonDia(object sender, EventArgs e)
         {

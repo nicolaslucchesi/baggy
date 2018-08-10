@@ -39,7 +39,8 @@ namespace MobileExample.ViewModels
                     Miercoles = recordatorioViewModel.Miercoles,
                     Jueves = recordatorioViewModel.Jueves,
                     Viernes = recordatorioViewModel.Viernes,
-                    Elementos = new List<Elemento>()
+                    Elementos = new List<Elemento>(),
+                    IdMochila = recordatorioViewModel.MochilaSeleccionada.Id
                 };
 
                 foreach (ElementoViewModel elementoViewModel in recordatorioViewModel.Elementos.Elementos.Where(e => e.Seleccionado))

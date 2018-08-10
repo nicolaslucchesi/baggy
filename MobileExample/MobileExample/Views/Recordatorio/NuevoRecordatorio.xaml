@@ -88,13 +88,21 @@
                     <Switch x:Name="SwitchViernes" IsToggled ="{Binding RecordatorioViewModel.Viernes}"></Switch>
                 </StackLayout>
 
-                <Button     Text="Seleccionar Elementos" 
+                <Button         Text="Seleccionar Elementos" 
                                 BorderRadius="30" BackgroundColor="White" 
                                 HeightRequest="60"  
                                 Clicked="AbrirPopupSeleccionarElementos"
                                 WidthRequest="60" 
                                />
+                <Button         Text="Seleccionar Mochilas" 
+                                BorderRadius="30" BackgroundColor="White" 
+                                HeightRequest="60"  
+                                Clicked="AbrirPopupSeleccionarMochila"
+                                WidthRequest="60" 
+                               />
 
+                <Picker ItemsSource="ListadoMochila" SelectedItem="{Binding RecordatorioViewModel.MochilaSeleccionada}"/>
+                
             </StackLayout>
             
         </ScrollView>

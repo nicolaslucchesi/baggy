@@ -2,26 +2,29 @@
 <popup:PopupPage    xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    x:Class="MobileExample.Views.SeleccionarElementosPopup">
+                    x:Class="MobileExample.Views.SeleccionarMochilasPopup">
     <StackLayout     VerticalOptions="Center" 
                     HorizontalOptions="Center" 
                     Padding="0" 
                     Margin="0"
                     BackgroundColor="WhiteSmoke">
         <StackLayout BackgroundColor="#fd0900">
-            <Label Text="¿Qué elementos no querés olvidar?" 
+            <Label Text="¿Qué mochila vas a llevar?" 
                    TextColor="White"
                    FontSize="72"
-                   Font="Bold"/>
+                   Font="Bold"
+                   WidthRequest="100"
+                   HeightRequest="100"/>
         </StackLayout>
         <StackLayout>
-            <ListView   x:Name="ListadoElementos" 
-                        ItemsSource="{Binding Elementos}"
+            <ListView   x:Name="ListadoMochilas" 
+                        ItemsSource="{Binding Mochilas}"
                         VerticalOptions="FillAndExpand"
                         HasUnevenRows="true"
                         IsPullToRefreshEnabled="false"
                         CachingStrategy="RecycleElement"
-                        WidthRequest="250">
+                        WidthRequest="250"
+                        ItemSelected="OnItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -30,8 +33,7 @@
                                          HorizontalOptions="CenterAndExpand"
                                          VerticalOptions="FillAndExpand">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Image Source="{Binding RutaIcono}" WidthRequest="50" HeightRequest="50"/>
-                                    <StackLayout Orientation="Vertical">
+                                     <StackLayout Orientation="Vertical">
                                         <Label  Text="{Binding Descripcion}"
                                                 FontAttributes="Bold" 
                                                 TextColor="White"
@@ -60,9 +62,6 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Button Text="Cerrar" Clicked="CerrarPopup" WidthRequest="200"></Button>
-            <Button Text="Aceptar" Clicked="GuardarPopup" WidthRequest="200"></Button>
-        </StackLayout>
+        <Button Text="Cerrar" Clicked="CerrarPopup" WidthRequest="200"></Button>
     </StackLayout>
 </popup:PopupPage>

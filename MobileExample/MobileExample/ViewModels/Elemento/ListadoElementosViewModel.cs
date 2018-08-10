@@ -18,6 +18,7 @@ namespace MobileExample.ViewModels
         public ObservableCollection<ElementoViewModel> Elementos { get; set; }
 
         public Command ComandoCargarElementos { get; set; }
+        public Command ComandoDeseleccionarElementos { get; set; }
 
         public ListadoElementosViewModel()
         {
@@ -25,7 +26,7 @@ namespace MobileExample.ViewModels
             Elementos = new ObservableCollection<ElementoViewModel>();
 
             ComandoCargarElementos = new Command(() => EjecutarComando());
-
+             
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
             // La idea es que desde la vista de creación se envíe un mensaje con el texto
             // 'AgregarMochila' y el objeto viewModel, y de esa manera se ejecuta esta porçión de código.

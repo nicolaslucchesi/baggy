@@ -10,12 +10,13 @@ namespace MobileExample.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SeleccionarElementosPopup : PopupPage
 	{
-        ListadoElementosViewModel popupViewModel;
-		public SeleccionarElementosPopup (ListadoElementosViewModel viewModel)
+        ListadoElementosViewModel popupViewModel; 
+
+        public SeleccionarElementosPopup (ListadoElementosViewModel viewModel)
 		{
 			InitializeComponent ();
             BindingContext = popupViewModel = viewModel;
-		}
+ 		}
 
         protected override void OnAppearing()
         {
@@ -26,6 +27,12 @@ namespace MobileExample.Views
         }
 
         private async void CerrarPopup(object sender, System.EventArgs e)
+        {
+            popupViewModel.ComandoCargarElementos.Execute(null);
+            await PopupNavigation.PopAsync();
+        }
+
+        private async void GuardarPopup(object sender, System.EventArgs e)
         {
             //Metodo para cerrar el pop-up
             await PopupNavigation.PopAsync();

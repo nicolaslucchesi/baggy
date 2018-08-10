@@ -12,7 +12,7 @@ namespace MobileExample.ViewModels
         public int Id { get; set; }
 
         public TimeSpan Horario { get; set; }
-        public int IdMochila { get; set; }
+        public MochilaViewModel MochilaSeleccionada { get; set; }
         public ListadoElementosViewModel Elementos { get; set; }
         public string HorarioStr { get; set; }
         public bool Lunes { get; set; }
@@ -27,6 +27,7 @@ namespace MobileExample.ViewModels
         {
             this.ComandoEliminarRecordatorio = new Command(Eliminar);
             Elementos = new ListadoElementosViewModel();
+            MochilaSeleccionada = new MochilaViewModel();
         }
 
         public RecordatorioViewModel(RecordatorioViewModel viewModel)
@@ -34,7 +35,7 @@ namespace MobileExample.ViewModels
             Id = viewModel.Id;
             Horario = viewModel.Horario;
             HorarioStr = viewModel.HorarioStr;
-            IdMochila = viewModel.IdMochila;
+            MochilaSeleccionada = viewModel.MochilaSeleccionada;
             Elementos = viewModel.Elementos;
             Lunes = viewModel.Lunes;
             Martes = viewModel.Martes;
