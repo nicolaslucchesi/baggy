@@ -71,19 +71,21 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clima\Astro.cs" />
-    <Compile Include="Clima\ClimaResponse.cs" />
-    <Compile Include="Clima\Condition.cs" />
-    <Compile Include="Clima\Current.cs" />
-    <Compile Include="Clima\Day.cs" />
-    <Compile Include="Clima\Forecast.cs" />
-    <Compile Include="Clima\ForecastDay.cs" />
-    <Compile Include="Clima\Location.cs" />
+    <Compile Include="Clima\CodigosLluvia.cs" />
+    <Compile Include="Clima\Response\Astro.cs" />
+    <Compile Include="Clima\Response\ClimaResponse.cs" />
+    <Compile Include="Clima\Response\Condition.cs" />
+    <Compile Include="Clima\Response\Current.cs" />
+    <Compile Include="Clima\Response\Day.cs" />
+    <Compile Include="Clima\Response\Forecast.cs" />
+    <Compile Include="Clima\Response\ForecastDay.cs" />
+    <Compile Include="Clima\Response\Location.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BluetoothService.cs" />
     <Compile Include="Services\SensorBroadcastReceiver.cs" />
-    <Compile Include="Services\SensorService.cs" />
+    <Compile Include="Services\SincronizacionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -138,15 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\mochila.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Color3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Color1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Color2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
