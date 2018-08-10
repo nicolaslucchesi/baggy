@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage    xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="MobileExample.Views.SeleccionarElementosPopup">
+    <StackLayout     VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    Padding="0" 
+                    Margin="0"
+                    BackgroundColor="WhiteSmoke">
+        <StackLayout BackgroundColor="#fd0900">
+            <Label Text="¿Qué elementos no querés olvidar?" 
+                   TextColor="White"
+                   FontSize="72"
+                   Font="Bold"/>
+        </StackLayout>
+        <StackLayout>
+            <ListView   x:Name="ListadoElementos" 
+                        ItemsSource="{Binding Elementos}"
+                        VerticalOptions="FillAndExpand"
+                        HasUnevenRows="true"
+                        IsPullToRefreshEnabled="false"
+                        CachingStrategy="RecycleElement"
+                        WidthRequest="250">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor= "{StaticResource backgroundColor}"
+                                         Orientation="Vertical"
+                                         HorizontalOptions="CenterAndExpand"
+                                         VerticalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Image Source="{Binding RutaIcono}" WidthRequest="50" HeightRequest="50"/>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label  Text="{Binding Descripcion}"
+                                                FontAttributes="Bold" 
+                                                TextColor="White"
+                                                FontSize="18"/>
+
+                                        <StackLayout Padding="10" Orientation="Vertical">
+                                            <Label x:Name="Imprescindible" 
+                                               Text="Imprescindible" 
+                                               FontSize="15"
+                                               WidthRequest="300"
+                                               XAlign="Center"
+                                               TextColor="White">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
+                                                        <Setter Property="BackgroundColor" Value="Green" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </StackLayout>
+                                        <Switch IsToggled="{Binding Seleccionado}" Grid.Column="1" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Cerrar" Clicked="CerrarPopup" WidthRequest="200"></Button>
+            <Button Text="Aceptar" Clicked="GuardarPopup" WidthRequest="200"></Button>
+        </StackLayout>
+    </StackLayout>
+</popup:PopupPage>

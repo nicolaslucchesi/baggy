@@ -6,7 +6,14 @@
    <StackLayout     VerticalOptions="Center" 
                     HorizontalOptions="Center" 
                     Padding="0" 
-                    Margin="0">
+                    Margin="0"
+                    BackgroundColor="WhiteSmoke">
+        <StackLayout BackgroundColor="#fd0900">
+            <Label Text="Seleccionar una Imagen..." 
+                   TextColor="White"
+                   FontSize="72"
+                   Font="Bold"/>
+        </StackLayout>
         
         <ListView       x:Name="ItemsListView3" 
                         ItemsSource="{Binding Imagenes}"
@@ -17,18 +24,24 @@
                         IsPullToRefreshEnabled="true"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                         CachingStrategy="RecycleElement"
-                        ItemSelected="OnItemSelected">
+                        ItemSelected="OnItemSelected"
+                        WidthRequest="200"
+                        HeightRequest="200">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                             <StackLayout>
-                                <Image Source="{Binding RutaIcono}" WidthRequest="64" HeightRequest="64"/>
+                                <Image Source="{Binding RutaIcono}" 
+                                       WidthRequest="64" 
+                                       HeightRequest="64" />
                             </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+
+       
+
         <Button Text="Cerrar" Clicked="Button_OnClicked" WidthRequest="200"></Button>
     </StackLayout>
  </popup:PopupPage>

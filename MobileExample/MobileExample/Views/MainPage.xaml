@@ -4,18 +4,13 @@
             xmlns:views="clr-namespace:MobileExample.Views"
             x:Class="MobileExample.Views.MainPage">
     <TabbedPage.Children>
-        <NavigationPage Title="Principal">
-            <NavigationPage.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_about.png"/>
-                </OnPlatform>
-            </NavigationPage.Icon>
+        <NavigationPage Title="BaggyLogo.jpg" Icon="BaggyLogo.jpg">
             <x:Arguments>
                 <views:AboutPage />
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="Mochilas" Icon="tab_feed.png">
+        <NavigationPage Title="Mochilas" Icon="BaggyLogo.jpg">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_feed.png"/>
@@ -47,6 +42,6 @@
                 <views:ListadoElementos />
             </x:Arguments>
         </NavigationPage>
-        
+
     </TabbedPage.Children>
 </TabbedPage>

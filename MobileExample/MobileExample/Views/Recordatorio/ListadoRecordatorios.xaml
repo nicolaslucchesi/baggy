@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileExample.Views.ListadoRecordatorios"
               Title="{Binding Title}"
+              Style="{StaticResource PageStyle}"
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Nuevo Recordatorio" Clicked="AgregarRecordatorio_Clicked">
@@ -15,7 +16,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="ItemsListView2" 
+            <ListView x:Name="RecordatoriosListView" 
                 ItemsSource="{Binding Recordatorios}"
                 VerticalOptions="FillAndExpand"
                  HasUnevenRows="true"
@@ -30,17 +31,23 @@
                             <StackLayout Padding="10" Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                                 <StackLayout Padding="10" Orientation="Vertical">
                                     <Label  Text="{Binding HorarioStr}" 
-                                        LineBreakMode="NoWrap" 
-                                        FontSize="72" />
+                                            Style="{StaticResource labelStyle}"
+                                            LineBreakMode="NoWrap" 
+                                            FontSize="42" />
+                                    <Label  Text="{Binding Id}" 
+                                            IsVisible="False"
+                                            />
 
                                     <StackLayout Padding="10" Orientation="Horizontal">
                                         <Label x:Name="Lunes" 
                                                Text="L" 
                                                FontSize="25"
-                                               WidthRequest="30" 
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               IsEnabled="false"
                                                FontAttributes="Bold"
-                                               XAlign="Center"
-                                               TextColor="White">
+                                               TextColor="White"
+                                               XAlign="Center">
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding Lunes}" Value="True">
                                                     <Setter Property="BackgroundColor" Value="Green" />
@@ -50,14 +57,16 @@
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
-                                        
+
                                         <Label x:Name="M" 
                                                Text="M" 
                                                FontSize="25"
-                                               WidthRequest="30" 
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               IsEnabled="false"
                                                FontAttributes="Bold"
-                                               XAlign="Center"
-                                               TextColor="White">
+                                               TextColor="White"
+                                               XAlign="Center">
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding Martes}" Value="True">
                                                     <Setter Property="BackgroundColor" Value="Green" />
@@ -67,14 +76,16 @@
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
-                                        
+
                                         <Label x:Name="Miercoles" 
                                                Text="M" 
                                                FontSize="25"
-                                               WidthRequest="30" 
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               IsEnabled="false"
                                                FontAttributes="Bold"
-                                               XAlign="Center"
-                                               TextColor="White">
+                                               TextColor="White"
+                                               XAlign="Center">
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding Miercoles}" Value="True">
                                                     <Setter Property="BackgroundColor" Value="Green" />
@@ -84,14 +95,16 @@
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
-                                        
+
                                         <Label x:Name="Jueves" 
                                                Text="J" 
                                                FontSize="25" 
-                                               WidthRequest="30" 
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               IsEnabled="false"
                                                FontAttributes="Bold"
-                                               XAlign="Center"
-                                               TextColor="White">
+                                               TextColor="White"
+                                               XAlign="Center">
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding Jueves}" Value="True">
                                                     <Setter Property="BackgroundColor" Value="Green" />
@@ -101,14 +114,16 @@
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
-                                       
+
                                         <Label x:Name="Viernes" 
                                                Text="V" 
                                                FontSize="25"
-                                               WidthRequest="30" 
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               IsEnabled="false"
                                                FontAttributes="Bold"
-                                               XAlign="Center"
-                                               TextColor="White">
+                                               TextColor="White"
+                                               XAlign="Center">
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding Viernes}" Value="True">
                                                     <Setter Property="BackgroundColor" Value="Green" />
@@ -118,19 +133,17 @@
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
-                                       
-
                                     </StackLayout>
                                 </StackLayout>
-                                
-                                <StackLayout>
-                                        <Button HorizontalOptions="End" Image="trash.png" WidthRequest="45" HeightRequest="45" Command="{Binding ComandoEliminarRecordatorio}">
-                                        </Button>
-                                   
-                                </StackLayout>
+                                <Button HorizontalOptions="CenterAndExpand"
+                                        Image="trash.png" 
+                                        WidthRequest="30"
+                                        HeightRequest="30" 
+                                        BorderRadius="15"
+                                        BackgroundColor="White"
+                                        Command="{Binding ComandoEliminarRecordatorio}">
+                                </Button>
                             </StackLayout>
-                            
-                            
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

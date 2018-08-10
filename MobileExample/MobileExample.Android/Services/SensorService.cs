@@ -14,6 +14,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using MobileExample.Droid.Clima;
+using MobileExample.Database;
 using MobileExample.Tables;
 using Newtonsoft.Json;
 using SQLite;
@@ -79,12 +80,12 @@ namespace MobileExample.Droid.Services
         /// <param name="e"></param>
         private async void accionTimer(object sender, ElapsedEventArgs e)
         {
-            var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
-            var db = new SQLiteConnection(path);
-            int cantidadMochilas = db.Table<Mochila>().Count();
-            int cantidadRecordatorios = db.Table<Recordatorio>().Count();
-            int cantidadElementos = db.Table<Elemento>().Count();
-            string textoNotificacion = String.Empty;
+            int cantidadMochilas = DatabaseHelper.db.Table<Mochila>().Count();
+            int cantidadRecordatorios = DatabaseHelper.db.Table<Recordatorio>().Count();
+            int cantidadElementos = DatabaseHelper.db.Table<Elemento>().Count();
+            string textoNotificacion = "Hay " + cantidadMochilas + " mochilas, "
+                                            + cantidadRecordatorios + " recordatorios y "
+                                            + cantidadElementos + " elementos.";
 
             HttpResponseMessage respuestaClima = await client.GetAsync(urlClima);
             string respuestaString = await respuestaClima.Content.ReadAsStringAsync();

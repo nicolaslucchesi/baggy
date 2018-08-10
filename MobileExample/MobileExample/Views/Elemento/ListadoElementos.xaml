@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileExample.Views.ListadoElementos"
               Title="{Binding Title}"
+             Style="{StaticResource PageStyle}"
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Nuevo Elemento" Clicked="AgregarElemento_Clicked">
@@ -16,6 +17,7 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView   x:Name="ItemsListView3" 
+                        BackgroundColor="{DynamicResource backgroundColor}"
                         ItemsSource="{Binding Elementos}"
                         VerticalOptions="FillAndExpand"
                         HasUnevenRows="true"
@@ -27,14 +29,17 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout BackgroundColor="#eee"
-                                         Orientation="Vertical"
+                            <StackLayout Orientation="Vertical"
                                          HorizontalOptions="CenterAndExpand"
                                          VerticalOptions="FillAndExpand">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Image Source="{Binding RutaIcono}" WidthRequest="120" HeightRequest="120"/>
+                                    <Image Source="{Binding RutaIcono}" 
+                                           WidthRequest="120" 
+                                           HeightRequest="120"
+                                           BackgroundColor="Red"/>
                                      <StackLayout Orientation="Vertical">
                                         <Label  Text="{Binding Descripcion}"
+                                                TextColor ="White"
                                                 FontAttributes="Bold" 
                                                 FontSize="40"/>
 
