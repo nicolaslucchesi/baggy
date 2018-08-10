@@ -89,13 +89,14 @@ namespace MobileExample.Droid.Services
             HttpResponseMessage respuestaClima = await client.GetAsync(urlClima);
             string respuestaString = await respuestaClima.Content.ReadAsStringAsync();
             ClimaResponse respuesta = JsonConvert.DeserializeObject<ClimaResponse>(respuestaString);
-            if (respuesta.forecast.forecastday[0].day.condition.code > 1050)
+            if (CodigosLluvia.Codigos.Contains(respuesta.forecast.forecastday[0].day.condition.code))
             {
                 textoNotificacion = "Habrá lluvias hoy. Hay " + cantidadMochilas + " mochilas, "
                                                 + cantidadRecordatorios + " recordatorios y "
                                                 + cantidadElementos + " elementos.";
             }
-            else {
+            else
+            {
                 textoNotificacion = "Hoy no llueve! Hay " + cantidadMochilas + " mochilas, "
                                                 + cantidadRecordatorios + " recordatorios y "
                                                 + cantidadElementos + " elementos.";
