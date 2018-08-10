@@ -4,13 +4,14 @@ using MobileExample.Tables;
 
 namespace MobileExample.ViewModels
 {
-    public class VerElementoViewModel : BaseViewModel
+    public class VerMochilaViewModel : BaseViewModel
     {
-        public Elemento Item { get; set; }
-        public VerElementoViewModel(Elemento item = null)
+        public Mochila Item { get; set; }
+        public VerMochilaViewModel(Mochila item = null)
         {
             Title = item?.Descripcion;
             Item = item;
+            string Descripcion = item?.Descripcion;
         }
     }
 }

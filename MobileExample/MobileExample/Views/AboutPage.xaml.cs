@@ -10,7 +10,10 @@ namespace MobileExample.Views
 	{
 		public AboutPage ()
 		{
-			InitializeComponent ();
-		}
-	}
+            NavigationPage.SetTitleIcon(this, "BaggyLogo.jpg");
+            
+            InitializeComponent ();
+            NavigationPage.SetTitleIcon(this, "BaggyLogo.jpg");
+        }
+    }
 }

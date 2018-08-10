@@ -1,4 +1,5 @@
-﻿using MobileExample.Tables;
+﻿using MobileExample.Database;
+using MobileExample.Tables;
 using MobileExample.Views;
 using SQLite;
 using System;
@@ -14,19 +15,18 @@ namespace MobileExample.ViewModels
 {
     public class ListadoElementosViewModel : BaseViewModel
     {
-        private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DatabaseSQLite.db3");
-        private static SQLiteConnection db = new SQLiteConnection(path);
-
         public ObservableCollection<ElementoViewModel> Elementos { get; set; }
 
         public Command ComandoCargarElementos { get; set; }
+        public Command ComandoDeseleccionarElementos { get; set; }
 
         public ListadoElementosViewModel()
         {
             Title = "Mis Elementos";
             Elementos = new ObservableCollection<ElementoViewModel>();
-            ComandoCargarElementos = new Command(() => EjecutarComando());
 
+            ComandoCargarElementos = new Command(() => EjecutarComando());
+             
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
             // La idea es que desde la vista de creación se envíe un mensaje con el texto
             // 'AgregarMochila' y el objeto viewModel, y de esa manera se ejecuta esta porçión de código.
@@ -40,16 +40,18 @@ namespace MobileExample.ViewModels
                     Vinculado = elementoViewModel.Vinculado
                 };
 
-                db.Insert(elemento);
+                DatabaseHelper.db.Insert(elemento);
                 Elementos.Add(elementoViewModel);
             });
 
             MessagingCenter.Subscribe<ElementoViewModel, ElementoViewModel>(this, "EliminarElemento", (sender, elementoViewModel) =>
             {
-                Elemento elementoAEliminar = db.Table<Elemento>().Where(e => e.Id.Equals(elementoViewModel.Id)).FirstOrDefault();
-                db.Delete(elementoAEliminar);
+                Elemento elementoAEliminar = DatabaseHelper.db.Table<Elemento>().Where(e => e.Id.Equals(elementoViewModel.Id)).FirstOrDefault();
+                DatabaseHelper.db.Delete(elementoAEliminar);
                 Elementos.Remove(elementoViewModel);
             });
+
+           
         }
 
         private void EjecutarComando()
@@ -65,6 +67,7 @@ namespace MobileExample.ViewModels
             {
                 Elementos.Clear();
                 var elementos = this.ObtenerElementos();
+
                 foreach (var elemento in elementos)
                 {
                     Elementos.Add(elemento);
@@ -83,7 +86,8 @@ namespace MobileExample.ViewModels
         private List<ElementoViewModel> ObtenerElementos()
         {
             List<ElementoViewModel> listadoElementos = new List<ElementoViewModel>();
-            foreach (Elemento elemento in db.Table<Elemento>().ToList())
+            int cantidad = 0;
+            foreach (Elemento elemento in DatabaseHelper.db.Table<Elemento>().ToList())
             {
                 ElementoViewModel elementoViewModel = new ElementoViewModel();
                 elementoViewModel.Imprescindible = elemento.Imprescindible;
@@ -91,6 +95,9 @@ namespace MobileExample.ViewModels
                 elementoViewModel.Descripcion = elemento.Descripcion;
                 elementoViewModel.Vinculado = elemento.Vinculado;
                 elementoViewModel.UUID = elemento.UUID;
+                elementoViewModel.Id = elemento.Id;
+                elementoViewModel.IdInterno = cantidad;
+                cantidad++;
                 listadoElementos.Add(elementoViewModel);
             }
 

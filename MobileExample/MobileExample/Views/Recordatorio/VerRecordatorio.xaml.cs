@@ -8,9 +8,9 @@ using MobileExample.ViewModels;
 
 namespace MobileExample.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class VerRecordatorio : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class VerRecordatorio : ContentPage
+    {
         VerRecordatorioViewModel viewModel;
 
         public VerRecordatorio(VerRecordatorioViewModel viewModel)
@@ -20,16 +20,12 @@ namespace MobileExample.Views
             BindingContext = this.viewModel = viewModel;
         }
 
-        
+
         public VerRecordatorio()
         {
-           InitializeComponent();
+            InitializeComponent();
 
-            var item = new RecordatorioViewModel
-            {
-                Minuto = 7,
-                DiaSemana = 5
-            };
+            var item = new RecordatorioViewModel();
 
             viewModel = new VerRecordatorioViewModel(item);
             BindingContext = viewModel;

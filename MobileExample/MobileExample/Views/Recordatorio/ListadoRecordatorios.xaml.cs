@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using MobileExample.Tables;
 using MobileExample.Views;
 using MobileExample.ViewModels;
+using MobileExample.Database;
+using SQLiteNetExtensions.Extensions;
 
 namespace MobileExample.Views
 {
@@ -17,30 +19,25 @@ namespace MobileExample.Views
 	public partial class ListadoRecordatorios : ContentPage
 	{
         ListadoRecordatoriosViewModel viewModel;
-     
 
         public ListadoRecordatorios()
         {
-
             InitializeComponent();
             BindingContext = viewModel = new ListadoRecordatoriosViewModel();
         }
-        
-        /// <summary>
-        /// Este metodo se ejecuta cuando se selecciona un item de la lista.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
+
+
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var item = args.SelectedItem as RecordatorioViewModel;
             if (item == null)
                 return;
 
-            //  await Navigation.PushAsync(new NavigationPage(new VerMochila(item)));
-            await Navigation.PushAsync(new VerRecordatorio(new VerRecordatorioViewModel(item)));
-            // Manually deselect item.
-            ItemsListView2.SelectedItem = null;
+            RecordatorioViewModel viewModel = this.ObtenerRecordatorioConElementos(item.Id);
+
+            await Navigation.PushAsync(new VerRecordatorio(new VerRecordatorioViewModel(viewModel)));
+
+            RecordatoriosListView.SelectedItem = null;
         }
 
         async void AgregarRecordatorio_Clicked(object sender, EventArgs e)
@@ -54,6 +51,11 @@ namespace MobileExample.Views
 
             if (viewModel.Recordatorios.Count == 0)
                 viewModel.ComandoCargarRecordatorios.Execute(null);
+        }
+
+        private RecordatorioViewModel ObtenerRecordatorioConElementos(int Id) {
+            Recordatorio recordatorio = DatabaseHelper.db.GetWithChildren<Recordatorio>(Id);
+            return (RecordatorioViewModel)recordatorio;
         }
     }
 }

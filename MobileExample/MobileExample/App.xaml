@@ -4,12 +4,27 @@
              x:Class="MobileExample.App">
 	<Application.Resources>
 		<ResourceDictionary>
-            <!--Global Styles-->
+            <!-- Valores globales de colores-->
             <Color x:Key="NavigationPrimary">#EB2903</Color>
-            <Style TargetType="NavigationPage">
+            <Color x:Key="backgroundColor">#1d1c1b</Color>
+            <Color x:Key="textColor">White</Color>
+            <!-- Valores globales de estilos
+            Hay un estilo para cada componente-->
+            
+            <Style x:Key="PageStyle" TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="{StaticResource backgroundColor}"/>
             </Style>
+            
+            <Style x:Key="labelStyle" TargetType="Label">
+                    <Setter Property="TextColor" Value="{DynamicResource textColor}" />
+            </Style>
+            
+            <Style x:Key="backgroundStyle" TargetType="VisualElement">
+                    <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}" />
+            </Style>
+            
         </ResourceDictionary>
 	</Application.Resources>
 </Application>
