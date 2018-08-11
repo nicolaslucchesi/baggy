@@ -77,6 +77,28 @@
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
+                    
+                    <Button x:Name="BotonSabado" Text="Sa" Clicked="ApretarBotonDia" BorderRadius="30" WidthRequest="60" HeightRequest="60" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchSabado}, Path= IsToggled}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchSabado}, Path= IsToggled}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    
+                    <Button x:Name="BotonDomingo" Text="Do" Clicked="ApretarBotonDia" BorderRadius="30" WidthRequest="60" HeightRequest="60" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchDomingo}, Path= IsToggled}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchDomingo}, Path= IsToggled}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
 
                 </StackLayout>
 
@@ -86,6 +108,8 @@
                     <Switch x:Name="SwitchMiercoles" IsToggled ="{Binding RecordatorioViewModel.Miercoles}"></Switch>
                     <Switch x:Name="SwitchJueves" IsToggled ="{Binding RecordatorioViewModel.Jueves}"></Switch>
                     <Switch x:Name="SwitchViernes" IsToggled ="{Binding RecordatorioViewModel.Viernes}"></Switch>
+                    <Switch x:Name="SwitchSabado" IsToggled ="{Binding RecordatorioViewModel.Sabado}"></Switch>
+                    <Switch x:Name="SwitchDomingo" IsToggled ="{Binding RecordatorioViewModel.Domingo}"></Switch>
                 </StackLayout>
 
                 <Button         Text="Seleccionar Elementos" 

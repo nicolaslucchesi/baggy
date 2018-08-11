@@ -10,7 +10,7 @@
                 <Label Text="{Binding Item.HorarioStr}" FontSize="Medium"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="BotonLunes" Text="Lu" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
+                <Button x:Name="BotonLunes" IsEnabled="False" Text="Lu" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Item.Lunes}" Value="True">
                             <Setter Property="BackgroundColor" Value="Green" />
@@ -21,7 +21,7 @@
                     </Button.Triggers>
                 </Button>
 
-                <Button x:Name="BotonMartes" Text="Ma" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
+                <Button x:Name="BotonMartes" IsEnabled="False" Text="Ma" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Item.Martes}" Value="True">
                             <Setter Property="BackgroundColor" Value="Green" />
@@ -32,7 +32,7 @@
                     </Button.Triggers>
                 </Button>
 
-                <Button x:Name="BotonMiercoles" Text="Mi" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
+                <Button x:Name="BotonMiercoles" IsEnabled="False" Text="Mi" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Item.Miercoles}" Value="True">
                             <Setter Property="BackgroundColor" Value="Green" />
@@ -43,7 +43,7 @@
                     </Button.Triggers>
                 </Button>
 
-                <Button x:Name="BotonJueves" Text="Ju" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
+                <Button x:Name="BotonJueves" IsEnabled="False" Text="Ju" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Item.Jueves}" Value="True">
                             <Setter Property="BackgroundColor" Value="Green" />
@@ -54,12 +54,34 @@
                     </Button.Triggers>
                 </Button>
 
-                <Button x:Name="BotonViernes" Text="Vi" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
+                <Button x:Name="BotonViernes" IsEnabled="False" Text="Vi" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Item.Viernes}" Value="True">
                             <Setter Property="BackgroundColor" Value="Green" />
                         </DataTrigger>
                         <DataTrigger TargetType="Button" Binding="{Binding Item.Viernes}" Value="False">
+                            <Setter Property="BackgroundColor" Value="Red" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <Button x:Name="BotonSabado" IsEnabled="False" Text="Sa" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.Sabado}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.Sabado}" Value="False">
+                            <Setter Property="BackgroundColor" Value="Red" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <Button x:Name="BotonDomingo" IsEnabled="False" Text="Do" BorderRadius="25" WidthRequest="50" HeightRequest="50" >
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.Domingo}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.Domingo}" Value="False">
                             <Setter Property="BackgroundColor" Value="Red" />
                         </DataTrigger>
                     </Button.Triggers>

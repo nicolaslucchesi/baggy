@@ -46,6 +46,7 @@ namespace MobileExample
             DatabaseHelper.db.CreateTable<Mochila>();
             DatabaseHelper.db.CreateTable<Recordatorio>();
             DatabaseHelper.db.CreateTable<ElementoRecordatorio>();
+            DatabaseHelper.db.CreateTable<ElementoAgregado>();
         }
     }
 }

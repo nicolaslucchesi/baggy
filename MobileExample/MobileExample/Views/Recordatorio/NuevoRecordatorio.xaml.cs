@@ -124,6 +124,12 @@ namespace MobileExample.Views
                 case "Vi":
                     SwitchViernes.IsToggled = !SwitchViernes.IsToggled;
                     break;
+                case "Sa":
+                    SwitchSabado.IsToggled = !SwitchSabado.IsToggled;
+                    break;
+                case "Do":
+                    SwitchDomingo.IsToggled = !SwitchDomingo.IsToggled;
+                    break;
                 default:
                     break;
             }
@@ -138,7 +144,8 @@ namespace MobileExample.Views
             recordatorioViewModel.Miercoles = SwitchMiercoles.IsToggled;
             recordatorioViewModel.Jueves = SwitchJueves.IsToggled;
             recordatorioViewModel.Viernes = SwitchViernes.IsToggled;
-
+            recordatorioViewModel.Sabado = SwitchSabado.IsToggled;
+            recordatorioViewModel.Domingo = SwitchDomingo.IsToggled;
         }
     }
 }

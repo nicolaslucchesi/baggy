@@ -9,12 +9,6 @@ namespace MobileExample.Tables
     [Table("InformacionSincronizada")]
     public class InformacionSincronizada
     {
-        public InformacionSincronizada(ModeloRespuesta modeloRespuesta)
-        {
-            this.Data = modeloRespuesta.Data;
-            this.Fecha = DateTime.Now;
-        }
-
         [PrimaryKey, AutoIncrement, Column("Id")]
         public int Id { get; set; }
 

@@ -39,6 +39,8 @@ namespace MobileExample.ViewModels
                     Miercoles = recordatorioViewModel.Miercoles,
                     Jueves = recordatorioViewModel.Jueves,
                     Viernes = recordatorioViewModel.Viernes,
+                    Sabado = recordatorioViewModel.Sabado,
+                    Domingo = recordatorioViewModel.Domingo,
                     Elementos = new List<Elemento>(),
                     IdMochila = recordatorioViewModel.MochilaSeleccionada.Id
                 };
@@ -107,6 +109,8 @@ namespace MobileExample.ViewModels
                 recordatorioViewModel.Miercoles = recordatorio.Miercoles;
                 recordatorioViewModel.Jueves = recordatorio.Jueves;
                 recordatorioViewModel.Viernes = recordatorio.Viernes;
+                recordatorioViewModel.Sabado = recordatorio.Sabado;
+                recordatorioViewModel.Domingo = recordatorio.Domingo;
                 recordatorioViewModel.HorarioStr = recordatorio.Horario.ToString(@"hh\:mm");
                 listadoRecordatorios.Add(recordatorioViewModel);
             }

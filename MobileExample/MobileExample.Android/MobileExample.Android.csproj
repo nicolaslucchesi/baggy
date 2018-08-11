@@ -71,6 +71,8 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bateria\ControlBateria.cs" />
+    <Compile Include="Bateria\InterfazBateria.cs" />
     <Compile Include="Clima\CodigosLluvia.cs" />
     <Compile Include="Clima\Response\Astro.cs" />
     <Compile Include="Clima\Response\ClimaResponse.cs" />
