@@ -33,7 +33,7 @@ namespace MobileExample.Droid.Services
     {
         public int contador = 0;
         public HttpClient client = new HttpClient();
-        public string urlClima = "http://api.apixu.com/v1/forecast.json?key=d8c869676cba4733b9f230353180108&q=-34.669090,-58.564331&days=1";
+        public string urlClima = "https://api.apixu.com/v1/forecast.json?key=d8c869676cba4733b9f230353180108&q=-34.669090,-58.564331&days=1";
         public BluetoothService bluetoothService = new BluetoothService();
 
         public SincronizacionService(Context contexto) : base("SincronizacionService")
@@ -74,7 +74,7 @@ namespace MobileExample.Droid.Services
         /// </summary>
         public void ComenzarContador()
         {
-            timer = new Timer(15000);
+            timer = new Timer(60000);
             timer.Elapsed += new ElapsedEventHandler(AccionTimer);
             timer.Enabled = true;
         }
@@ -88,7 +88,6 @@ namespace MobileExample.Droid.Services
         private async void AccionTimer(object sender, ElapsedEventArgs e)
         {
             string textoNotificacion = string.Empty;
-
             // PRIMERO - Intentar sincronizar la información
             string data = bluetoothService.Sincronizar();
 
@@ -101,6 +100,7 @@ namespace MobileExample.Droid.Services
                         // Si es información de una sincronización, la guardo en la BD.
                         ModeloSincronizacion modeloSincronizacion = JsonConvert.DeserializeObject<ModeloSincronizacion>(respuestaSincronizacion.Data);
                         InformacionSincronizada informacionSincronizada = new InformacionSincronizada { Fecha = DateTime.Now, Data = respuestaSincronizacion.Data };
+                        DatabaseHelper.db.DeleteAll<InformacionSincronizada>();
                         DatabaseHelper.db.Insert(informacionSincronizada);
                         break;
                     case (int)EnumCodigos.NuevoElemento:
@@ -134,9 +134,11 @@ namespace MobileExample.Droid.Services
                         string mensajeNotificacion = String.Empty;
                         if (recordatorios.IndexOf(recordatorio) == 0)
                         {
-                            // Es el primero del día, hay que buscar la info del clima.
-                            // Y el saludo.
-                            mensajeNotificacion += await ObtenerInformacionClima();
+                            HttpResponseMessage response = await client.GetAsync(urlClima);
+                            // Es el primero del día, hay que buscar la info del clima,
+                            // y el saludo.
+                            mensajeNotificacion += await ObtenerInformacionClima(response);
+
                             mensajeNotificacion += ObtenerInformacionBateria();
                         }
 
@@ -198,29 +200,29 @@ namespace MobileExample.Droid.Services
             return recordatorios;
         }
 
-        private async Task<string> ObtenerInformacionClima()
+        private async Task<string> ObtenerInformacionClima(HttpResponseMessage respuestaClima)
         {
-            HttpResponseMessage respuestaClima = await client.GetAsync(urlClima);
-            string respuestaString = await respuestaClima.Content.ReadAsStringAsync();
-            ClimaResponse respuesta = JsonConvert.DeserializeObject<ClimaResponse>(respuestaString);
+                string respuestaString = await respuestaClima.Content.ReadAsStringAsync();
+                ClimaResponse respuesta = JsonConvert.DeserializeObject<ClimaResponse>(respuestaString);
 
-            // CHEQUEAR PARAGUAS
+                // CHEQUEAR PARAGUAS
 
-            if (CodigosLluvia.Codigos.Contains(respuesta.forecast.forecastday[0].day.condition.code))
-            {
-                return "Primer mensaje del día! Habrá lluvias hoy. ";
-            }
-            else
-            {
-                return "Primer mensaje del día! Hoy no llueve! ";
-            }
+                if (CodigosLluvia.Codigos.Contains(respuesta.forecast.forecastday[0].day.condition.code))
+                {
+                    return "Primer mensaje del día! Habrá lluvias hoy. ";
+                }
+                else
+                {
+                    return "Primer mensaje del día! Hoy no llueve! ";
+                }
         }
 
         private string ObtenerInformacionBateria()
         {
             string mensaje = string.Empty;
             int PorcentajeBateria = DependencyService.Get<IBattery>().RemainingChargePercent;
-            if (PorcentajeBateria < 50) {
+            if (PorcentajeBateria < 50)
+            {
                 // CHEQUEAR CARGADOR
                 mensaje += "No te olvides el cargador!";
             }
@@ -245,25 +247,51 @@ namespace MobileExample.Droid.Services
             notificationManager.Notify(notificationId, notification);
         }
 
-        private string ObtenerMensajeElementos(List<Elemento> elementosEnMochila)
+        private string ObtenerMensajeElementos(List<Elemento> elementosEnRecordatorio)
         {
             string mensaje = String.Empty;
             // Debo comparar los elementos que me llegaron por parámetro con los elementos que tengo en la mochila,
             // que los voy a sacar de la tabla de sincronización.
-            InformacionSincronizada informacion = DatabaseHelper.db.Table<InformacionSincronizada>().OrderBy(x => x.Fecha).First();
+            InformacionSincronizada informacion = DatabaseHelper.db.Table<InformacionSincronizada>().FirstOrDefault();
             List<string> UUIDsEnMochila = JsonConvert.DeserializeObject<List<String>>(informacion.Data);
-            List<string> UUIDsEnRecordatorio = elementosEnMochila.Select(x => x.UUID).ToList();
+            List<string> UUIDsEnRecordatorio = elementosEnRecordatorio.Select(x => x.UUID).ToList();
 
             // PRIMERO - Me fijo si falta algo
-            foreach (string UUIDEnMochila in UUIDsEnMochila)
+            foreach (string UUIDEnRecordatorio in UUIDsEnRecordatorio)
             {
+                List<Elemento> elementosOlvidados = new List<Elemento>();
+                if (!UUIDsEnMochila.Contains(UUIDEnRecordatorio))
+                {
+                    Elemento elementoOlvidado = DatabaseHelper.db.Table<Elemento>().FirstOrDefault(e => e.UUID.Equals(UUIDEnRecordatorio));
+                    elementosOlvidados.Add(elementoOlvidado);
+                }
 
+                if (elementosOlvidados.Count > 0)
+                {
+                    mensaje +=
+                        elementosOlvidados.Count == 1 ? "Te estás olvidando el siguiente elemento: " : "Te estás olviando los siguientes elementos: " +
+                        String.Join(", ", elementosOlvidados.Select(e => e.Descripcion)) +
+                        "!";
+                }
             }
 
             // SEGUNDO - Me fijo si sobra algo
-            foreach (string UUIDEnRecordatorio in UUIDsEnRecordatorio)
+            foreach (string UUIDEnMochila in UUIDsEnMochila)
             {
+                List<Elemento> elementosSobrantes = new List<Elemento>();
+                if (!UUIDsEnRecordatorio.Contains(UUIDEnMochila))
+                {
+                    Elemento elementoSobrante = DatabaseHelper.db.Table<Elemento>().FirstOrDefault(e => e.UUID.Equals(UUIDEnMochila));
+                    elementosSobrantes.Add(elementoSobrante);
+                }
 
+                if (elementosSobrantes.Count > 0)
+                {
+                    mensaje +=
+                        elementosSobrantes.Count == 1 ? "Te sobra el siguiente elemento: " : "Te sobran los siguientes elementos: " +
+                        String.Join(", ", elementosSobrantes.Select(e => e.Descripcion)) +
+                        "!";
+                }
             }
 
             // Si el mensaje sigue vacío hasta acá es porque no falta nada

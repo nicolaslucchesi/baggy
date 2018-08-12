@@ -10,9 +10,9 @@ namespace MobileExample.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SeleccionarElementosPopup : PopupPage
 	{
-        ListadoElementosViewModel popupViewModel; 
+        ListadoElementosRecordatorioViewModel popupViewModel; 
 
-        public SeleccionarElementosPopup (ListadoElementosViewModel viewModel)
+        public SeleccionarElementosPopup (ListadoElementosRecordatorioViewModel viewModel)
 		{
 			InitializeComponent ();
             BindingContext = popupViewModel = viewModel;
@@ -28,7 +28,6 @@ namespace MobileExample.Views
 
         private async void CerrarPopup(object sender, System.EventArgs e)
         {
-            popupViewModel.ComandoCargarElementos.Execute(null);
             await PopupNavigation.PopAsync();
         }
 
