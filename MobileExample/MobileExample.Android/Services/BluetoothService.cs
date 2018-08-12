@@ -16,9 +16,9 @@ namespace MobileExample.Droid.Services
     {
         public BluetoothService() { }
         public string Sincronizar() {
-            return string.Empty;
+            //return string.Empty;
             // Para probar sincronizacion de elementos:
-            // return "{'Codigo': 1, 'Data': '{1, 2, 3}'}";
+            return @"{""Codigo"": 1, ""Data"": ""uuid-1,uuid-3"" }";
             // Para probar agregar un nuevo elemento:
             // return "{'Codigo': 2, 'Data': 1}"
             // Para probar la alarma:

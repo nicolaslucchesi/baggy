@@ -2,6 +2,6 @@
 {
     public class ModeloSincronizacion
     {
-        public int[] UUIDs { get; set; }
+        public object[] UUIDs { get; set; }
     }
 }

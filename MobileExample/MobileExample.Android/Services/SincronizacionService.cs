@@ -24,6 +24,7 @@ using MobileExample.Sincronizacion;
 using MobileExample.ViewModels;
 using System.Threading.Tasks;
 using InterfazBateria;
+using Android.Support.V4.App;
 
 namespace MobileExample.Droid.Services
 {
@@ -98,21 +99,20 @@ namespace MobileExample.Droid.Services
                 {
                     case (int)EnumCodigos.Sincronizar:
                         // Si es información de una sincronización, la guardo en la BD.
-                        ModeloSincronizacion modeloSincronizacion = JsonConvert.DeserializeObject<ModeloSincronizacion>(respuestaSincronizacion.Data);
-                        InformacionSincronizada informacionSincronizada = new InformacionSincronizada { Fecha = DateTime.Now, Data = respuestaSincronizacion.Data };
+                        InformacionSincronizada informacionSincronizada = new InformacionSincronizada { Fecha = DateTime.Now, Data = respuestaSincronizacion.Data.ToString()};
                         DatabaseHelper.db.DeleteAll<InformacionSincronizada>();
                         DatabaseHelper.db.Insert(informacionSincronizada);
                         break;
                     case (int)EnumCodigos.NuevoElemento:
                         // Si es información de un nuevo elemento solicitado, lo guardo en la tabla temporal.
-                        ModeloNuevoElemento modeloNuevoElemento = JsonConvert.DeserializeObject<ModeloNuevoElemento>(respuestaSincronizacion.Data);
-                        ElementoAgregado nuevoElemento = new ElementoAgregado { UUID = modeloNuevoElemento.UUID };
+                        string nuevoUUID = respuestaSincronizacion.Data.ToString();
+                        ElementoAgregado nuevoElemento = new ElementoAgregado { UUID = nuevoUUID };
                         DatabaseHelper.db.Insert(nuevoElemento);
                         break;
                     case (int)EnumCodigos.Alarma:
                         // Si es información de la mochila en modo 'alarma', hay que guardarla también
                         // TODO: DEFINIR
-                        ModeloAlarma modeloAlarma = JsonConvert.DeserializeObject<ModeloAlarma>(respuestaSincronizacion.Data);
+                        bool mochilaAbierta = (Convert.ToBoolean(respuestaSincronizacion.Data));
                         break;
                     default:
                         break;
@@ -232,13 +232,14 @@ namespace MobileExample.Droid.Services
 
         private void EnviarNotificacion(string mensajeNotificacion)
         {
-            Notification.Builder builder = new Notification.Builder(this)
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .SetContentTitle("Hola!")
-                .SetContentText(mensajeNotificacion)
                 // Esta linea es para que vibre y suene. Por ahora queda deshabilitada porque
                 // es un dolor de pelotas que suene todo el tiempo.
                 //.SetDefaults(NotificationDefaults.Vibrate | NotificationDefaults.Sound)
-                .SetSmallIcon(Resource.Drawable.BaggyLogo1);
+                .SetSmallIcon(Resource.Drawable.BaggyLogo1)
+                .SetStyle(new NotificationCompat.BigTextStyle().BigText(mensajeNotificacion))
+                .SetContentText(mensajeNotificacion);
 
             Notification notification = builder.Build();
             NotificationManager notificationManager =
@@ -253,7 +254,7 @@ namespace MobileExample.Droid.Services
             // Debo comparar los elementos que me llegaron por parámetro con los elementos que tengo en la mochila,
             // que los voy a sacar de la tabla de sincronización.
             InformacionSincronizada informacion = DatabaseHelper.db.Table<InformacionSincronizada>().FirstOrDefault();
-            List<string> UUIDsEnMochila = JsonConvert.DeserializeObject<List<String>>(informacion.Data);
+            List<string> UUIDsEnMochila = informacion.Data.Split(',').ToList();
             List<string> UUIDsEnRecordatorio = elementosEnRecordatorio.Select(x => x.UUID).ToList();
 
             // PRIMERO - Me fijo si falta algo
@@ -269,7 +270,7 @@ namespace MobileExample.Droid.Services
                 if (elementosOlvidados.Count > 0)
                 {
                     mensaje +=
-                        elementosOlvidados.Count == 1 ? "Te estás olvidando el siguiente elemento: " : "Te estás olviando los siguientes elementos: " +
+                        (elementosOlvidados.Count == 1 ? "Te estás olvidando el siguiente elemento: " : "Te estás olviando los siguientes elementos: ") +
                         String.Join(", ", elementosOlvidados.Select(e => e.Descripcion)) +
                         "!";
                 }
@@ -288,7 +289,7 @@ namespace MobileExample.Droid.Services
                 if (elementosSobrantes.Count > 0)
                 {
                     mensaje +=
-                        elementosSobrantes.Count == 1 ? "Te sobra el siguiente elemento: " : "Te sobran los siguientes elementos: " +
+                        (elementosSobrantes.Count == 1 ? "Te sobra el siguiente elemento: " : "Te sobran los siguientes elementos: ") +
                         String.Join(", ", elementosSobrantes.Select(e => e.Descripcion)) +
                         "!";
                 }
