@@ -24,12 +24,27 @@ namespace MobileExample.Views
 			InitializeComponent ();
             BindingContext = viewModel = new ListadoImagenesElementosViewModel();
 
+            
+            Libro.TranslateTo(0, 100, 3000); 
+
             UUID = "123456";               
         }
  
         private async void Button_OnClicked(object sender, EventArgs e)
         {
             //Metodo para cerrar el pop-up
+            await PopupNavigation.PopAsync();
+        }
+
+        async void Cancelar_OnClicked (object sender, SelectedItemChangedEventArgs args)
+        {
+            MessagingCenter.Send(this, "VincularElemento", false);
+            await PopupNavigation.PopAsync();
+        }
+
+        async void Aceptar_OnClicked(object sender, SelectedItemChangedEventArgs args)
+        {
+            MessagingCenter.Send(this, "VincularElemento", true);
             await PopupNavigation.PopAsync();
         }
     }

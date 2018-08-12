@@ -29,7 +29,7 @@ namespace MobileExample.Views
             ElementoViewModel = new ElementoViewModel
             {
                 Descripcion = "Nuevo Elemento",
-                RutaIcono = "BaggyLogo.jpg",
+                RutaIcono = "AgregarObjeto.png",
                 Imprescindible = true,
                 Vinculado = true
             };
@@ -42,12 +42,13 @@ namespace MobileExample.Views
             MessagingCenter.Subscribe<Popup, ImagenElementoViewModel>(this, "SeleccionarImagen", (obj, imagenelementoViewModel) =>
             {
                 ElementoViewModel.RutaIcono = imagenelementoViewModel.RutaIcono;
-                //ImagenImagen.Source = imagenelementoViewModel.RutaIcono; 
+                ImagenElemento.Source = imagenelementoViewModel.RutaIcono; 
             });
 
-            MessagingCenter.Subscribe<VincularElemento, ImagenElementoViewModel>(this, "VincularElemento", (obj, imagenelementoViewModel) =>
+            MessagingCenter.Subscribe<VincularElemento, bool>(this, "VincularElemento", (obj, vinculado) =>
             {
-               // Acá va el código 
+                // Acá va el código 
+                ElementoViewModel.Vinculado = vinculado;
             });
 
 
@@ -57,8 +58,15 @@ namespace MobileExample.Views
         {
             // Acá se manda el mensaje con el modelo y el titulo para que el modelo de
             // listado ejecute el código de guardado.
-            MessagingCenter.Send(this, "AgregarElemento", ElementoViewModel);
-            await Navigation.PopModalAsync();
+            if (ElementoViewModel.RutaIcono == "AgregarObjeto.png")
+            {
+                    //Mensaje de que hay que seleccionar una imagen
+            }
+            else
+            {
+                MessagingCenter.Send(this, "AgregarElemento", ElementoViewModel);
+                await Navigation.PopModalAsync();
+            }
         }
 
         async void VincularElemento_Clicked(object sender, EventArgs e)
@@ -79,7 +87,7 @@ namespace MobileExample.Views
             };
 
             propertiedPopup.Animation = scaleAnimation;
-            propertiedPopup.CloseWhenBackgroundIsClicked = true;
+            propertiedPopup.CloseWhenBackgroundIsClicked = false;
 
             await PopupNavigation.PushAsync(propertiedPopup);
         }

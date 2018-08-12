@@ -137,8 +137,8 @@ namespace MobileExample.Droid.Services
                             HttpResponseMessage response = await client.GetAsync(urlClima);
                             // Es el primero del día, hay que buscar la info del clima,
                             // y el saludo.
-                            mensajeNotificacion += await ObtenerInformacionClima(response);
-
+                            //mensajeNotificacion += await ObtenerInformacionClima(response);
+                            mensajeNotificacion += "Primer mensaje del día! Habrá lluvias hoy. ";
                             mensajeNotificacion += ObtenerInformacionBateria();
                         }
 
