@@ -17,8 +17,5 @@
 
         <Image x:Name="Libro" Source="Libro.png" WidthRequest="50" HeightRequest="50"/>
         <Image Source="MochilaSola.png" WidthRequest="150" HeightRequest="150"/>
-
-        <Button Text="Cancelar" Clicked="Cancelar_OnClicked" WidthRequest="200"></Button>
-        <Button Text="Aceptar" Clicked="Aceptar_OnClicked" WidthRequest="200"></Button>
     </StackLayout>
  </popup:PopupPage>

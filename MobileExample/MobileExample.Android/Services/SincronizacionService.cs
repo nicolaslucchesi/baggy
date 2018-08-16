@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Timers;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using MobileExample.Droid.Clima;
+using Android.Support.V4.App;
+using InterfazBateria;
 using MobileExample.Database;
+using MobileExample.Droid.Clima;
+using MobileExample.Services;
+using MobileExample.Sincronizacion;
 using MobileExample.Tables;
 using Newtonsoft.Json;
-using SQLite;
 using SQLiteNetExtensions.Extensions;
-using Xamarin.Forms;
-using MobileExample.Sincronizacion;
-using MobileExample.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using InterfazBateria;
-using Android.Support.V4.App;
+using System.Timers;
+using Xamarin.Forms;
 
 namespace MobileExample.Droid.Services
 {
@@ -137,8 +129,7 @@ namespace MobileExample.Droid.Services
                             HttpResponseMessage response = await client.GetAsync(urlClima);
                             // Es el primero del día, hay que buscar la info del clima,
                             // y el saludo.
-                            //mensajeNotificacion += await ObtenerInformacionClima(response);
-                            mensajeNotificacion += "Primer mensaje del día! Habrá lluvias hoy. ";
+                            mensajeNotificacion += await ObtenerInformacionClima(response);
                             mensajeNotificacion += ObtenerInformacionBateria();
                         }
 

@@ -13,41 +13,18 @@ using Xamarin.Forms.Xaml;
 
 namespace MobileExample.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class VincularElemento : PopupPage
-	{
-        ListadoImagenesElementosViewModel viewModel;
-        public string UUID;
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class VincularElemento : PopupPage
+    {
 
-        public VincularElemento ()
-		{
-			InitializeComponent ();
-            BindingContext = viewModel = new ListadoImagenesElementosViewModel();
-
-            
-            Libro.TranslateTo(0, 100, 3000); 
-
-            UUID = "123456";               
-        }
- 
-        private async void Button_OnClicked(object sender, EventArgs e)
+        public VincularElemento()
         {
-            //Metodo para cerrar el pop-up
-            await PopupNavigation.PopAsync();
+            InitializeComponent();
+            Libro.TranslateTo(0, 100, 3000);
         }
 
-        async void Cancelar_OnClicked (object sender, SelectedItemChangedEventArgs args)
-        {
-            MessagingCenter.Send(this, "VincularElemento", false);
-            await PopupNavigation.PopAsync();
-        }
 
-        async void Aceptar_OnClicked(object sender, SelectedItemChangedEventArgs args)
-        {
-            MessagingCenter.Send(this, "VincularElemento", true);
-            await PopupNavigation.PopAsync();
-        }
     }
 
-    
+
 }

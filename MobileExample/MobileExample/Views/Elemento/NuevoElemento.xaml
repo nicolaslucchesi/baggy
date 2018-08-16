@@ -5,8 +5,8 @@
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:local="clr-namespace:MobileExample.ViewModels"
              x:Class="MobileExample.Views.NuevoElemento"
-             
 		     Title="Nuevo Elemento">
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Guardar" Clicked="GuardarElemento_Clicked" />
     </ContentPage.ToolbarItems>
@@ -64,9 +64,7 @@
                   Text="{Binding ElementoViewModel.UUID}" 
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=380}" 
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
-                
 
-             
                 <Label FontSize="14" Text="Objeto Imprescindible:"
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=480}" 
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
