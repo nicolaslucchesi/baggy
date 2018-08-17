@@ -36,7 +36,9 @@
                                                 FontAttributes="Bold" 
                                                 TextColor="White"
                                                 FontSize="18"/>
-
+                                        <Label  Text="{Binding UUID}" 
+                                            IsVisible="False"
+                                            />
                                         <StackLayout Padding="10" Orientation="Vertical">
                                             <Label x:Name="Imprescindible" 
                                                Text="Imprescindible" 

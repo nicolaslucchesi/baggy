@@ -11,6 +11,7 @@ using MobileExample.ViewModels;
 using Rg.Plugins.Popup.Services;
 using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Enums;
+using MobileExample.Database;
 
 namespace MobileExample.Views
 {
@@ -18,36 +19,44 @@ namespace MobileExample.Views
     public partial class NuevoElemento : ContentPage
     {
         public ElementoViewModel ElementoViewModel { get; set; }
-        
-        public String Imagen;
-        public String UUID;
+
+        //public String Imagen;
+        //public String UUID;
 
         public NuevoElemento()
         {
             InitializeComponent();
 
+            var indicator = new ActivityIndicator()
+            {
+                HorizontalOptions = LayoutOptions.CenterAndExpand
+            };
+            indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy", BindingMode.OneWay);
+            indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy", BindingMode.OneWay);
+
             ElementoViewModel = new ElementoViewModel
             {
-                Descripcion = "Nuevo Elemento",
-                RutaIcono = "BaggyLogo.jpg",
+                Descripcion = "",
+                RutaIcono = "AgregarObjeto.png",
                 Imprescindible = true,
-                Vinculado = true
+                Vinculado = false
             };
-            
+
             BindingContext = this;
-            
+
             // Este es el mensaje que llega cuando se elige una Imagen desde el pop-up.
             // Se reemplaza la ruta del icono de ElementoViewModel por la ruta del icono que se seleccionó
             // Después hago un InitializeComponent para refrescar la pagina con la nueva ruta.
             MessagingCenter.Subscribe<Popup, ImagenElementoViewModel>(this, "SeleccionarImagen", (obj, imagenelementoViewModel) =>
             {
                 ElementoViewModel.RutaIcono = imagenelementoViewModel.RutaIcono;
-                //ImagenImagen.Source = imagenelementoViewModel.RutaIcono; 
+                ImagenElemento.Source = imagenelementoViewModel.RutaIcono;
             });
 
-            MessagingCenter.Subscribe<VincularElemento, ImagenElementoViewModel>(this, "VincularElemento", (obj, imagenelementoViewModel) =>
+            MessagingCenter.Subscribe<VincularElemento, bool>(this, "VincularElemento", (obj, vinculado) =>
             {
-               // Acá va el código 
+                // Acá va el código 
+                ElementoViewModel.Vinculado = vinculado;
             });
 
 
@@ -57,8 +66,15 @@ namespace MobileExample.Views
         {
             // Acá se manda el mensaje con el modelo y el titulo para que el modelo de
             // listado ejecute el código de guardado.
-            MessagingCenter.Send(this, "AgregarElemento", ElementoViewModel);
-            await Navigation.PopModalAsync();
+            if (ElementoViewModel.RutaIcono == "AgregarObjeto.png")
+            {
+                //Mensaje de que hay que seleccionar una imagen
+            }
+            else
+            {
+                MessagingCenter.Send(this, "AgregarElemento", ElementoViewModel);
+                await Navigation.PopModalAsync();
+            }
         }
 
         async void VincularElemento_Clicked(object sender, EventArgs e)
@@ -79,9 +95,35 @@ namespace MobileExample.Views
             };
 
             propertiedPopup.Animation = scaleAnimation;
-            propertiedPopup.CloseWhenBackgroundIsClicked = true;
+            propertiedPopup.CloseWhenBackgroundIsClicked = false;
+
+            // MANDAR SEÑAL A LA MOCHILA PARA QUE MANDE NUEVOS ELEMENTOS
 
             await PopupNavigation.PushAsync(propertiedPopup);
+            ElementoViewModel.IsBusy = true;
+            DateTime now = DateTime.Now;
+            DatabaseHelper.db.DeleteAll<ElementoAgregado>();
+
+            System.Threading.Thread.Sleep(100);
+
+            do
+            {
+                if (DatabaseHelper.db.Table<ElementoAgregado>().Count() > 0)
+                {
+                    ElementoAgregado elementoAgregado = DatabaseHelper.db.Table<ElementoAgregado>().FirstOrDefault();
+                    ElementoViewModel.UUID = elementoAgregado.UUID;
+                    DatabaseHelper.db.DeleteAll<ElementoAgregado>();
+                    ElementoViewModel.Vinculado = true;
+                    BotonVincularElemento.IsEnabled = false;
+                    break;
+                }
+                System.Threading.Thread.Sleep(1000);
+            } while ((DateTime.Now - now).TotalSeconds < 10);
+            ElementoViewModel.IsBusy = false;
+
+            // MANDAR SEÑAL A LA MOCHILA PARA QUE DEJE DE MANDAR NUEVOS ELEMENTOS
+
+            await PopupNavigation.PopAsync();
         }
 
         async void AbrirPopupImagen(object sender, EventArgs e)
@@ -102,12 +144,12 @@ namespace MobileExample.Views
                 HasBackgroundAnimation = true
             };
 
-            propertiedPopup.Animation = scaleAnimation; 
+            propertiedPopup.Animation = scaleAnimation;
             propertiedPopup.CloseWhenBackgroundIsClicked = true;
-            
+
             await PopupNavigation.PushAsync(propertiedPopup);
         }
 
-        
+
     }
 }

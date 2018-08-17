@@ -7,7 +7,7 @@
                     HorizontalOptions="Center" 
                     Padding="0" 
                     Margin="0"
-                    BackgroundColor="WhiteSmoke">
+                    BackgroundColor="WhiteSmoke" >
         <StackLayout BackgroundColor="#fd0900">
             <Label Text="Introducir Elemento..." 
                    TextColor="White"
@@ -15,8 +15,7 @@
                    Font="Bold"/>
         </StackLayout>
 
-        <Image Source="BaggyLogo.jpg" WidthRequest="150" HeightRequest="150"/>
-
-        <Button Text="Aceptar" Clicked="Button_OnClicked" WidthRequest="200"></Button>
+        <Image x:Name="Libro" Source="Libro.png" WidthRequest="50" HeightRequest="50"/>
+        <Image Source="MochilaSola.png" WidthRequest="150" HeightRequest="150"/>
     </StackLayout>
  </popup:PopupPage>

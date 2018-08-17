@@ -19,7 +19,7 @@ namespace MobileExample.Droid.Services
         public override void OnReceive(Context context, Intent intent)
         {
             Console.WriteLine("Recibido el mensaje, se reinicia el servicio.");
-            context.StartService(new Intent(context, typeof(SensorService)));
+            context.StartService(new Intent(context, typeof(SincronizacionService)));
         }
     }
 }

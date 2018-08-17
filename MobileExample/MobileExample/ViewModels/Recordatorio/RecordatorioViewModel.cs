@@ -13,36 +13,23 @@ namespace MobileExample.ViewModels
 
         public TimeSpan Horario { get; set; }
         public MochilaViewModel MochilaSeleccionada { get; set; }
-        public ListadoElementosViewModel Elementos { get; set; }
+        public ListadoElementosRecordatorioViewModel Elementos { get; set; }
         public string HorarioStr { get; set; }
         public bool Lunes { get; set; }
         public bool Martes { get; set; }
         public bool Miercoles { get; set; }
         public bool Jueves { get; set; }
         public bool Viernes { get; set; }
+        public bool Sabado { get; set; }
+        public bool Domingo { get; set; }
 
         public Command ComandoEliminarRecordatorio { get; set; }
 
         public RecordatorioViewModel()
         {
             this.ComandoEliminarRecordatorio = new Command(Eliminar);
-            Elementos = new ListadoElementosViewModel();
+            Elementos = new ListadoElementosRecordatorioViewModel();
             MochilaSeleccionada = new MochilaViewModel();
-        }
-
-        public RecordatorioViewModel(RecordatorioViewModel viewModel)
-        {
-            Id = viewModel.Id;
-            Horario = viewModel.Horario;
-            HorarioStr = viewModel.HorarioStr;
-            MochilaSeleccionada = viewModel.MochilaSeleccionada;
-            Elementos = viewModel.Elementos;
-            Lunes = viewModel.Lunes;
-            Martes = viewModel.Martes;
-            Miercoles = viewModel.Miercoles;
-            Jueves = viewModel.Jueves;
-            Viernes = viewModel.Viernes;
-            this.ComandoEliminarRecordatorio = new Command(Eliminar);
         }
 
         void Eliminar()
@@ -58,6 +45,8 @@ namespace MobileExample.ViewModels
             viewModel.Miercoles = recordatorio.Miercoles;
             viewModel.Jueves = recordatorio.Jueves;
             viewModel.Viernes = recordatorio.Viernes;
+            viewModel.Sabado = recordatorio.Sabado;
+            viewModel.Domingo = recordatorio.Domingo;
             viewModel.HorarioStr = recordatorio.Horario.ToString(@"hh\:mm");
 
             foreach (Elemento elemento in recordatorio.Elementos)

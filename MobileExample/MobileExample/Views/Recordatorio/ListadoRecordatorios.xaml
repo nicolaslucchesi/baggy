@@ -28,7 +28,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <StackLayout Padding="10" Orientation="Vertical">
                                     <Label  Text="{Binding HorarioStr}" 
                                             Style="{StaticResource labelStyle}"
@@ -133,12 +133,46 @@
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
+                                        <Label x:Name="Sabado" 
+                                               Text="S" 
+                                               FontSize="25"
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               IsEnabled="false"
+                                               FontAttributes="Bold"
+                                               TextColor="White"
+                                               XAlign="Center">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Sabado}" Value="True">
+                                                    <Setter Property="BackgroundColor" Value="Green" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Sabado}" Value="False">
+                                                    <Setter Property="BackgroundColor" Value="Red" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label x:Name="Domingo" 
+                                               Text="D" 
+                                               FontSize="25"
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               IsEnabled="false"
+                                               FontAttributes="Bold"
+                                               TextColor="White"
+                                               XAlign="Center">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="True">
+                                                    <Setter Property="BackgroundColor" Value="Green" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="False">
+                                                    <Setter Property="BackgroundColor" Value="Red" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
                                     </StackLayout>
                                 </StackLayout>
                                 <Button HorizontalOptions="CenterAndExpand"
-                                        Image="trash.png" 
-                                        WidthRequest="30"
-                                        HeightRequest="30" 
+                                        Image="trash.png"
                                         BorderRadius="15"
                                         BackgroundColor="White"
                                         Command="{Binding ComandoEliminarRecordatorio}">

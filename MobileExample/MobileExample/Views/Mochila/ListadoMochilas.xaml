@@ -20,23 +20,31 @@
                  RefreshCommand="{Binding ComandoCargarMochilas}"
                  IsPullToRefreshEnabled="true"
                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                 CachingStrategy="RecycleElement"
-                 ItemSelected="OnItemSelected">
+                 CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" Padding="10" >
+                            <StackLayout Orientation="Horizontal" Padding="10" HorizontalOptions="FillAndExpand">
                                 <StackLayout Padding="10">
                                     <Label  Text="{Binding Descripcion}" 
-                                            LineBreakMode="NoWrap" 
+                                            LineBreakMode="NoWrap"
+                                            TextColor="Black"
                                             Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="16" />
+                                            FontSize="25" />
                                     <Label  Text="{Binding UUID}" 
+                                            TextColor="Black"
                                             LineBreakMode="NoWrap"
                                             Style="{DynamicResource ListItemDetailTextStyle}"
-                                            FontSize="13" />
+                                            FontSize="12" />
                                 </StackLayout>
-                                <Button Text="Activar" Command="{Binding ComandoActivarMochila}" BackgroundColor="Red">
+                                <StackLayout Orientation="Horizontal"
+                                             HorizontalOptions="EndAndExpand">
+                                <Button 
+                                    Text="Activar" 
+                                    Command="{Binding ComandoActivarMochila}" 
+                                    BackgroundColor="Red"
+                                    HorizontalOptions="CenterAndExpand"
+                                    BorderRadius="15">
                                     <Button.Triggers>
                                         <DataTrigger TargetType="Button"
                                             Binding="{Binding Activa}"
@@ -46,8 +54,13 @@
                                         </DataTrigger>
                                     </Button.Triggers>
                                 </Button>
-                                <Button Text="Eliminar" Command="{Binding ComandoEliminarMochila}">
+                                    <Button Image="trash.png" 
+                                        Command="{Binding ComandoEliminarMochila}"
+                                        HorizontalOptions="CenterAndExpand"
+                                        BorderRadius="15"
+                                        BackgroundColor="White">
                                 </Button>
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

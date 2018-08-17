@@ -18,7 +18,7 @@ namespace MobileExample.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         Intent intentSegundoPlano;
-        private SensorService servicioSegundoPlano;
+        private SincronizacionService servicioSegundoPlano;
         Context contexto;
 
         public Context obtenerContexto()
@@ -60,12 +60,13 @@ namespace MobileExample.Droid
         private void IniciarServicioSegundoPlano()
         {
             contexto = this;
-            servicioSegundoPlano = new SensorService(this.obtenerContexto());
-            intentSegundoPlano = new Intent(this.obtenerContexto(), typeof(SensorService));
+            servicioSegundoPlano = new SincronizacionService(this.obtenerContexto());
+            intentSegundoPlano = new Intent(this.obtenerContexto(), typeof(SincronizacionService));
             if (!servicioCorriendo(servicioSegundoPlano))
             {
                 StartService(intentSegundoPlano);
             }
+            
         }
         /// <summary>
         /// Este método verifica si el servicio en segundo plano está corriendo
@@ -73,12 +74,12 @@ namespace MobileExample.Droid
         /// </summary>
         /// <param name="servicioBackground">La instancia del tipo de servicio a verificar</param>
         /// <returns>Un booleano que indica si el servicio está corriendo o no.</returns>
-        private Boolean servicioCorriendo(SensorService servicioBackground)
+        private Boolean servicioCorriendo(SincronizacionService servicioBackground)
         {
             ActivityManager manager = (ActivityManager)GetSystemService(Context.ActivityService);
             foreach (ActivityManager.RunningServiceInfo servicio in manager.GetRunningServices(int.MaxValue))
             {
-                if (servicio.Class.Equals(servicio.Service.Class))
+                if (servicioBackground.Class.Name.Equals(servicio.Service.ClassName))
                 {
                     Console.WriteLine("El servicio está corriendo!");
                     return true;

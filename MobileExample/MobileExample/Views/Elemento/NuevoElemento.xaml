@@ -5,40 +5,90 @@
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:local="clr-namespace:MobileExample.ViewModels"
              x:Class="MobileExample.Views.NuevoElemento"
-             Style="{StaticResource PageStyle}"
 		     Title="Nuevo Elemento">
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Guardar" Clicked="GuardarElemento_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
-                     <Image      x:Name ="ImagenElemento"
-                                Source ="{Binding ElementoViewModel.RutaIcono}"
-                                HeightRequest="170" 
-                                WidthRequest="170" 
-                                />
-                    <Button     Text="C" 
-                                BorderRadius="30" BackgroundColor="Red" 
+            <RelativeLayout BackgroundColor="#f3f3f3">
+                 <Image      x:Name ="ImagenElemento"
+                            Source ="{Binding ElementoViewModel.RutaIcono}"                           
+                            
+                            HeightRequest="170" 
+                            WidthRequest="170" 
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                              Property=Width,
+                                                                              Factor=.5, 
+                                                                              Constant = -80}" 
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                                                              Factor=0, 
+                                                                              Property=Y, 
+                                                                              Constant=70}" />
+
+                <Button     Image="Editar1.png"
+                                BorderRadius="30"  
                                 HeightRequest="60"  
                                 Clicked="AbrirPopupImagen"
                                 WidthRequest="60" 
-                               />
-                    <Label Text="Descripción" FontSize="Medium" />
-                    <Entry Text="{Binding ElementoViewModel.Descripcion}" FontSize="Small" Placeholder="Descripción" />
-                    <Label Text="UUID" FontSize="Medium" />
-                    <Editor Text="{Binding MochilaViewModel.UUID}" FontSize="Small" Margin="0" />
-                    <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"  />
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width,
+                                                                          Factor=.5, 
+                                                                          Constant = 30}" 
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                                                          Factor=0, 
+                                                                          Property=Y, 
+                                                                          Constant=70}"               />
 
 
-            </StackLayout>
+
+
+                <Label Text="{Binding ElementoViewModel.Descripcion}" FontAttributes="Bold" FontSize="26"
+            HorizontalTextAlignment="Center"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=240}" 
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
                 
-                </ScrollView>
+            <Entry  TextColor="White" 
+                    BackgroundColor="DarkRed"
+                    Text="{Binding ElementoViewModel.Descripcion}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=280}" 
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+
+                <Label Text="UUID" FontAttributes="Bold" FontSize="26"
+            HorizontalTextAlignment="Center"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=340}" 
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+
+                <Entry TextColor="White" BackgroundColor="DarkRed"
+                  Text="{Binding ElementoViewModel.UUID}" 
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=380}" 
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+
+                <Label FontSize="14" Text="Objeto Imprescindible:"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=480}" 
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+
+                <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"  
+           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=490}" 
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
 
 
-
-
-
+                <Button x:Name="BotonVincularElemento"     
+                    Text="Vincular Elemento" 
+                                BorderRadius="30" 
+                                Clicked="VincularElemento_Clicked"
+                              
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width,
+                                                                          Factor=.5, 
+                                                                          Constant = 30}" 
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                                                          Factor=0, 
+                                                                          Property=Y, 
+                                                                          Constant=690}"               />
                 
+            </RelativeLayout>
+        </ScrollView>   
     </ContentPage.Content>
 </ContentPage>

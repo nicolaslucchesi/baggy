@@ -34,10 +34,11 @@ namespace MobileExample.ViewModels
             {
                 Elemento elemento = new Elemento
                 {
-                    Descripcion = elementoViewModel.Descripcion ,
+                    Descripcion = elementoViewModel.Descripcion,
                     RutaIcono = elementoViewModel.RutaIcono,
                     Imprescindible = elementoViewModel.Imprescindible,
-                    Vinculado = elementoViewModel.Vinculado
+                    Vinculado = elementoViewModel.Vinculado,
+                    UUID = elementoViewModel.UUID
                 };
 
                 DatabaseHelper.db.Insert(elemento);

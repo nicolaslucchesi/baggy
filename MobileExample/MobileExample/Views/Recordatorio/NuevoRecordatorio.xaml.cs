@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-
-using System.IO;
-using SQLite;
+﻿using MobileExample.Database;
 using MobileExample.Tables;
 using MobileExample.ViewModels;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Enums;
 using Rg.Plugins.Popup.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace MobileExample.Views
 {
@@ -30,18 +25,45 @@ namespace MobileExample.Views
             recordatorioViewModel = new RecordatorioViewModel
             {
                 Horario = new TimeSpan(12, 0, 0),
-                Elementos = new ListadoElementosViewModel(),
+                Elementos = new ListadoElementosRecordatorioViewModel(),
                 MochilaSeleccionada = new MochilaViewModel()
             };
 
-            //ListadoMochila = new ListadoMochilasViewModel();
+            ObtenerElementos();
+
 
             BindingContext = this;
-            
+
             MessagingCenter.Subscribe<SeleccionarMochilasPopup, MochilaViewModel>(this, "SeleccionarMochila", (sender, mochilaViewModel) =>
             {
                 recordatorioViewModel.MochilaSeleccionada = Mochila = mochilaViewModel;
             });
+        }
+
+        private void ObtenerElementos()
+        {
+            recordatorioViewModel.Elementos.Elementos = ObtenerListadoElementos();
+        }
+
+        private List<ElementoViewModel> ObtenerListadoElementos()
+        {
+            List<ElementoViewModel> listadoElementos = new List<ElementoViewModel>();
+            int cantidad = 0;
+            foreach (Elemento elemento in DatabaseHelper.db.Table<Elemento>().ToList())
+            {
+                ElementoViewModel elementoViewModel = new ElementoViewModel();
+                elementoViewModel.Imprescindible = elemento.Imprescindible;
+                elementoViewModel.RutaIcono = elemento.RutaIcono;
+                elementoViewModel.Descripcion = elemento.Descripcion;
+                elementoViewModel.Vinculado = elemento.Vinculado;
+                elementoViewModel.UUID = elemento.UUID;
+                elementoViewModel.Id = elemento.Id;
+                elementoViewModel.IdInterno = cantidad;
+                cantidad++;
+                listadoElementos.Add(elementoViewModel);
+            }
+
+            return listadoElementos;
         }
 
         public async void GuardarRecordatorio(object sender, EventArgs e)
@@ -124,6 +146,12 @@ namespace MobileExample.Views
                 case "Vi":
                     SwitchViernes.IsToggled = !SwitchViernes.IsToggled;
                     break;
+                case "Sa":
+                    SwitchSabado.IsToggled = !SwitchSabado.IsToggled;
+                    break;
+                case "Do":
+                    SwitchDomingo.IsToggled = !SwitchDomingo.IsToggled;
+                    break;
                 default:
                     break;
             }
@@ -138,7 +166,8 @@ namespace MobileExample.Views
             recordatorioViewModel.Miercoles = SwitchMiercoles.IsToggled;
             recordatorioViewModel.Jueves = SwitchJueves.IsToggled;
             recordatorioViewModel.Viernes = SwitchViernes.IsToggled;
-
+            recordatorioViewModel.Sabado = SwitchSabado.IsToggled;
+            recordatorioViewModel.Domingo = SwitchDomingo.IsToggled;
         }
     }
 }
