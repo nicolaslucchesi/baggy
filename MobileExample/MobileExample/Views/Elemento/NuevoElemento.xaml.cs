@@ -20,8 +20,8 @@ namespace MobileExample.Views
     {
         public ElementoViewModel ElementoViewModel { get; set; }
 
-        public String Imagen;
-        public String UUID;
+        //public String Imagen;
+        //public String UUID;
 
         public NuevoElemento()
         {
@@ -36,10 +36,10 @@ namespace MobileExample.Views
 
             ElementoViewModel = new ElementoViewModel
             {
-                Descripcion = "Nuevo Elemento",
+                Descripcion = "",
                 RutaIcono = "AgregarObjeto.png",
                 Imprescindible = true,
-                Vinculado = true
+                Vinculado = false
             };
 
             BindingContext = this;
@@ -113,12 +113,14 @@ namespace MobileExample.Views
                     ElementoAgregado elementoAgregado = DatabaseHelper.db.Table<ElementoAgregado>().FirstOrDefault();
                     ElementoViewModel.UUID = elementoAgregado.UUID;
                     DatabaseHelper.db.DeleteAll<ElementoAgregado>();
+                    ElementoViewModel.Vinculado = true;
+                    BotonVincularElemento.IsEnabled = false;
                     break;
                 }
                 System.Threading.Thread.Sleep(1000);
             } while ((DateTime.Now - now).TotalSeconds < 10);
             ElementoViewModel.IsBusy = false;
-            
+
             // MANDAR SEÑAL A LA MOCHILA PARA QUE DEJE DE MANDAR NUEVOS ELEMENTOS
 
             await PopupNavigation.PopAsync();

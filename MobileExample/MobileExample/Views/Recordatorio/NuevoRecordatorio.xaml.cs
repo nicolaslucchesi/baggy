@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-
-using System.IO;
-using SQLite;
+﻿using MobileExample.Database;
 using MobileExample.Tables;
 using MobileExample.ViewModels;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Enums;
 using Rg.Plugins.Popup.Services;
-using MobileExample.Database;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace MobileExample.Views
 {
@@ -36,7 +30,7 @@ namespace MobileExample.Views
             };
 
             ObtenerElementos();
-            //ListadoMochila = new ListadoMochilasViewModel();
+
 
             BindingContext = this;
 

@@ -68,16 +68,14 @@
                 <Label FontSize="14" Text="Objeto Imprescindible:"
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=480}" 
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
-                
-                    <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"  
+
+                <Switch IsToggled ="{Binding ElementoViewModel.Imprescindible}"  
            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=490}" 
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
 
-                <BoxView Color="Gray" HeightRequest="100"
-                         WidthRequest="2"
-                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=590}"/>
 
-                <Button     Text="Vincular Elemento" 
+                <Button x:Name="BotonVincularElemento"     
+                    Text="Vincular Elemento" 
                                 BorderRadius="30" 
                                 Clicked="VincularElemento_Clicked"
                               

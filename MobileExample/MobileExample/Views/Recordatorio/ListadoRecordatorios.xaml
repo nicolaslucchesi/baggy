@@ -28,7 +28,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <StackLayout Padding="10" Orientation="Vertical">
                                     <Label  Text="{Binding HorarioStr}" 
                                             Style="{StaticResource labelStyle}"
@@ -172,9 +172,7 @@
                                     </StackLayout>
                                 </StackLayout>
                                 <Button HorizontalOptions="CenterAndExpand"
-                                        Image="trash.png" 
-                                        WidthRequest="30"
-                                        HeightRequest="30" 
+                                        Image="trash.png"
                                         BorderRadius="15"
                                         BackgroundColor="White"
                                         Command="{Binding ComandoEliminarRecordatorio}">

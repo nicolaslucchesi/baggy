@@ -25,18 +25,6 @@ namespace MobileExample.Views
             BindingContext = viewModel = new ListadoMochilasViewModel();
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-            var item = args.SelectedItem as Mochila;
-            if (item == null)
-                return;
-
-             await Navigation.PushAsync(new VerMochila(new VerMochilaViewModel(item)));
-            
-            // Manually deselect item.
-            ItemsListView.SelectedItem = null;
-        }
-
         async void AgregarMochila_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new NuevaMochila()));

@@ -24,20 +24,6 @@ namespace MobileExample.Views
             InitializeComponent();
             BindingContext = viewModel = new ListadoElementosViewModel();
         }
-        
-
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-            var item = args.SelectedItem as Elemento;
-            if (item == null)
-                return;
-
-            //  await Navigation.PushAsync(new NavigationPage(new VerMochila(item)));
-
-            await Navigation.PushAsync(new VerElemento(new VerElementoViewModel(item)));
-            // Manually deselect item.
-            ItemsListView3.SelectedItem = null;
-        }
 
         async void AgregarElemento_Clicked(object sender, EventArgs e)
         {

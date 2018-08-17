@@ -24,8 +24,7 @@
                         RefreshCommand="{Binding ComandoCargarElementos}"
                         IsPullToRefreshEnabled="true"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                        CachingStrategy="RecycleElement"
-                        ItemSelected="OnItemSelected">
+                        CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

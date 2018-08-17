@@ -91,7 +91,7 @@ namespace MobileExample.Droid.Services
                 {
                     case (int)EnumCodigos.Sincronizar:
                         // Si es información de una sincronización, la guardo en la BD.
-                        InformacionSincronizada informacionSincronizada = new InformacionSincronizada { Fecha = DateTime.Now, Data = respuestaSincronizacion.Data.ToString()};
+                        InformacionSincronizada informacionSincronizada = new InformacionSincronizada { Fecha = DateTime.Now, Data = respuestaSincronizacion.Data.ToString() };
                         DatabaseHelper.db.DeleteAll<InformacionSincronizada>();
                         DatabaseHelper.db.Insert(informacionSincronizada);
                         break;
@@ -193,19 +193,19 @@ namespace MobileExample.Droid.Services
 
         private async Task<string> ObtenerInformacionClima(HttpResponseMessage respuestaClima)
         {
-                string respuestaString = await respuestaClima.Content.ReadAsStringAsync();
-                ClimaResponse respuesta = JsonConvert.DeserializeObject<ClimaResponse>(respuestaString);
+            string respuestaString = await respuestaClima.Content.ReadAsStringAsync();
+            ClimaResponse respuesta = JsonConvert.DeserializeObject<ClimaResponse>(respuestaString);
 
-                // CHEQUEAR PARAGUAS
+            // CHEQUEAR PARAGUAS
 
-                if (CodigosLluvia.Codigos.Contains(respuesta.forecast.forecastday[0].day.condition.code))
-                {
-                    return "Primer mensaje del día! Habrá lluvias hoy. ";
-                }
-                else
-                {
-                    return "Primer mensaje del día! Hoy no llueve! ";
-                }
+            if (CodigosLluvia.Codigos.Contains(respuesta.forecast.forecastday[0].day.condition.code))
+            {
+                return "Primer mensaje del día! Habrá lluvias hoy. \n";
+            }
+            else
+            {
+                return "Primer mensaje del día! Hoy no llueve! \n";
+            }
         }
 
         private string ObtenerInformacionBateria()
@@ -215,7 +215,7 @@ namespace MobileExample.Droid.Services
             if (PorcentajeBateria < 50)
             {
                 // CHEQUEAR CARGADOR
-                mensaje += "No te olvides el cargador!";
+                mensaje += "No te olvides el cargador!\n";
             }
 
             return mensaje;
@@ -246,44 +246,40 @@ namespace MobileExample.Droid.Services
             // que los voy a sacar de la tabla de sincronización.
             InformacionSincronizada informacion = DatabaseHelper.db.Table<InformacionSincronizada>().FirstOrDefault();
             List<string> UUIDsEnMochila = informacion.Data.Split(',').ToList();
-            List<string> UUIDsEnRecordatorio = elementosEnRecordatorio.Select(x => x.UUID).ToList();
 
             // PRIMERO - Me fijo si falta algo
-            foreach (string UUIDEnRecordatorio in UUIDsEnRecordatorio)
+            List<Elemento> elementosOlvidados = new List<Elemento>();
+            foreach (Elemento ElementoEnRecordatorio in elementosEnRecordatorio)
             {
-                List<Elemento> elementosOlvidados = new List<Elemento>();
-                if (!UUIDsEnMochila.Contains(UUIDEnRecordatorio))
+                if (!UUIDsEnMochila.Contains(ElementoEnRecordatorio.UUID))
                 {
-                    Elemento elementoOlvidado = DatabaseHelper.db.Table<Elemento>().FirstOrDefault(e => e.UUID.Equals(UUIDEnRecordatorio));
-                    elementosOlvidados.Add(elementoOlvidado);
+                    elementosOlvidados.Add(ElementoEnRecordatorio);
                 }
-
-                if (elementosOlvidados.Count > 0)
-                {
-                    mensaje +=
-                        (elementosOlvidados.Count == 1 ? "Te estás olvidando el siguiente elemento: " : "Te estás olviando los siguientes elementos: ") +
-                        String.Join(", ", elementosOlvidados.Select(e => e.Descripcion)) +
-                        "!";
-                }
+            }
+            if (elementosOlvidados.Count > 0)
+            {
+                mensaje +=
+                    (elementosOlvidados.Count == 1 ? "Te estás olvidando el siguiente elemento: " : "Te estás olviando los siguientes elementos: ") +
+                    String.Join(", ", elementosOlvidados.Select(e => e.Descripcion)) +
+                    "!\n";
             }
 
             // SEGUNDO - Me fijo si sobra algo
+            List<Elemento> elementosSobrantes = new List<Elemento>();
             foreach (string UUIDEnMochila in UUIDsEnMochila)
             {
-                List<Elemento> elementosSobrantes = new List<Elemento>();
-                if (!UUIDsEnRecordatorio.Contains(UUIDEnMochila))
+                if (!elementosEnRecordatorio.Select(e => e.UUID).Contains(UUIDEnMochila))
                 {
                     Elemento elementoSobrante = DatabaseHelper.db.Table<Elemento>().FirstOrDefault(e => e.UUID.Equals(UUIDEnMochila));
                     elementosSobrantes.Add(elementoSobrante);
                 }
-
-                if (elementosSobrantes.Count > 0)
-                {
-                    mensaje +=
-                        (elementosSobrantes.Count == 1 ? "Te sobra el siguiente elemento: " : "Te sobran los siguientes elementos: ") +
-                        String.Join(", ", elementosSobrantes.Select(e => e.Descripcion)) +
-                        "!";
-                }
+            }
+            if (elementosSobrantes.Count > 0)
+            {
+                mensaje +=
+                    (elementosSobrantes.Count == 1 ? "Te sobra el siguiente elemento: " : "Te sobran los siguientes elementos: ") +
+                    String.Join(", ", elementosSobrantes.Select(e => e.Descripcion)) +
+                    "!\n";
             }
 
             // Si el mensaje sigue vacío hasta acá es porque no falta nada
