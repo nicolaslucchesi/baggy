@@ -20,8 +20,8 @@ namespace MobileExample.Views
 
             MochilaViewModel = new MochilaViewModel
             {
-                Descripcion = "Descripción de la mochila.",
-                UUID = "Código único de la mochila."
+                Descripcion = "",
+                UUID = ""
             };
 
             BindingContext = this;
@@ -31,8 +31,15 @@ namespace MobileExample.Views
         {
             // Acá se manda el mensaje con el modelo y el titulo para que el modelo de
             // listado ejecute el código de guardado.
-            MessagingCenter.Send(this, "AgregarMochila", MochilaViewModel);
-            await Navigation.PopModalAsync();
+            if (String.IsNullOrEmpty(MochilaViewModel.Descripcion))
+            {
+                await DisplayAlert("Error de validación", "El campo 'Descripción' es requerido.", "Aceptar");
+            }
+            else
+            {
+                MessagingCenter.Send(this, "AgregarMochila", MochilaViewModel);
+                await Navigation.PopModalAsync();
+            }
         }
 
     }
