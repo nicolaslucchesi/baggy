@@ -16,6 +16,16 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Orientation="Horizontal" BackgroundColor="#222222" HorizontalOptions="FillAndExpand">
+                <StackLayout Padding="10,0,0,0" HorizontalOptions="StartAndExpand">
+                <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
+                </StackLayout>
+                <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center">
+                    <Button Text="Nuevo Elemento" Clicked="AgregarElemento_Clicked" 
+                        BackgroundColor="#222222" TextColor="White" HorizontalOptions="End"></Button>
+                </StackLayout>
+            </StackLayout>
+            
             <ListView   x:Name="ItemsListView3" 
                         BackgroundColor="{DynamicResource backgroundColor}"
                         ItemsSource="{Binding Elementos}"
@@ -24,67 +34,22 @@
                         RefreshCommand="{Binding ComandoCargarElementos}"
                         IsPullToRefreshEnabled="true"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                        CachingStrategy="RecycleElement">
+                        CachingStrategy="RecycleElement"
+                        SeparatorColor="#2a2a2a">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <RelativeLayout>
-                                 
-                                    
-                                        <Image Source="{Binding RutaIcono}" 
+                            <StackLayout Padding="15" Orientation="Horizontal" BackgroundColor="#222222" HorizontalOptions="FillAndExpand">
+                                <RelativeLayout>
+                                    <Image Source="{Binding RutaIcono}" 
                                            WidthRequest="120" 
                                            HeightRequest="120"
-                                           
-                                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                               Property=Width,
                                                                               Factor=0, 
-                                                                              Constant = 10}" 
-                             />
-                                     
-                                            <Label  Text="{Binding Descripcion}"
-                                                TextColor ="White"
-                                                FontAttributes="Bold" 
-                                                FontSize="40"
-                                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                              Property=Width,
-                                                                              Factor=0, 
-                                                                              Constant = 160}" 
-                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
-                                                                              Factor=0, 
-                                                                              Property=Y, 
-                                                                              Constant=10}" />
+                                                                              Constant = 10}"  />
 
-
-    
-                                <Label x:Name="Imprescindible" 
-                                               Text="Imprescindible" 
-                                               FontSize="25"
-                                               WidthRequest="300" 
-                                               FontAttributes="Bold"
-                                               XAlign="Center"
-                                               TextColor="White"
-                                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                              Property=Width,
-                                                                              Factor=.5, 
-                                                                              Constant = 150}" 
-                                               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
-                                                                              Factor=0, 
-                                                                              Property=Y, 
-                                                                              Constant=20}" >
-
-                                    
-                                    <Label.Triggers>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
-                                                            <Setter Property="BackgroundColor" Value="Green" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="False">
-                                                            <Setter Property="BackgroundColor" Value="Red" />
-                                                        </DataTrigger>
-                                                    </Label.Triggers>
-                                                </Label>
-
-
-                                                <Image x:Name="Vinculado" 
+                                    <Image x:Name="Vinculado" 
                                                Source="Vinculado.png"
                                                 
                                                WidthRequest="40" 
@@ -98,33 +63,54 @@
                                                                               Factor=0, 
                                                                               Property=Y, 
                                                                               Constant=5}">
-                                                    <Image.Triggers>
-                                                        <DataTrigger TargetType="Image" Binding="{Binding Vinculado}" Value="True">
-                                                            <Setter Property="IsVisible" Value="True" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Image" Binding="{Binding Vinculado}" Value="False">
-                                                            <Setter Property="IsVisible" Value="False" />
-                                                        </DataTrigger>
-                                                    </Image.Triggers>
-                                                </Image>
+                                        <Image.Triggers>
+                                            <DataTrigger TargetType="Image" Binding="{Binding Vinculado}" Value="True">
+                                                <Setter Property="IsVisible" Value="True" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Image" Binding="{Binding Vinculado}" Value="False">
+                                                <Setter Property="IsVisible" Value="False" />
+                                            </DataTrigger>
+                                        </Image.Triggers>
+                                    </Image>
 
-
-                                            
-
-
-                                          
-                                                <Button Text="Eliminar" Command="{Binding ComandoEliminarElemento}"
-                                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                    <Label  Text="{Binding Descripcion}"
+                                                TextColor ="White"
+                                                FontAttributes="Bold" 
+                                                FontSize="25"  
+                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                               Property=Width,
-                                                                              Factor=.5, 
-                                                                              Constant = 250}" 
+                                                                              Factor=0, 
+                                                                              Constant = 160}" 
                                                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
                                                                               Factor=0, 
                                                                               Property=Y, 
-                                                                              Constant=70}"></Button>
-                                           
+                                                                              Constant=15}"/>
+                                </RelativeLayout>
+                                <StackLayout HorizontalOptions="End">
                                 
-                            </RelativeLayout>
+
+
+
+                                    <Label x:Name="Imprescindible" 
+                                               Text="Imprescindible" 
+                                               FontSize="25"
+                                               WidthRequest="300" 
+                                               FontAttributes="Bold"
+                                               XAlign="Center"
+                                               TextColor="White" >
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
+                                                <Setter Property="BackgroundColor" Value="Green" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="False">
+                                                <Setter Property="BackgroundColor" Value="Red" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+
+                                <Button Text="Eliminar" Command="{Binding ComandoEliminarElemento}"></Button>
+                            </StackLayout>
+                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

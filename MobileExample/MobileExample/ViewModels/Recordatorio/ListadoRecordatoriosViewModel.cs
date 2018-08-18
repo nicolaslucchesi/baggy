@@ -19,12 +19,14 @@ namespace MobileExample.ViewModels
         public ObservableCollection<RecordatorioViewModel> Recordatorios { get; set; }
 
         public Command ComandoCargarRecordatorios { get; set; }
+        public Command ComandoCargarRecordatoriosDelDia { get; set; }
 
         public ListadoRecordatoriosViewModel()
         {
             Title = "Mis Recordatorios";
             Recordatorios = new ObservableCollection<RecordatorioViewModel>();
             ComandoCargarRecordatorios = new Command(() => EjecutarComando());
+            ComandoCargarRecordatoriosDelDia = new Command(() => EjecutarComandoDelDia());
 
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
             // La idea es que desde la vista de creación se envíe un mensaje con el texto
@@ -95,6 +97,34 @@ namespace MobileExample.ViewModels
             }
         }
 
+        private void EjecutarComandoDelDia()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                Recordatorios.Clear();
+                var recordatorios = this.ObtenerRecordatoriosDelDia();
+                foreach (var recordatorio in recordatorios)
+                {
+                    Recordatorios.Add(recordatorio);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         private List<RecordatorioViewModel> ObtenerRecordatorios()
         {
             List<RecordatorioViewModel> listadoRecordatorios = new List<RecordatorioViewModel>();
@@ -115,6 +145,57 @@ namespace MobileExample.ViewModels
                 listadoRecordatorios.Add(recordatorioViewModel);
             }
 
+            return listadoRecordatorios;
+        }
+
+        
+        private List<RecordatorioViewModel> ObtenerRecordatoriosDelDia()
+        {
+            List<Recordatorio> recordatorios = new List<Recordatorio>();
+            List<RecordatorioViewModel> listadoRecordatorios = new List<RecordatorioViewModel>();
+
+            switch (DateTime.Now.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    recordatorios = DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(x => x.Lunes).ToList();
+                    break;
+                case DayOfWeek.Thursday:
+                    recordatorios = DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(x => x.Martes).ToList();
+                    break;
+                case DayOfWeek.Wednesday:
+                    recordatorios = DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(x => x.Miercoles).ToList();
+                    break;
+                case DayOfWeek.Tuesday:
+                    recordatorios = DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(x => x.Jueves).ToList();
+                    break;
+                case DayOfWeek.Friday:
+                    recordatorios = DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(x => x.Viernes).ToList();
+                    break;
+                case DayOfWeek.Saturday:
+                    recordatorios = DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(x => x.Sabado).ToList();
+                    break;
+                case DayOfWeek.Sunday:
+                    recordatorios = DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(x => x.Domingo).ToList();
+                    break;
+                default:
+                    break;
+            }
+
+            foreach (Recordatorio recordatorio in recordatorios)
+            {
+                RecordatorioViewModel recordatorioViewModel = new RecordatorioViewModel();
+                recordatorioViewModel.Id = recordatorio.Id;
+                recordatorioViewModel.Horario = recordatorio.Horario;
+                recordatorioViewModel.Lunes = recordatorio.Lunes;
+                recordatorioViewModel.Martes = recordatorio.Martes;
+                recordatorioViewModel.Miercoles = recordatorio.Miercoles;
+                recordatorioViewModel.Jueves = recordatorio.Jueves;
+                recordatorioViewModel.Viernes = recordatorio.Viernes;
+                recordatorioViewModel.Sabado = recordatorio.Sabado;
+                recordatorioViewModel.Domingo = recordatorio.Domingo;
+                recordatorioViewModel.HorarioStr = recordatorio.Horario.ToString(@"hh\:mm");
+                listadoRecordatorios.Add(recordatorioViewModel);
+            }
             return listadoRecordatorios;
         }
     }
