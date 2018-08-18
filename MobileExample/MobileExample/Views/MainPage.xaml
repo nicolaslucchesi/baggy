@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <xamarinforms:BottomBarPage
-    xmlns:xamarinforms="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+    xmlns:xamarinforms="clr-namespace:MobileExample.XamarinForms"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:MobileExample.Views"
@@ -9,8 +9,10 @@
 
     <views:ListadoMochilas x:Name="Mochilas" 
                            Title="Mochilas"
-                       Icon="trash.png" 
-                           xamarinforms:BottomBarPageExtensions.TabColor="MistyRose" 
+                           Icon="trash.png" 
+                           xamarinforms:BottomBarPageExtensions.TabColor="#FF00FF"
+                           xamarinforms:BottomBarPageExtensions.BadgeCount="3"
+                           xamarinforms:BottomBarPageExtensions.BadgeColor="Blue"
                            />
 
 
@@ -22,7 +24,7 @@
 
     <views:ListadoElementos Title="Mochilas"
                        Icon="trash.png"
-                             xamarinforms:BottomBarPageExtensions.TabColor="Blue"
+                             xamarinforms:BottomBarPageExtensions.TabColor="White"
                 />
         
 

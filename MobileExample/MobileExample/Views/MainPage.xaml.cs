@@ -1,12 +1,11 @@
-﻿using BottomBar.XamarinForms;
-using System;
+﻿using MobileExample.XamarinForms;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MobileExample.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MainPage : BottomBarPage
 	{
 		public MainPage ()

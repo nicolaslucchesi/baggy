@@ -11,6 +11,7 @@ using MobileExample.Droid.Services;
 using SQLite;
 using System.IO;
 using MobileExample.Tables;
+using BottomNavigationBar;
 
 namespace MobileExample.Droid
 {
