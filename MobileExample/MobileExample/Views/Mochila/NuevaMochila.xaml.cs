@@ -31,15 +31,40 @@ namespace MobileExample.Views
         {
             // Acá se manda el mensaje con el modelo y el titulo para que el modelo de
             // listado ejecute el código de guardado.
-            if (String.IsNullOrEmpty(MochilaViewModel.Descripcion))
+            string mensaje = ValidarMochila();
+            if (!string.IsNullOrEmpty(mensaje))
             {
-                await DisplayAlert("Error de validación", "El campo 'Descripción' es requerido.", "Aceptar");
+                await DisplayAlert("Error de validación", mensaje, "Aceptar");
             }
             else
             {
-                MessagingCenter.Send(this, "AgregarMochila", MochilaViewModel);
-                await Navigation.PopModalAsync();
+                if (string.IsNullOrEmpty(MochilaViewModel.UUID))
+                {
+                    bool acepta = await DisplayAlert("Error de validación",
+                                        "No has completado el código de la mochila. ¿Deseas guardar la mochila de todas formas?",
+                                        "Aceptar",
+                                        "Cancelar");
+                    if (acepta)
+                    {
+                        MessagingCenter.Send(this, "AgregarMochila", MochilaViewModel);
+                        await Navigation.PopModalAsync();
+                    }
+                }
+                else
+                {
+                    MessagingCenter.Send(this, "AgregarMochila", MochilaViewModel);
+                    await Navigation.PopModalAsync();
+                }
             }
+        }
+
+        string ValidarMochila()
+        {
+            if (string.IsNullOrEmpty(MochilaViewModel.Descripcion))
+            {
+                return "La descripción de la mochila no fue completada.";
+            }
+            return string.Empty;
         }
 
     }
