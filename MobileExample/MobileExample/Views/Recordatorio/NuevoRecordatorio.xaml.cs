@@ -53,6 +53,7 @@ namespace MobileExample.Views
             {
                 ElementoViewModel elementoViewModel = new ElementoViewModel();
                 elementoViewModel.Imprescindible = elemento.Imprescindible;
+                elementoViewModel.Seleccionado = elemento.Imprescindible ? true : false;
                 elementoViewModel.RutaIcono = elemento.RutaIcono;
                 elementoViewModel.Descripcion = elemento.Descripcion;
                 elementoViewModel.Vinculado = elemento.Vinculado;
@@ -63,7 +64,7 @@ namespace MobileExample.Views
                 listadoElementos.Add(elementoViewModel);
             }
 
-            return listadoElementos;
+            return listadoElementos.OrderBy(e => e.Imprescindible).ToList();
         }
 
         public async void GuardarRecordatorio(object sender, EventArgs e)
@@ -74,8 +75,15 @@ namespace MobileExample.Views
             // TODO: Revisar porqué no se mapea el timeSpan directamente.
             this.MapearDatos();
 
-            MessagingCenter.Send(this, "AgregarRecordatorio", recordatorioViewModel);
-            await Navigation.PopModalAsync();
+            if (!ValidarRecordatorio())
+            {
+                await DisplayAlert("Error de validación", "No se han completado todos los campos obligatorios.", "Aceptar");
+            }
+            else
+            {
+                MessagingCenter.Send(this, "AgregarRecordatorio", recordatorioViewModel);
+                await Navigation.PopModalAsync();
+            }
         }
 
         async void AbrirPopupSeleccionarElementos(object sender, EventArgs e)
@@ -168,6 +176,32 @@ namespace MobileExample.Views
             recordatorioViewModel.Viernes = SwitchViernes.IsToggled;
             recordatorioViewModel.Sabado = SwitchSabado.IsToggled;
             recordatorioViewModel.Domingo = SwitchDomingo.IsToggled;
+        }
+
+        private bool ValidarRecordatorio()
+        {
+            if (string.IsNullOrEmpty(recordatorioViewModel.HorarioStr))
+            {
+                return false;
+            }
+
+            if (!recordatorioViewModel.Elementos.Elementos.Any(e => e.Seleccionado))
+            {
+                return false;
+            }
+
+            if (!recordatorioViewModel.Lunes
+              && !recordatorioViewModel.Martes
+              && !recordatorioViewModel.Miercoles
+              && !recordatorioViewModel.Jueves
+              && !recordatorioViewModel.Viernes
+              && !recordatorioViewModel.Sabado
+              && !recordatorioViewModel.Domingo)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
