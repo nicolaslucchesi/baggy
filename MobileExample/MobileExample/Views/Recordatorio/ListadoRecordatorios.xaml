@@ -16,6 +16,17 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Orientation="Horizontal" BackgroundColor="#222222" HorizontalOptions="FillAndExpand">
+                <StackLayout Padding="10,0,0,0" HorizontalOptions="StartAndExpand">
+                    <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
+                </StackLayout>
+                <StackLayout HorizontalOptions="EndAndExpand">
+                    <Button Text="Nuevo Recordatorio" Clicked="AgregarRecordatorio_Clicked" 
+                        BackgroundColor="#222222" TextColor="White" HorizontalOptions="End"></Button>
+                </StackLayout>
+            </StackLayout>
+
+
             <ListView x:Name="RecordatoriosListView" 
                 ItemsSource="{Binding Recordatorios}"
                 VerticalOptions="FillAndExpand"
@@ -24,11 +35,14 @@
                  IsPullToRefreshEnabled="true"
                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                  CachingStrategy="RecycleElement"
-                 ItemSelected="OnItemSelected">
+                 ItemSelected="OnItemSelected"
+                 SeparatorColor="#2a2a2a">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <StackLayout Padding="10" Orientation="Horizontal" 
+                                         HorizontalOptions="FillAndExpand" BackgroundColor="#222222">
+                                <StackLayout HorizontalOptions="StartAndExpand">
                                 <StackLayout Padding="10" Orientation="Vertical">
                                     <Label  Text="{Binding HorarioStr}" 
                                             Style="{StaticResource labelStyle}"
@@ -38,7 +52,7 @@
                                             IsVisible="False"
                                             />
 
-                                    <StackLayout Padding="10" Orientation="Horizontal">
+                                        <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                         <Label x:Name="Lunes" 
                                                Text="L" 
                                                FontSize="25"
@@ -161,7 +175,7 @@
                                                TextColor="White"
                                                XAlign="Center">
                                             <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="True">
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="True">
                                                     <Setter Property="BackgroundColor" Value="Green" />
                                                 </DataTrigger>
                                                 <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="False">
@@ -171,12 +185,15 @@
                                         </Label>
                                     </StackLayout>
                                 </StackLayout>
-                                <Button HorizontalOptions="CenterAndExpand"
-                                        Image="trash.png"
+                                </StackLayout>
+                                <StackLayout HorizontalOptions="End">
+                                <Button Image="trash.png"
                                         BorderRadius="15"
                                         BackgroundColor="White"
                                         Command="{Binding ComandoEliminarRecordatorio}">
                                 </Button>
+                                    <Switch x:Name="Activo" IsToggled="True"></Switch>
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

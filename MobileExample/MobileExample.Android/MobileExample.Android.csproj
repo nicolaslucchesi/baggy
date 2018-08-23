@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BottomNavigationBar">
+      <Version>1.4.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Net.Http">
       <Version>2.2.29</Version>
     </PackageReference>
@@ -73,6 +76,12 @@
   <ItemGroup>
     <Compile Include="Bateria\ControlBateria.cs" />
     <Compile Include="Bateria\InterfazBateria.cs" />
+    <Compile Include="BottomBar\Renderers\BottomBarPageRenderer.cs" />
+    <Compile Include="BottomBar\Utils\IPageController.cs" />
+    <Compile Include="BottomBar\Utils\MeasureSpecFactory.cs" />
+    <Compile Include="BottomBar\Utils\PageController.cs" />
+    <Compile Include="BottomBar\Utils\ReflectedProxy.cs" />
+    <Compile Include="BottomBar\Utils\ResourceManagerEx.cs" />
     <Compile Include="Clima\CodigosLluvia.cs" />
     <Compile Include="Clima\Response\Astro.cs" />
     <Compile Include="Clima\Response\ClimaResponse.cs" />
@@ -162,6 +171,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Vinculado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TabMochila.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TabPrincipal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TabRecordatorios.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TabElementos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Baggy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
