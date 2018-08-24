@@ -20,7 +20,7 @@
                 <StackLayout Padding="10,0,0,0" HorizontalOptions="StartAndExpand">
                     <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
                 </StackLayout>
-                <StackLayout HorizontalOptions="EndAndExpand">
+                <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center">
                     <Button Text="Nuevo Recordatorio" Clicked="AgregarRecordatorio_Clicked" 
                         BackgroundColor="#222222" TextColor="White" HorizontalOptions="End"></Button>
                 </StackLayout>

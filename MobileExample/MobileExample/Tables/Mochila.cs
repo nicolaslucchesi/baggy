@@ -16,5 +16,7 @@ namespace MobileExample.Tables
         public string UUID { get; set; }
 
         public bool Activa { get; set; }
+
+        public bool EstadoAlarma { get; set; }
     }
 }

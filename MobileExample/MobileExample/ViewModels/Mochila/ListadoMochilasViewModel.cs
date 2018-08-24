@@ -74,6 +74,16 @@ namespace MobileExample.ViewModels
 
                 this.RefrescarMochilas();
             });
+
+            MessagingCenter.Subscribe<MochilaViewModel, MochilaViewModel>(this, "ActivarAlarma", (sender, mochilaViewModel) =>
+            {
+                Mochila mochilaAActivar = DatabaseHelper.db.Table<Mochila>().Where(e => e.UUID.Equals(mochilaViewModel.UUID)).FirstOrDefault();
+                mochilaAActivar.EstadoAlarma = !mochilaAActivar.EstadoAlarma;
+                DatabaseHelper.db.Update(mochilaAActivar);
+                this.RefrescarMochilas();
+                MessagingCenter.Send(this, "EnviarAlerta", mochilaAActivar.EstadoAlarma ? "La alarma ha sido activada" : "La alarma ha sido desactivada");
+            });
+
         }
 
         private void RefrescarMochilas()
@@ -119,6 +129,7 @@ namespace MobileExample.ViewModels
                 mochilaViewModel.Descripcion = mochila.Descripcion;
                 mochilaViewModel.UUID = mochila.UUID;
                 mochilaViewModel.Id = mochila.Id;
+                mochilaViewModel.EstadoAlarma = mochila.EstadoAlarma;
                 listadoMochilas.Add(mochilaViewModel);
             }
 

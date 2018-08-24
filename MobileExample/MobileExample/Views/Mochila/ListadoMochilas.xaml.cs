@@ -23,6 +23,11 @@ namespace MobileExample.Views
             InitializeComponent();
 
             BindingContext = viewModel = new ListadoMochilasViewModel();
+
+            MessagingCenter.Subscribe<ListadoMochilasViewModel, string>(this, "EnviarAlerta", (sender, mensaje) =>
+            {
+                DisplayAlert("Alarma", mensaje, "Aceptar");
+            });
         }
 
         async void AgregarMochila_Clicked(object sender, EventArgs e)
