@@ -18,7 +18,7 @@
                 <StackLayout Padding="10,0,0,0" HorizontalOptions="StartAndExpand">
                     <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
                 </StackLayout>
-                <StackLayout HorizontalOptions="EndAndExpand">
+                <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center">
                     <Button Text="Nueva Mochila" Clicked="AgregarMochila_Clicked" 
                         BackgroundColor="#222222" TextColor="White" HorizontalOptions="End"></Button>
                 </StackLayout>
@@ -66,6 +66,20 @@
                                         </DataTrigger>
                                     </Button.Triggers>
                                 </Button>
+                                    <Button 
+                                    Image="alarm.png"
+                                    Command="{Binding ComandoActivarAlarma}" 
+                                    BackgroundColor="Red"
+                                    HorizontalOptions="CenterAndExpand"
+                                    BorderRadius="15">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button"
+                                            Binding="{Binding EstadoAlarma}"
+                                            Value="True">
+                                                <Setter Property="BackgroundColor" Value="Green" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
                                     <Button Image="trash.png" 
                                         Command="{Binding ComandoEliminarMochila}"
                                         HorizontalOptions="CenterAndExpand"
