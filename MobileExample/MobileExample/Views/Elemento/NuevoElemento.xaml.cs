@@ -95,13 +95,9 @@ namespace MobileExample.Views
             var propertiedPopup = new VincularElemento();
             propertiedPopup.CloseWhenBackgroundIsClicked = false;
 
-            // MANDAR SEÑAL A LA MOCHILA PARA QUE MANDE NUEVOS ELEMENTOS
-
             await PopupNavigation.PushAsync(propertiedPopup);
             await Task.Delay(2000);
             EsperarElemento();
-
-            // MANDAR SEÑAL A LA MOCHILA PARA QUE DEJE DE MANDAR NUEVOS ELEMENTOS
 
             if (!ElementoViewModel.Vinculado)
             {
@@ -178,6 +174,7 @@ namespace MobileExample.Views
                 if (DatabaseHelper.db.Table<ElementoAgregado>().Count() > 0)
                 {
                     ElementoAgregado elementoAgregado = DatabaseHelper.db.Table<ElementoAgregado>().FirstOrDefault();
+                    // FIJARSE SI EXISTE.
                     ElementoViewModel.UUID = elementoAgregado.UUID;
                     DatabaseHelper.db.DeleteAll<ElementoAgregado>();
                     ElementoViewModel.Vinculado = true;

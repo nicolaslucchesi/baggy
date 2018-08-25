@@ -2,8 +2,11 @@
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using MobileExample.Database;
 using MobileExample.Services;
+using MobileExample.Sincronizacion;
 using MobileExample.Tables;
+using Newtonsoft.Json;
 using SQLite;
 using System;
 using System.IO;
@@ -66,7 +69,41 @@ public class ServicioBluetooth : IntentService
     /// <param name="e"></param>
     private void AccionTimer(object sender, ElapsedEventArgs e)
     {
-        Handler mainHandler = new Handler(Looper.MainLooper);
         string data = bluetoothService.Sincronizar();
+
+        string textoNotificacion = string.Empty;
+        // PRIMERO - Intentar sincronizar la información
+
+        if (!string.IsNullOrEmpty(data))
+        {
+            ModeloRespuesta respuestaSincronizacion = JsonConvert.DeserializeObject<ModeloRespuesta>(data);
+            switch (respuestaSincronizacion.Codigo)
+            {
+                case (int)EnumCodigos.Elemento:
+                    if (DatabaseHelper.db.Table<Configuracion>().FirstOrDefault().Vinculando)
+                    {
+                        // Si es información de un nuevo elemento solicitado, lo guardo en la tabla temporal.
+                        string nuevoUUID = respuestaSincronizacion.Data.ToString();
+                        ElementoAgregado nuevoElemento = new ElementoAgregado { UUID = nuevoUUID };
+                        DatabaseHelper.db.Insert(nuevoElemento);
+                    }
+                    else
+                    {
+                        // Actualizar en la mochila activa/conectada la lista de elementos
+                        // SI EXISTE Y ESTA REGISTRADO
+                    }
+                    break;
+                case (int)EnumCodigos.Bateria:
+
+                    break;
+                case (int)EnumCodigos.CierreAbierto:
+                    // Si es información de la mochila en modo 'alarma', hay que guardarla también
+                    // TODO: DEFINIR
+                    bool mochilaAbierta = (Convert.ToBoolean(respuestaSincronizacion.Data));
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

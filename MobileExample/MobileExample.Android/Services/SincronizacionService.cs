@@ -80,36 +80,6 @@ namespace MobileExample.Droid.Services
         /// <param name="e"></param>
         private async void AccionTimer(object sender, ElapsedEventArgs e)
         {
-            string textoNotificacion = string.Empty;
-            // PRIMERO - Intentar sincronizar la información
-            string data = bluetoothService.Sincronizar();
-
-            if (!string.IsNullOrEmpty(data))
-            {
-                ModeloRespuesta respuestaSincronizacion = JsonConvert.DeserializeObject<ModeloRespuesta>(data);
-                switch (respuestaSincronizacion.Codigo)
-                {
-                    case (int)EnumCodigos.Sincronizar:
-                        // Si es información de una sincronización, la guardo en la BD.
-                        InformacionSincronizada informacionSincronizada = new InformacionSincronizada { Fecha = DateTime.Now, Data = respuestaSincronizacion.Data.ToString() };
-                        DatabaseHelper.db.DeleteAll<InformacionSincronizada>();
-                        DatabaseHelper.db.Insert(informacionSincronizada);
-                        break;
-                    case (int)EnumCodigos.NuevoElemento:
-                        // Si es información de un nuevo elemento solicitado, lo guardo en la tabla temporal.
-                        string nuevoUUID = respuestaSincronizacion.Data.ToString();
-                        ElementoAgregado nuevoElemento = new ElementoAgregado { UUID = nuevoUUID };
-                        DatabaseHelper.db.Insert(nuevoElemento);
-                        break;
-                    case (int)EnumCodigos.Alarma:
-                        // Si es información de la mochila en modo 'alarma', hay que guardarla también
-                        // TODO: DEFINIR
-                        bool mochilaAbierta = (Convert.ToBoolean(respuestaSincronizacion.Data));
-                        break;
-                    default:
-                        break;
-                }
-            }
 
             // SEGUNDO - Chequeo si hay algún recordatorio en el proximo minuto configurado para comparar qué tengo y qué tengo que tener.
             List<Recordatorio> recordatorios = ObtenerRecordatoriosDelDia();
