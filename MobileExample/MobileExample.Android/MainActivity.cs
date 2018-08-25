@@ -18,8 +18,10 @@ namespace MobileExample.Droid
     [Activity(Label = "MobileExample", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        Intent intentSegundoPlano;
-        private SincronizacionService servicioSegundoPlano;
+        Intent intentSincronizacion;
+        Intent intentBluetooth;
+        private SincronizacionService servicioSincronizacion;
+        private ServicioBluetooth servicioBluetooth;
         Context contexto;
 
         public Context obtenerContexto()
@@ -40,7 +42,9 @@ namespace MobileExample.Droid
             Rg.Plugins.Popup.Popup.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            IniciarServicioSegundoPlano();
+            IniciarServicioSincronizacion();
+
+            IniciarServicioBluetooth();
          
             LoadApplication(new App());
         }
@@ -50,7 +54,7 @@ namespace MobileExample.Droid
         /// </summary>
         protected override void OnDestroy()
         {
-            StopService(intentSegundoPlano);
+            StopService(intentSincronizacion);
             Console.WriteLine("Servicio parado.");
             base.OnDestroy();
         }
@@ -58,16 +62,32 @@ namespace MobileExample.Droid
         /// Este método inicia el servicio que corre en segundo plano
         /// si es que no está corriendo.
         /// </summary>
-        private void IniciarServicioSegundoPlano()
+        private void IniciarServicioSincronizacion()
         {
             contexto = this;
-            servicioSegundoPlano = new SincronizacionService(this.obtenerContexto());
-            intentSegundoPlano = new Intent(this.obtenerContexto(), typeof(SincronizacionService));
-            if (!servicioCorriendo(servicioSegundoPlano))
+            servicioSincronizacion = new SincronizacionService(this.obtenerContexto());
+            intentSincronizacion = new Intent(this.obtenerContexto(), typeof(SincronizacionService));
+            if (!servicioCorriendo(servicioSincronizacion))
             {
-                StartService(intentSegundoPlano);
+                StartService(intentSincronizacion);
             }
             
+        }
+
+        /// <summary>
+        /// Este método inicia el servicio que corre en segundo plano
+        /// si es que no está corriendo.
+        /// </summary>
+        private void IniciarServicioBluetooth()
+        {
+            contexto = this;
+            servicioBluetooth = new ServicioBluetooth(this.obtenerContexto());
+            intentBluetooth = new Intent(this.obtenerContexto(), typeof(ServicioBluetooth));
+            if (!servicioCorriendo(servicioBluetooth))
+            {
+                StartService(intentBluetooth);
+            }
+
         }
         /// <summary>
         /// Este método verifica si el servicio en segundo plano está corriendo
@@ -75,7 +95,7 @@ namespace MobileExample.Droid
         /// </summary>
         /// <param name="servicioBackground">La instancia del tipo de servicio a verificar</param>
         /// <returns>Un booleano que indica si el servicio está corriendo o no.</returns>
-        private Boolean servicioCorriendo(SincronizacionService servicioBackground)
+        private bool servicioCorriendo(IntentService servicioBackground)
         {
             ActivityManager manager = (ActivityManager)GetSystemService(Context.ActivityService);
             foreach (ActivityManager.RunningServiceInfo servicio in manager.GetRunningServices(int.MaxValue))

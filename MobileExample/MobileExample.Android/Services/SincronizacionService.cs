@@ -84,7 +84,7 @@ namespace MobileExample.Droid.Services
             // PRIMERO - Intentar sincronizar la información
             string data = bluetoothService.Sincronizar();
 
-            if (data != "")
+            if (!string.IsNullOrEmpty(data))
             {
                 ModeloRespuesta respuestaSincronizacion = JsonConvert.DeserializeObject<ModeloRespuesta>(data);
                 switch (respuestaSincronizacion.Codigo)
