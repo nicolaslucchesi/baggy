@@ -6,7 +6,6 @@ using InterfazBateria;
 using MobileExample.Database;
 using MobileExample.Droid.Clima;
 using MobileExample.Services;
-using MobileExample.Sincronizacion;
 using MobileExample.Tables;
 using Newtonsoft.Json;
 using SQLiteNetExtensions.Extensions;
@@ -22,19 +21,19 @@ namespace MobileExample.Droid.Services
 {
     [Service(Exported = true)]
     [IntentFilter(new[] { "baggyFilter" })]
-    public class SincronizacionService : IntentService
+    public class ServicioRecordatorio : IntentService
     {
         public int contador = 0;
         public HttpClient client = new HttpClient();
         public string urlClima = "https://api.apixu.com/v1/forecast.json?key=d8c869676cba4733b9f230353180108&q=-34.669090,-58.564331&days=1";
         public BluetoothService bluetoothService = new BluetoothService();
 
-        public SincronizacionService(Context contexto) : base("SincronizacionService")
+        public ServicioRecordatorio(Context contexto) : base("ServicioRecordatorio")
         {
             Console.WriteLine("Empezó el servicio.");
         }
 
-        public SincronizacionService()
+        public ServicioRecordatorio()
         {
 
         }
@@ -67,21 +66,18 @@ namespace MobileExample.Droid.Services
         /// </summary>
         public void ComenzarContador()
         {
-            timer = new Timer(60000);
+            timer = new Timer(60013);
             timer.Elapsed += new ElapsedEventHandler(AccionTimer);
             timer.Enabled = true;
         }
         /// <summary>
         /// Esta es la acción que se ejecuta cada vez que transcurre el lapso definido
         /// en el timer.
-        /// Acá irían las actividades de sincronización y verificación de datos y demás.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void AccionTimer(object sender, ElapsedEventArgs e)
         {
-
-            // SEGUNDO - Chequeo si hay algún recordatorio en el proximo minuto configurado para comparar qué tengo y qué tengo que tener.
             List<Recordatorio> recordatorios = ObtenerRecordatoriosDelDia();
 
             if (recordatorios.Count > 0)
@@ -214,8 +210,8 @@ namespace MobileExample.Droid.Services
             string mensaje = String.Empty;
             // Debo comparar los elementos que me llegaron por parámetro con los elementos que tengo en la mochila,
             // que los voy a sacar de la tabla de sincronización.
-            InformacionSincronizada informacion = DatabaseHelper.db.Table<InformacionSincronizada>().FirstOrDefault();
-            List<string> UUIDsEnMochila = informacion.Data.Split(',').ToList();
+            string informacion = DatabaseHelper.db.Table<Mochila>().FirstOrDefault(e => e.Activa).Elementos;
+            List<string> UUIDsEnMochila = informacion.Split(',').ToList();
 
             // PRIMERO - Me fijo si falta algo
             List<Elemento> elementosOlvidados = new List<Elemento>();

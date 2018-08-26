@@ -1,16 +1,15 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Widget;
+using Android.Support.V4.App;
 using MobileExample.Database;
+using MobileExample.Droid;
 using MobileExample.Services;
 using MobileExample.Sincronizacion;
 using MobileExample.Tables;
 using Newtonsoft.Json;
-using SQLite;
 using System;
-using System.IO;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 using System.Timers;
 
 [Service(Exported = true)]
@@ -56,7 +55,7 @@ public class ServicioBluetooth : IntentService
     /// </summary>
     public void ComenzarContador()
     {
-        timer = new Timer(2000);
+        timer = new Timer(3001);
         timer.Elapsed += new ElapsedEventHandler(AccionTimer);
         timer.Enabled = true;
     }
@@ -71,12 +70,10 @@ public class ServicioBluetooth : IntentService
     {
         string data = bluetoothService.Sincronizar();
 
-        string textoNotificacion = string.Empty;
-        // PRIMERO - Intentar sincronizar la información
-
         if (!string.IsNullOrEmpty(data))
         {
             ModeloRespuesta respuestaSincronizacion = JsonConvert.DeserializeObject<ModeloRespuesta>(data);
+            Mochila mochilaActiva = DatabaseHelper.db.Table<Mochila>().FirstOrDefault(m => m.Activa);
             switch (respuestaSincronizacion.Codigo)
             {
                 case (int)EnumCodigos.Elemento:
@@ -91,19 +88,60 @@ public class ServicioBluetooth : IntentService
                     {
                         // Actualizar en la mochila activa/conectada la lista de elementos
                         // SI EXISTE Y ESTA REGISTRADO
+                        string elementoRecibido = respuestaSincronizacion.Data.ToString();
+                        if (DatabaseHelper.db.Table<Elemento>().Any(x => string.Equals(x.UUID, elementoRecibido)))
+                        {
+                            List<string> elementosEnMochila = mochilaActiva.Elementos.Split(',').ToList();
+                            if (elementosEnMochila.Contains(elementoRecibido))
+                            {
+                                // Salió
+                                elementosEnMochila.Remove(elementoRecibido);
+                            }
+                            else
+                            {
+                                // Entró
+                                elementosEnMochila.Add(elementoRecibido);
+                            }
+
+                            mochilaActiva.Elementos = string.Join(",", elementosEnMochila);
+                            DatabaseHelper.db.Update(mochilaActiva);
+                        }
+                        else
+                        {
+                            // Ver qué hacer si el elemento ingresado no está registrado.
+                        }
                     }
                     break;
                 case (int)EnumCodigos.Bateria:
-
+                    // Definir qué pasa cuando Baggy se queda sin batería
                     break;
                 case (int)EnumCodigos.CierreAbierto:
-                    // Si es información de la mochila en modo 'alarma', hay que guardarla también
-                    // TODO: DEFINIR
-                    bool mochilaAbierta = (Convert.ToBoolean(respuestaSincronizacion.Data));
+                    if (mochilaActiva.EstadoAlarma)
+                    {
+                        this.EnviarNotificacion("TE ESTAN CHOREANDO PAPÁ");
+                    }
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    private void EnviarNotificacion(string mensajeNotificacion)
+    {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+            .SetContentTitle("Cuidado!")
+            // Esta linea es para que vibre y suene. Por ahora queda deshabilitada porque
+            // es un dolor de pelotas que suene todo el tiempo.
+            //.SetDefaults(NotificationDefaults.Vibrate | NotificationDefaults.Sound)
+            .SetSmallIcon(Resource.Drawable.BaggyLogo1)
+            .SetStyle(new NotificationCompat.BigTextStyle().BigText(mensajeNotificacion))
+            .SetContentText(mensajeNotificacion);
+
+        Notification notification = builder.Build();
+        NotificationManager notificationManager =
+            GetSystemService(Context.NotificationService) as NotificationManager;
+        const int notificationId = 0;
+        notificationManager.Notify(notificationId, notification);
     }
 }

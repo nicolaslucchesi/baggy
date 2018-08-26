@@ -18,9 +18,9 @@ namespace MobileExample.Droid
     [Activity(Label = "MobileExample", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        Intent intentSincronizacion;
+        Intent intentRecordatorio;
         Intent intentBluetooth;
-        private SincronizacionService servicioSincronizacion;
+        private ServicioRecordatorio servicioRecordatorio;
         private ServicioBluetooth servicioBluetooth;
         Context contexto;
 
@@ -42,7 +42,7 @@ namespace MobileExample.Droid
             Rg.Plugins.Popup.Popup.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            IniciarServicioSincronizacion();
+            IniciarServicioRecordatorio();
 
             IniciarServicioBluetooth();
          
@@ -54,7 +54,7 @@ namespace MobileExample.Droid
         /// </summary>
         protected override void OnDestroy()
         {
-            StopService(intentSincronizacion);
+            StopService(intentRecordatorio);
             Console.WriteLine("Servicio parado.");
             base.OnDestroy();
         }
@@ -62,14 +62,14 @@ namespace MobileExample.Droid
         /// Este método inicia el servicio que corre en segundo plano
         /// si es que no está corriendo.
         /// </summary>
-        private void IniciarServicioSincronizacion()
+        private void IniciarServicioRecordatorio()
         {
             contexto = this;
-            servicioSincronizacion = new SincronizacionService(this.obtenerContexto());
-            intentSincronizacion = new Intent(this.obtenerContexto(), typeof(SincronizacionService));
-            if (!servicioCorriendo(servicioSincronizacion))
+            servicioRecordatorio = new ServicioRecordatorio(this.obtenerContexto());
+            intentRecordatorio = new Intent(this.obtenerContexto(), typeof(ServicioRecordatorio));
+            if (!servicioCorriendo(servicioRecordatorio))
             {
-                StartService(intentSincronizacion);
+                StartService(intentRecordatorio);
             }
             
         }
