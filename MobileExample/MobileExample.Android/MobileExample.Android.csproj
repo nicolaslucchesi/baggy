@@ -95,7 +95,8 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SensorBroadcastReceiver.cs" />
-    <Compile Include="Services\SincronizacionService.cs" />
+    <Compile Include="Services\ServicioBluetooth.cs" />
+    <Compile Include="Services\ServicioRecordatorio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

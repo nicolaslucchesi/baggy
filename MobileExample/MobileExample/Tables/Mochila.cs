@@ -18,5 +18,9 @@ namespace MobileExample.Tables
         public bool Activa { get; set; }
 
         public bool EstadoAlarma { get; set; }
+
+        public bool Abierta { get; set; }
+
+        public string Elementos { get; set; }
     }
 }
