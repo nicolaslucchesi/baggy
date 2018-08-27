@@ -164,6 +164,16 @@ namespace MobileExample.Views
             await PopupNavigation.PushAsync(propertiedPopup);
         }
 
+        /// <summary>
+        /// Este método lo que hace es esperar 10 segundos, chequeando
+        /// cada 2 segundos (cinco chequeos) en la base de datos, a ver si en la tabla
+        /// "ElementoAgregado" hay algún registro nuevo. Cabe destacar que el servicio que chequea el bluetooth,
+        /// se encarga de verificar si el elemento agregado ya existe para no agregarlo de nuevo.
+        /// Habría que ver si hace falta saberlo desde acá para tirar un alert o con que no haga nada
+        /// es suficiente.
+        /// También se podría ver de usar un MessagingCenter.Send(... para evitar usar la base de datos
+        /// como medio de comunicación. Pero por lo pronto así funciona bien.
+        /// </summary>
         void EsperarElemento()
         {
             ElementoViewModel.IsBusy = true;
@@ -174,7 +184,6 @@ namespace MobileExample.Views
                 if (DatabaseHelper.db.Table<ElementoAgregado>().Count() > 0)
                 {
                     ElementoAgregado elementoAgregado = DatabaseHelper.db.Table<ElementoAgregado>().FirstOrDefault();
-                    // FIJARSE SI EXISTE.
                     ElementoViewModel.UUID = elementoAgregado.UUID;
                     DatabaseHelper.db.DeleteAll<ElementoAgregado>();
                     ElementoViewModel.Vinculado = true;
