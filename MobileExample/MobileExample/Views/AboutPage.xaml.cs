@@ -9,13 +9,13 @@ namespace MobileExample.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AboutPage : ContentPage
 	{
-        ListadoRecordatoriosViewModel viewModel;
+        AboutViewModel viewModel;
         public AboutPage ()
 		{
             NavigationPage.SetTitleIcon(this, "BaggyLogo.jpg");
             InitializeComponent ();
 
-            BindingContext = viewModel = new ListadoRecordatoriosViewModel();
+            BindingContext = viewModel = new AboutViewModel();
         }
 
         protected override void OnAppearing()
