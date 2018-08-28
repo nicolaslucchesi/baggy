@@ -12,6 +12,7 @@ using SQLite;
 using System.IO;
 using MobileExample.Tables;
 using BottomNavigationBar;
+using CarouselView.FormsPlugin.Android;
 
 namespace MobileExample.Droid
 {
@@ -41,6 +42,7 @@ namespace MobileExample.Droid
 
             Rg.Plugins.Popup.Popup.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            CarouselViewRenderer.Init();
 
             IniciarServicioRecordatorio();
 
