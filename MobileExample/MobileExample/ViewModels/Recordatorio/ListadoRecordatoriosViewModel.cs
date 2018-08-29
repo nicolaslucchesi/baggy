@@ -18,12 +18,15 @@ namespace MobileExample.ViewModels
     {
         public ObservableCollection<RecordatorioViewModel> Recordatorios { get; set; }
 
+        public FiltrosRecordatorioViewModel Filtros { get; set; }
+
         public Command ComandoCargarRecordatorios { get; set; }
 
         public ListadoRecordatoriosViewModel()
         {
             Title = "Mis Recordatorios";
             Recordatorios = new ObservableCollection<RecordatorioViewModel>();
+            Filtros = new FiltrosRecordatorioViewModel();
             ComandoCargarRecordatorios = new Command(() => EjecutarComando());
 
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
@@ -118,7 +121,73 @@ namespace MobileExample.ViewModels
             return listadoRecordatorios;
         }
 
-        
-       
+        public void ObtenerRecordatoriosFiltrados()
+        {
+            Recordatorios.Clear();
+            List<Recordatorio> recordatorios = new List<Recordatorio>();
+            if (Filtros.Lunes)
+            {
+                recordatorios.AddRange(DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(r => r.Lunes));
+            }
+            if (Filtros.Martes)
+            {
+                recordatorios.AddRange(DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(r => r.Martes));
+            }
+            if (Filtros.Miercoles)
+            {
+                recordatorios.AddRange(DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(r => r.Miercoles));
+            }
+            if (Filtros.Jueves)
+            {
+                recordatorios.AddRange(DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(r => r.Jueves));
+            }
+            if (Filtros.Viernes)
+            {
+                recordatorios.AddRange(DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(r => r.Viernes));
+            }
+            if (Filtros.Sabado)
+            {
+                recordatorios.AddRange(DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(r => r.Sabado));
+            }
+            if (Filtros.Domingo)
+            {
+                recordatorios.AddRange(DatabaseHelper.db.GetAllWithChildren<Recordatorio>().Where(r => r.Domingo));
+            }
+
+            recordatorios = recordatorios.GroupBy(e => e.Id).Select(g => g.First()).ToList();
+
+            if (Filtros.ElementoSeleccionado != "Todos")
+            {
+                for (int i = recordatorios.Count - 1; i >= 0; i--)
+                {
+                    if (!recordatorios[i].Elementos.Select(e => e.Descripcion).Contains(Filtros.ElementoSeleccionado))
+                    {
+                        recordatorios.Remove(recordatorios[i]);
+                    }
+                }
+            }
+
+            if (Filtros.MochilaSeleccionada != "Todas")
+            {
+
+            }
+
+            foreach (Recordatorio recordatorio in recordatorios)
+            {
+                RecordatorioViewModel recordatorioViewModel = new RecordatorioViewModel();
+                recordatorioViewModel.Id = recordatorio.Id;
+                recordatorioViewModel.Horario = recordatorio.Horario;
+                recordatorioViewModel.Lunes = recordatorio.Lunes;
+                recordatorioViewModel.Martes = recordatorio.Martes;
+                recordatorioViewModel.Miercoles = recordatorio.Miercoles;
+                recordatorioViewModel.Jueves = recordatorio.Jueves;
+                recordatorioViewModel.Viernes = recordatorio.Viernes;
+                recordatorioViewModel.Sabado = recordatorio.Sabado;
+                recordatorioViewModel.Domingo = recordatorio.Domingo;
+                recordatorioViewModel.HorarioStr = recordatorio.Horario.ToString(@"hh\:mm");
+                Recordatorios.Add(recordatorioViewModel);
+            }
+        }
+
     }
 }
