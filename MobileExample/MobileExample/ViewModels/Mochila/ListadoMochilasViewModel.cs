@@ -39,6 +39,8 @@ namespace MobileExample.ViewModels
 
                 DatabaseHelper.db.Insert(mochila);
                 Mochilas.Add(mochilaViewModel);
+
+                MessagingCenter.Send(this, "MochilaAgregada", mochilaViewModel.Descripcion);
             });
 
             // Este nuevo listener escucha cuando un objeto 'mochilaViewModel' quiere ser eliminado
@@ -49,6 +51,15 @@ namespace MobileExample.ViewModels
                 Mochila mochilaAEliminar = DatabaseHelper.db.Table<Mochila>().Where(e => e.UUID.Equals(mochilaViewModel.UUID)).FirstOrDefault();
                 DatabaseHelper.db.Delete(mochilaAEliminar);
                 Mochilas.Remove(mochilaViewModel);
+
+                // Tengo que desvincular las mochilas de los recordatorios si le doy eliminar a una
+                List<Recordatorio> recordatorios = DatabaseHelper.db.Table<Recordatorio>().Where(e => e.IdMochila == mochilaAEliminar.Id).ToList();
+                foreach (Recordatorio recordatorio in recordatorios) {
+                    recordatorio.IdMochila = null;
+                }
+                DatabaseHelper.db.UpdateAll(recordatorios);
+
+                MessagingCenter.Send(this, "MochilaEliminada", mochilaViewModel.Descripcion);
             });
 
             MessagingCenter.Subscribe<MochilaViewModel, MochilaViewModel>(this, "ActivarMochila", (sender, mochilaViewModel) =>

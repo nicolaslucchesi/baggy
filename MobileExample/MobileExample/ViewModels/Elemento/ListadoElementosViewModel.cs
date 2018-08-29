@@ -43,16 +43,16 @@ namespace MobileExample.ViewModels
 
                 DatabaseHelper.db.Insert(elemento);
                 Elementos.Add(elementoViewModel);
+                MessagingCenter.Send(this, "ElementoAgregado", elementoViewModel.Descripcion);
             });
 
             MessagingCenter.Subscribe<ElementoViewModel, ElementoViewModel>(this, "EliminarElemento", (sender, elementoViewModel) =>
             {
-                Elemento elementoAEliminar = DatabaseHelper.db.Table<Elemento>().Where(e => e.Id.Equals(elementoViewModel.Id)).FirstOrDefault();
+                Elemento elementoAEliminar = DatabaseHelper.db.Get<Elemento>(elementoViewModel.Id);
                 DatabaseHelper.db.Delete(elementoAEliminar);
                 Elementos.Remove(elementoViewModel);
+                MessagingCenter.Send(this, "ElementoEliminado", elementoViewModel.Descripcion);
             });
-
-           
         }
 
         private void EjecutarComando()

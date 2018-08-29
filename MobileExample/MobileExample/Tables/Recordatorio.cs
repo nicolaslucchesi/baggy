@@ -15,8 +15,8 @@ namespace MobileExample.Tables
         public string Descripcion { get; set; }
 
         public TimeSpan Horario { get; set; }
-
-        public int IdMochila { get; set; }
+        
+        public int? IdMochila { get; set; }
 
         public bool Lunes { get; set; }
 

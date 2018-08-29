@@ -1,6 +1,8 @@
-﻿using MobileExample.Tables;
+﻿using MobileExample.Database;
+using MobileExample.Tables;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -12,7 +14,8 @@ namespace MobileExample.ViewModels
         public int Id { get; set; }
 
         public TimeSpan Horario { get; set; }
-        public MochilaViewModel MochilaSeleccionada { get; set; }
+        public List<string> Mochilas { get; set; }
+        public string MochilaSeleccionada { get; set; }
         public ListadoElementosRecordatorioViewModel Elementos { get; set; }
         public string HorarioStr { get; set; }
         public bool Lunes { get; set; }
@@ -29,7 +32,14 @@ namespace MobileExample.ViewModels
         {
             this.ComandoEliminarRecordatorio = new Command(Eliminar);
             Elementos = new ListadoElementosRecordatorioViewModel();
-            MochilaSeleccionada = new MochilaViewModel();
+            Horario = new TimeSpan(12, 0, 0);
+
+            Mochilas = new List<string>();
+            Mochilas.Add("Ninguna");
+            List<string> MochilasGuardadas = DatabaseHelper.db.Table<Mochila>().ToList().Select(e => e.Descripcion).ToList();
+            Mochilas.AddRange(MochilasGuardadas);
+            MochilaSeleccionada = "Ninguna";
+
         }
 
         void Eliminar()
@@ -59,7 +69,6 @@ namespace MobileExample.ViewModels
                     Vinculado = elemento.Vinculado
                 });
             }
-
             return viewModel;
         }
 

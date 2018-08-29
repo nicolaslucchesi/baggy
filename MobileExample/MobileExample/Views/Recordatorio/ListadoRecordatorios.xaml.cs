@@ -24,6 +24,27 @@ namespace MobileExample.Views
         {
             InitializeComponent();
             BindingContext = viewModel = new ListadoRecordatoriosViewModel();
+
+            MessagingCenter.Subscribe<ListadoElementosViewModel, string>(this, "ElementoAgregado", (sender, descripcion) =>
+            {
+                ListaElementos.ItemsSource.Add(descripcion);
+            });
+
+            MessagingCenter.Subscribe<ListadoElementosViewModel, string>(this, "ElementoEliminado", (sender, descripcion) =>
+            {
+                ListaElementos.ItemsSource.Remove(descripcion);
+            });
+
+            MessagingCenter.Subscribe<ListadoMochilasViewModel, string>(this, "MochilaAgregada", (sender, descripcion) =>
+            {
+                ListaMochilas.ItemsSource.Add(descripcion);
+            });
+
+            MessagingCenter.Subscribe<ListadoMochilasViewModel, string>(this, "MochilaEliminada", (sender, descripcion) =>
+            {
+                ListaMochilas.ItemsSource.Remove(descripcion);
+            });
+
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

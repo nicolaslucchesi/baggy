@@ -117,14 +117,13 @@
                                 Clicked="AbrirPopupSeleccionarElementos"
                                 WidthRequest="60" 
                                />
-                <Button         Text="Seleccionar Mochilas" 
-                                BorderRadius="30" BackgroundColor="White" 
-                                HeightRequest="60"  
-                                Clicked="AbrirPopupSeleccionarMochila"
-                                WidthRequest="60" 
-                               />
-
-                <Picker ItemsSource="ListadoMochila" SelectedItem="{Binding RecordatorioViewModel.MochilaSeleccionada}"/>
+                
+                <Label Text="Mochilas" FontSize="Medium" TextColor="White"/>
+                <Picker x:Name="ListaMochilas"
+                        Title="Seleccione una mochila"
+                        ItemsSource="{Binding RecordatorioViewModel.Mochilas}"
+                        SelectedItem="{Binding RecordatorioViewModel.MochilaSeleccionada}"
+                        TextColor="White"/>
                 
             </StackLayout>
             
