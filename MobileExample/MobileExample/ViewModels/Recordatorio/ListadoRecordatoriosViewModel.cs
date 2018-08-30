@@ -68,6 +68,7 @@ namespace MobileExample.ViewModels
                 DatabaseHelper.db.Delete(recordatorioAEliminar);
                 Recordatorios.Remove(recordatorioViewModel);
             });
+             
         }
 
         private void EjecutarComando()
