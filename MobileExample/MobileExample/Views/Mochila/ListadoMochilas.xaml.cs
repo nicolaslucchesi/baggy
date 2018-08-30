@@ -26,14 +26,7 @@ namespace MobileExample.Views
 
             BindingContext = viewModel = new ListadoMochilasViewModel();
             viewModel.ComandoCargarMochilas.Execute(null);
-        //   viewModel.ComandoCargarMochilas.Execute(null);
-
-       //     BindingContext = viewModel;
-            // VistaCarrousel.ItemsSource = viewModel.Mochilas;
-
-            
-
-
+        
             MessagingCenter.Subscribe<ListadoMochilasViewModel, string>(this, "EnviarAlerta", (sender, mensaje) =>
             {
                 DisplayAlert("Alarma", mensaje, "Aceptar");

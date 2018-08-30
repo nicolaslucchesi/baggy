@@ -25,16 +25,7 @@ namespace MobileExample.ViewModels
             Title = "Mis mochilas";
             Mochilas = new ObservableCollection<MochilaViewModel>();
             ComandoCargarMochilas = new Command(() => RefrescarMochilas());
-
-            Slides = new ObservableCollection<Slide>(new[]
-            {
-                new Slide("Obj1.png", "Some description for slide one."),
-                new Slide("Obj2.png", "Some description for slide two."),
-                new Slide("Obj1.png", "Some description for slide three.")
-            });
-        
-
-    
+ 
         // Esto registra una especie de 'listener' para cuando agregamos mochilas.
         // La idea es que desde la vista de creación se envíe un mensaje con el texto
         // 'AgregarMochila' y el objeto viewModel, y de esa manera se ejecuta esta porçión de código.
