@@ -19,6 +19,9 @@ namespace MobileExample.Views
 	public partial class ListadoRecordatorios : ContentPage
 	{
         ListadoRecordatoriosViewModel viewModel;
+        private const string ExpandAnimationName = "ExpandAnimation";
+        private const string CollapssAnimationName = "CollapssAnimation";
+
 
         public ListadoRecordatorios()
         {
@@ -42,9 +45,49 @@ namespace MobileExample.Views
 
             MessagingCenter.Subscribe<ListadoMochilasViewModel, string>(this, "MochilaEliminada", (sender, descripcion) =>
             {
-                ListaMochilas.ItemsSource.Remove(descripcion);
+              ListaMochilas.ItemsSource.Remove(descripcion);
             });
 
+        }
+
+        private void OnExpandExchange(object sender, EventArgs e)
+        {
+          
+
+
+            if (ExchangeRow.Height.Value == 0)
+            {
+                Flecha.RotateTo(90);
+
+                GetExpandAnimation().Commit(this, ExpandAnimationName, 16,
+                    100,
+                    Easing.CubicIn,
+                    null, () => false);
+            }
+            else
+            {
+                Flecha.RotateTo(-90);
+                GetCollapssAnimation().Commit(this, CollapssAnimationName, 16,
+                    100,
+                    Easing.CubicInOut,
+                    null, () => false);
+            }
+        }
+
+        private Animation GetExpandAnimation()
+        {
+            return new Animation
+            {
+                {0, 1, new Animation(v => ExchangeRow.Height = v, 0, 350)}
+            };
+        }
+
+        private Animation GetCollapssAnimation()
+        {
+            return new Animation
+            {
+                {0, 1, new Animation(v => ExchangeRow.Height = v, 350, 0)}
+            };
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -67,7 +110,7 @@ namespace MobileExample.Views
 
         void Filtros_Clicked(object sender, EventArgs e)
         {
-            Filtros.IsVisible = !Filtros.IsVisible;
+          // Filtros.IsVisible = !Filtros.IsVisible;
         }
 
         protected override void OnAppearing()
@@ -85,7 +128,7 @@ namespace MobileExample.Views
 
         public void ApretarBotonDia(object sender, EventArgs e)
         {
-            Button boton = (Button)sender;
+           Button boton = (Button)sender;
             switch (boton.Text)
             {
                 case "Lu":
@@ -117,7 +160,7 @@ namespace MobileExample.Views
         private void AplicarFiltros_Clicked (object sender, EventArgs e)
         {
             viewModel.ObtenerRecordatoriosFiltrados();
-            Filtros.IsVisible = !Filtros.IsVisible;
+         //   Filtros.IsVisible = !Filtros.IsVisible;
         }
     }
 }
