@@ -43,7 +43,7 @@
                             </Grid.RowDefinitions>
                             
                             <Label Grid.Row="0" Text="{Binding Descripcion}" 
-                                   Grid.ColumnSpan="2"
+                                   Grid.ColumnSpan="3"
                                             LineBreakMode="NoWrap"
                                             TextColor="White"
                                             Style="{DynamicResource ListItemTextStyle}" 
@@ -56,7 +56,7 @@
                                             Style="{DynamicResource ListItemDetailTextStyle}"
                                             FontSize="12" />
                             <Image Source="mochila.png" 
-                                   Grid.Row="1" Grid.ColumnSpan="3" > </Image>
+                                   Grid.Row="1" Grid.ColumnSpan="4" > </Image>
                             <Button Grid.Row="2" Grid.Column="0"
                                     Text="Activar" 
                                     Command="{Binding ComandoActivarMochila}" 
@@ -94,7 +94,15 @@
                                         BorderRadius="15"
                                         BackgroundColor="White">
                             </Button>
-                            <BoxView Grid.Row="3" Grid.ColumnSpan="3"></BoxView>
+
+                            <Button Image="TabMochila.png" 
+                                    Grid.Row="2" Grid.Column="3" 
+                                    
+                                    HorizontalOptions="CenterAndExpand"
+                                    BorderRadius="15"
+                                    BackgroundColor="White">
+                            </Button>
+                            <BoxView Grid.Row="3" Grid.ColumnSpan="4"></BoxView>
                         </Grid>
                                
                         

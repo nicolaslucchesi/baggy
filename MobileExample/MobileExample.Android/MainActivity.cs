@@ -13,6 +13,7 @@ using System.IO;
 using MobileExample.Tables;
 using BottomNavigationBar;
 using CarouselView.FormsPlugin.Android;
+using FFImageLoading.Forms.Droid;
 
 namespace MobileExample.Droid
 {
@@ -42,6 +43,7 @@ namespace MobileExample.Droid
 
             Rg.Plugins.Popup.Popup.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            FFImageLoading.Forms.Droid.CachedImageRenderer.Init(true);
             CarouselViewRenderer.Init();
 
             IniciarServicioRecordatorio();

@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileExample.Views.AboutPage"
              xmlns:vm="clr-namespace:MobileExample.ViewModels"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffSvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:fftransformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              Title="Página Principal"
              Style="{StaticResource PageStyle}">
     <!--  -->
@@ -26,6 +29,14 @@
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                 <Image Source="Baggy.png" VerticalOptions="FillAndExpand" />
             </StackLayout>
+
+            <ff:CachedImage x:Name="Gif" Source="e8nZC.gif" WidthRequest="64" HeightRequest="64"/>
+
+            <ff:CachedImage x:Name="Blurr" Source="Baggy.png" >
+                <ff:CachedImage.Transformations>
+                    <fftransformation:BlurredTransformation Radius="200" />
+                </ff:CachedImage.Transformations>
+            </ff:CachedImage>
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
