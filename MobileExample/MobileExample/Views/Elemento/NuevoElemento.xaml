@@ -75,7 +75,7 @@
 
 
                 <Button x:Name="BotonVincularElemento"     
-                    Text="Vincular Elemento" 
+                    Text="Detectar Elemento" 
                                 BorderRadius="30" 
                                 Clicked="VincularElemento_Clicked"
                               

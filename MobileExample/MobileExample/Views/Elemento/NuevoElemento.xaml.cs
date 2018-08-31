@@ -131,11 +131,16 @@ namespace MobileExample.Views
                         "vuelve a intentar.",
                         "Aceptar");
                 }
+                if (ElementoViewModel.Vinculado)
+                {
+                    await DisplayAlert("Éxito", "Registro Exitoso", "Aceptar");
+                }
                 await PopupNavigation.PopAsync();
             }
             else
             {
                 await PopupNavigation.PopAsync();
+                await DisplayAlert("Éxito", "Registro Exitoso", "Aceptar");
             }
 
         }
