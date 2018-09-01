@@ -100,8 +100,15 @@
                     </Button>
 
                 </StackLayout>
+            <StackLayout>
+            <Label Text="Descripción" FontSize="Medium" TextColor="White"/>
+                <Label Text="{Binding RecordatorioViewModel.Descripcion}" FontAttributes="Bold" FontSize="Medium"/>
+                <Entry  TextColor="White" 
+                    BackgroundColor="DarkRed"
+                    Text="{Binding RecordatorioViewModel.Descripcion}"/>
+            </StackLayout>
 
-                <StackLayout Orientation="Horizontal" IsVisible="False">
+            <StackLayout Orientation="Horizontal" IsVisible="False">
                     <Switch x:Name="SwitchLunes" IsToggled ="{Binding RecordatorioViewModel.Lunes}"></Switch>
                     <Switch x:Name="SwitchMartes" IsToggled ="{Binding RecordatorioViewModel.Martes}"></Switch>
                     <Switch x:Name="SwitchMiercoles" IsToggled ="{Binding RecordatorioViewModel.Miercoles}"></Switch>
@@ -117,7 +124,7 @@
                                 Clicked="AbrirPopupSeleccionarElementos"
                                 WidthRequest="60" 
                                />
-                
+
                 <Label Text="Mochilas" FontSize="Medium" TextColor="White"/>
                 <Picker x:Name="ListaMochilas"
                         Title="Seleccione una mochila"

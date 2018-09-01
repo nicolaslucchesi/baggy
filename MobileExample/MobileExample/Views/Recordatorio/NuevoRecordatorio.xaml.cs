@@ -125,6 +125,11 @@ namespace MobileExample.Views
                 return false;
             }
 
+            if (string.IsNullOrEmpty(RecordatorioViewModel.Descripcion))
+            {
+                return false;
+            }
+
             if (!RecordatorioViewModel.Elementos.Elementos.Any(e => e.Seleccionado))
             {
                 return false;

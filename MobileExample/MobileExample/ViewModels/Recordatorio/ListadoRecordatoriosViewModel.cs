@@ -40,6 +40,7 @@ namespace MobileExample.ViewModels
                     Viernes = recordatorioViewModel.Viernes,
                     Sabado = recordatorioViewModel.Sabado,
                     Domingo = recordatorioViewModel.Domingo,
+                    Descripcion = recordatorioViewModel.Descripcion,
                     Elementos = new List<Elemento>()
                 };
 
@@ -116,6 +117,7 @@ namespace MobileExample.ViewModels
                 recordatorioViewModel.Sabado = recordatorio.Sabado;
                 recordatorioViewModel.Domingo = recordatorio.Domingo;
                 recordatorioViewModel.HorarioStr = recordatorio.Horario.ToString(@"hh\:mm");
+                recordatorioViewModel.Descripcion = recordatorio.Descripcion;
                 listadoRecordatorios.Add(recordatorioViewModel);
             }
 

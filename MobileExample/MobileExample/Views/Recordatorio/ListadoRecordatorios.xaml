@@ -255,7 +255,7 @@
                                     <RowDefinition Height="40" /> 
                                 </Grid.RowDefinitions>
 
-                                <Label Grid.Row="0" Grid.ColumnSpan="3" TextColor="#141d26" Text="Descripcion" />
+                                <Label Grid.Row="0" Grid.ColumnSpan="3" TextColor="#141d26" Text="{Binding Descripcion}" />
 
                                 <Label  Grid.Row="1"  Grid.ColumnSpan="3" Text="{Binding HorarioStr}"  
                                     TextColor="#141d26"

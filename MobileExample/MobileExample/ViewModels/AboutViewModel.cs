@@ -101,6 +101,7 @@ namespace MobileExample.ViewModels
                     Viernes = recordatorio.Viernes,
                     Sabado = recordatorio.Sabado,
                     Domingo = recordatorio.Domingo,
+                    Descripcion = recordatorio.Descripcion,
                     HorarioStr = recordatorio.Horario.ToString(@"hh\:mm")
                 };
                 listadoRecordatorios.Add(recordatorioViewModel);

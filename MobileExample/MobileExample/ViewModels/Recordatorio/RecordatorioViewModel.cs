@@ -25,6 +25,7 @@ namespace MobileExample.ViewModels
         public bool Viernes { get; set; }
         public bool Sabado { get; set; }
         public bool Domingo { get; set; }
+        public string Descripcion { get; set; }
 
         public Command ComandoEliminarRecordatorio { get; set; }
 
@@ -58,6 +59,8 @@ namespace MobileExample.ViewModels
             viewModel.Sabado = recordatorio.Sabado;
             viewModel.Domingo = recordatorio.Domingo;
             viewModel.HorarioStr = recordatorio.Horario.ToString(@"hh\:mm");
+            viewModel.Descripcion = recordatorio.Descripcion;
+
 
             foreach (Elemento elemento in recordatorio.Elementos)
             {
