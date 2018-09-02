@@ -1,107 +1,141 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MobileExample.CustomElements"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="MobileExample.Views.NuevoRecordatorio"
-		     Title="Nuevo Recordatorio"
-              Style="{StaticResource PageStyle}">
+		     Title="Nuevo Recordatorio">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Guardar" Clicked="GuardarRecordatorio" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="20" Padding="15">
+            <Grid BackgroundColor="#f3f3f3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="5"/>  
+                    <RowDefinition Height="30"/> 
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
 
-                <TimePicker x:Name="Tiempo" 
-                            VerticalOptions="Center" 
-                            TextColor="White"   
-                            BackgroundColor="#1d1c1b"
+                <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Programado para:" HorizontalOptions="Start" FontSize="Medium"></Label>
+                 
+                <local:CustomTimePicker x:Name="Tiempo" 
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"                           
+                            VerticalOptions="Center"   
                             FontSize="72"
-                            HorizontalOptions="Center"
+                            TextColor="#eb5a46" 
+                            HorizontalOptions="Center" 
+                            Scale="3" 
                             Time="{Binding RecordatorioViewModel.Horario}" >
-                </TimePicker>
+                </local:CustomTimePicker>
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
-                    <Button x:Name="BotonLunes" Text="Lu" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                <BoxView Grid.Row="2" Grid.Column="0" BackgroundColor="Transparent" />
+                
+                <Label Grid.Row="3" Grid.ColumnSpan="2" Text="Repetir" FontSize="20" HorizontalOptions="Start"></Label>
+                       
+                <Grid Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0" 
+                      HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Padding="10,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="48"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Grid.Column="0" x:Name="BotonLunes" BackgroundColor="Transparent"
+                            Text="Lu" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="44" >
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchLunes}, Path= IsToggled}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Green" />
+                                <Setter Property="BorderColor" Value="#eb5a46" />
+                                <Setter Property="BorderWidth" Value="2" />
+                                <Setter Property="TextColor" Value="#eb5a46" />
                             </DataTrigger>
-                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchLunes}, Path= IsToggled}" Value="False">
-                                <Setter Property="BackgroundColor" Value="Red" />
-                            </DataTrigger>
+                          
                         </Button.Triggers>
                     </Button>
 
-                    <Button x:Name="BotonMartes" Text="Ma" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                    <Button Grid.Column="1" x:Name="BotonMartes" BackgroundColor="Transparent"
+                            Text="Ma" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="44" >
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMartes}, Path= IsToggled}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Green" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchMartes}, Path= IsToggled}" Value="False">
-                                <Setter Property="BackgroundColor" Value="Red" />
-                            </DataTrigger>
+                                <Setter Property="BorderColor" Value="#eb5a46" />
+                                <Setter Property="BorderWidth" Value="2" />
+                                <Setter Property="TextColor" Value="#eb5a46" />
+                            </DataTrigger> 
                         </Button.Triggers>
                     </Button>
 
-                    <Button x:Name="BotonMiercoles" Text="Mi" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                    <Button Grid.Column="2" x:Name="BotonMiercoles" BackgroundColor="Transparent"
+                            Text="Mi" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="44" >
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Green" />
+                                <Setter Property="BorderColor" Value="#eb5a46" />
+                                <Setter Property="BorderWidth" Value="2" />
+                                <Setter Property="TextColor" Value="#eb5a46" />
                             </DataTrigger>
-                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="False">
-                                <Setter Property="BackgroundColor" Value="Red" />
-                            </DataTrigger>
+                           
                         </Button.Triggers>
                     </Button>
 
-                    <Button x:Name="BotonJueves" Text="Ju" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                    <Button Grid.Column="3" x:Name="BotonJueves" BackgroundColor="Transparent"
+                            Text="Ju" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="44" >
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchJueves}, Path= IsToggled}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Green" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchJueves}, Path= IsToggled}" Value="False">
-                                <Setter Property="BackgroundColor" Value="Red" />
+                                <Setter Property="BorderColor" Value="#eb5a46" />
+                                <Setter Property="BorderWidth" Value="2" />
+                                <Setter Property="TextColor" Value="#eb5a46" />
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
 
-                    <Button x:Name="BotonViernes" Text="Vi" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                    <Button Grid.Column="4" x:Name="BotonViernes" BackgroundColor="Transparent"
+                            Text="Vi" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="44" >
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchViernes}, Path= IsToggled}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Green" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchViernes}, Path= IsToggled}" Value="False">
-                                <Setter Property="BackgroundColor" Value="Red" />
+                                <Setter Property="BorderColor" Value="#eb5a46" />
+                                <Setter Property="BorderWidth" Value="2" />
+                                <Setter Property="TextColor" Value="#eb5a46" />
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
-                    
-                    <Button x:Name="BotonSabado" Text="Sa" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+
+                    <Button Grid.Column="5" x:Name="BotonSabado" BackgroundColor="Transparent"
+                            Text="Sa" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="44" >
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchSabado}, Path= IsToggled}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Green" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchSabado}, Path= IsToggled}" Value="False">
-                                <Setter Property="BackgroundColor" Value="Red" />
-                            </DataTrigger>
+                                <Setter Property="BorderColor" Value="#eb5a46" />
+                                <Setter Property="BorderWidth" Value="2" />
+                                <Setter Property="TextColor" Value="#eb5a46" />
+                            </DataTrigger> 
                         </Button.Triggers>
                     </Button>
-                    
-                    <Button x:Name="BotonDomingo" Text="Do" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+
+                    <Button Grid.Column="6" x:Name="BotonDomingo" BackgroundColor="Transparent"
+                            Text="Do" Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="44" >
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchDomingo}, Path= IsToggled}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Green" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchDomingo}, Path= IsToggled}" Value="False">
-                                <Setter Property="BackgroundColor" Value="Red" />
+                                <Setter Property="BorderColor" Value="#eb5a46" />
+                                <Setter Property="BorderWidth" Value="2" />
+                                <Setter Property="TextColor" Value="#eb5a46" />
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
-
-                </StackLayout>
-
-                <StackLayout Orientation="Horizontal" IsVisible="False">
+                </Grid>
+                
+                <StackLayout Grid.Row="5" Orientation="Horizontal" IsVisible="False">
                     <Switch x:Name="SwitchLunes" IsToggled ="{Binding RecordatorioViewModel.Lunes}"></Switch>
                     <Switch x:Name="SwitchMartes" IsToggled ="{Binding RecordatorioViewModel.Martes}"></Switch>
                     <Switch x:Name="SwitchMiercoles" IsToggled ="{Binding RecordatorioViewModel.Miercoles}"></Switch>
@@ -111,23 +145,33 @@
                     <Switch x:Name="SwitchDomingo" IsToggled ="{Binding RecordatorioViewModel.Domingo}"></Switch>
                 </StackLayout>
 
-                <Button         Text="Seleccionar Elementos" 
-                                BorderRadius="30" BackgroundColor="White" 
-                                HeightRequest="60"  
-                                Clicked="AbrirPopupSeleccionarElementos"
-                                WidthRequest="60" 
-                               />
-                <Button         Text="Seleccionar Mochilas" 
-                                BorderRadius="30" BackgroundColor="White" 
-                                HeightRequest="60"  
-                                Clicked="AbrirPopupSeleccionarMochila"
-                                WidthRequest="60" 
-                               />
+                <Label Text="Descripción" Grid.Row="6" Grid.Column="0" FontSize="Medium" VerticalOptions="Center"></Label>
+                <local:CustomEntry Placeholder="Ninguna" 
+                       PlaceholderColor="#eb5a46" TextColor="#eb5a46" 
+                       VerticalOptions="Center"
+                       Grid.Row="6" Grid.Column="1"></local:CustomEntry> 
+                    
+                <Label Grid.Row="7" Grid.Column="0" Text="Seleccionar Elementos" FontSize="Medium" VerticalOptions="Center"></Label>
+                <Button Image="TabElementos.png" 
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        BorderRadius="30" BackgroundColor="White" 
+                        HeightRequest="60"  
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Clicked="AbrirPopupSeleccionarElementos"
+                        WidthRequest="60" />
 
-                <Picker ItemsSource="ListadoMochila" SelectedItem="{Binding RecordatorioViewModel.MochilaSeleccionada}"/>
-                
-            </StackLayout>
-            
+                <Label Grid.Row="8" Grid.Column="0" Text="Mochilas" VerticalOptions="Center" FontSize="Medium"/>
+                <Picker x:Name="ListaMochilas"
+                        Grid.Row="8" Grid.Column="1"
+                        Title="Seleccionar mochila"
+                         HorizontalOptions="End" 
+                        VerticalOptions="Center"
+                        ItemsSource="{Binding RecordatorioViewModel.Mochilas}"
+                        SelectedItem="{Binding RecordatorioViewModel.MochilaSeleccionada}" />
+ 
+            </Grid>             
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

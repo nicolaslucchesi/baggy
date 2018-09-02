@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
              x:Class="MobileExample.Views.ListadoRecordatorios"
               Title="{Binding Title}"
-              Style="{StaticResource PageStyle}"
+           
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Nuevo Recordatorio" Clicked="AgregarRecordatorio_Clicked">
@@ -17,188 +17,394 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" BackgroundColor="#222222" HorizontalOptions="FillAndExpand">
-                <StackLayout Padding="10,0,0,0" HorizontalOptions="StartAndExpand">
-                    <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
+                <StackLayout Padding="10,10,10,10" HorizontalOptions="StartAndExpand">
+                    <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" 
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"></Image>
                 </StackLayout>
                 <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center">
                     <Button Text="Nuevo Recordatorio" Clicked="AgregarRecordatorio_Clicked" 
-                        BackgroundColor="#222222" TextColor="White" HorizontalOptions="End"></Button>
+                        BackgroundColor="#222222" TextColor="White" HorizontalOptions="End" VerticalOptions="Center"></Button>
                 </StackLayout>
             </StackLayout>
 
 
+            <Grid RowSpacing="0.5" ColumnSpacing="0.5" Margin="-20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" /> 
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <BoxView Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#141d26" />
+                    
+                    <Label x:Name="LabelFiltro" Grid.Column="1" Text="Aplicar Filtros" 
+                           FontSize="20"
+                           TextColor="White" 
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start"/>
+
+                    <Button Grid.Column="2" Image="flechita.png" Margin="0,0,20,10"
+                            x:Name="Flecha"
+                            HorizontalOptions="Start" 
+                            VerticalOptions="Center" 
+                            Rotation="90"
+                            BackgroundColor="Transparent"
+                            Clicked="OnExpandExchange" />
+                </Grid>
+
+
+                <Grid Grid.Row="1" BackgroundColor="#222222" IsClippedToBounds="true">
+                    <Grid x:Name="ExchangeView" RowSpacing="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="ExchangeRow" Height="0" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <StackLayout Grid.Row="0" Padding="60,10,10,20">
+                            <StackLayout Orientation="Horizontal">
+                                <Button   x:Name="BotonLunes" 
+                                          Text="Lu"   
+                                          FontAttributes="Bold"
+                                          BorderColor="GhostWhite"
+                                          BorderWidth="2"
+                                          Clicked="ApretarBotonDia" BorderRadius="30"  WidthRequest="44" HeightRequest="40" >
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchLunes}, Path= IsToggled}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="GhostWhite" />
+                                            <Setter Property="TextColor" Value="#141d26" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchLunes}, Path= IsToggled}" Value="False">
+                                            <Setter Property="BackgroundColor" Value="#141d26" />
+                                            <Setter Property="TextColor" Value="GhostWhite" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+                                <Button   x:Name="BotonMartes" Text="Ma" 
+                                          FontAttributes="Bold"
+                                          BorderColor="GhostWhite"
+                                          BorderWidth="2"
+                                          Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMartes}, Path= IsToggled}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="GhostWhite" />
+                                            <Setter Property="TextColor" Value="#141d26" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchMartes}, Path= IsToggled}" Value="False">
+                                            <Setter Property="BackgroundColor" Value="#141d26" />
+                                            <Setter Property="TextColor" Value="GhostWhite" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+                                <Button   x:Name="BotonMiercoles" Text="Mi" 
+                                          FontAttributes="Bold"
+                                          BorderColor="GhostWhite"
+                                          BorderWidth="2" 
+                                          Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="GhostWhite" />
+                                            <Setter Property="TextColor" Value="#141d26" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchMiercoles}, Path= IsToggled}" Value="False">
+                                            <Setter Property="BackgroundColor" Value="#141d26" />
+                                            <Setter Property="TextColor" Value="GhostWhite" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+                                <Button   x:Name="BotonJueves" Text="Ju" 
+                                          FontAttributes="Bold"
+                                          BorderColor="GhostWhite"
+                                          BorderWidth="2"
+                                          Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=   {x:Reference SwitchJueves}, Path= IsToggled}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="GhostWhite" />
+                                            <Setter Property="TextColor" Value="#141d26" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source= {x:Reference SwitchJueves}, Path= IsToggled}" Value="False">
+                                            <Setter Property="BackgroundColor" Value="#141d26" />
+                                            <Setter Property="TextColor" Value="GhostWhite" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+                                <Button   x:Name="BotonViernes" Text="Vi" 
+                                          FontAttributes="Bold"
+                                          BorderColor="GhostWhite"
+                                          BorderWidth="2"
+                                          Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchViernes}, Path= IsToggled}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="GhostWhite" />
+                                            <Setter Property="TextColor" Value="#141d26" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchViernes}, Path= IsToggled}" Value="False">
+                                            <Setter Property="BackgroundColor" Value="#141d26" />
+                                            <Setter Property="TextColor" Value="GhostWhite" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+                                <Button  x:Name="BotonSabado" Text="Sa" 
+                                          FontAttributes="Bold"
+                                          BorderColor="GhostWhite"
+                                          BorderWidth="2"
+                                         Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchSabado}, Path= IsToggled}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="GhostWhite" />
+                                            <Setter Property="TextColor" Value="#141d26" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchSabado}, Path= IsToggled}" Value="False">
+                                            <Setter Property="BackgroundColor" Value="#141d26" />
+                                            <Setter Property="TextColor" Value="GhostWhite" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+                                <Button   x:Name="BotonDomingo" Text="Do"    FontAttributes="Bold"
+                                          BorderColor="GhostWhite"
+                                          BorderWidth="2"
+                                          Clicked="ApretarBotonDia" BorderRadius="22" WidthRequest="44" HeightRequest="40" >
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchDomingo}, Path= IsToggled}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="GhostWhite" />
+                                            <Setter Property="TextColor" Value="#141d26" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source=  {x:Reference SwitchDomingo}, Path= IsToggled}" Value="False">
+                                            <Setter Property="BackgroundColor" Value="#141d26" />
+                                            <Setter Property="TextColor" Value="GhostWhite" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label  VerticalOptions="Center" Text="Elementos" FontSize="Medium" TextColor="White"/>
+
+                                <Picker x:Name="ListaElementos"
+                                        Title="Seleccione un elemento"
+                                        VerticalOptions="CenterAndExpand"
+                                        ItemsSource="{Binding Filtros.Elementos}"
+                                        SelectedItem="{Binding Filtros.ElementoSeleccionado}"
+                                        TextColor="White"/>
+                            </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                                <Label  VerticalOptions="Center" Text="Mochilas" FontSize="Medium" TextColor="White"/>
+
+                            <Picker   x:Name="ListaMochilas"
+                                      VerticalOptions="CenterAndExpand"
+                        Title="Seleccione una mochila"
+                        ItemsSource="{Binding Filtros.Mochilas}"
+                        SelectedItem="{Binding Filtros.MochilaSeleccionada}"
+                        TextColor="White"/>
+                            </StackLayout>
+
+                            <StackLayout HorizontalOptions="Center">
+                                <Button    Text="Aplicar Filtros" 
+                                BorderRadius="30" BackgroundColor="White" Clicked="AplicarFiltros_Clicked"/>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" IsVisible="False">
+                                <Switch x:Name="SwitchLunes" IsToggled ="{Binding Filtros.Lunes}"></Switch>
+                                <Switch x:Name="SwitchMartes" IsToggled ="{Binding Filtros.Martes}"></Switch>
+                                <Switch x:Name="SwitchMiercoles" IsToggled ="{Binding Filtros.Miercoles}"></Switch>
+                                <Switch x:Name="SwitchJueves" IsToggled ="{Binding Filtros.Jueves}"></Switch>
+                                <Switch x:Name="SwitchViernes" IsToggled ="{Binding Filtros.Viernes}"></Switch>
+                                <Switch x:Name="SwitchSabado" IsToggled ="{Binding Filtros.Sabado}"></Switch>
+                                <Switch x:Name="SwitchDomingo" IsToggled ="{Binding Filtros.Domingo}"></Switch>
+                            </StackLayout>
+
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+
+            <BoxView WidthRequest="10" HeightRequest="10" BackgroundColor="Transparent" />
             <ListView x:Name="RecordatoriosListView" 
-                ItemsSource="{Binding Recordatorios}"
-                VerticalOptions="FillAndExpand"
-                 HasUnevenRows="true"
-                 RefreshCommand="{Binding ComandoCargarRecordatorios}"
-                 IsPullToRefreshEnabled="true"
-                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                 CachingStrategy="RecycleElement"
-                 ItemSelected="OnItemSelected"
-                 SeparatorColor="#2a2a2a">
+                    ItemsSource="{Binding Recordatorios}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="true"
+                    RefreshCommand="{Binding ComandoCargarRecordatorios}"
+                    IsPullToRefreshEnabled="true"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    CachingStrategy="RecycleElement"
+                    ItemSelected="OnItemSelected"
+                    SeparatorColor="#2a2a2a">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" Orientation="Horizontal" 
-                                         HorizontalOptions="FillAndExpand" BackgroundColor="#222222">
-                                <StackLayout HorizontalOptions="StartAndExpand">
-                                <StackLayout Padding="10" Orientation="Vertical">
-                                    <Label  Text="{Binding HorarioStr}" 
-                                            Style="{StaticResource labelStyle}"
+                            <Grid BackgroundColor="#f3f3f3" RowSpacing="1" ColumnSpacing="0.5" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="70" />
+                                    <!-- <RowDefinition Height="50" /> --> 
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0"  TextColor="#141d26" Text="Descripcion" FontSize="Medium"/>
+
+                                <Grid Grid.Row="1" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="40" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Label  Grid.Column="0" Text="{Binding HorarioStr}"  
+                                    TextColor="#141d26"
+                                        FontAttributes="Bold"
                                             LineBreakMode="NoWrap" 
+                                            VerticalOptions="Center"
                                             FontSize="42" />
-                                    <Label  Text="{Binding Id}" 
-                                            IsVisible="False"
-                                            />
 
-                                        <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                        <Label x:Name="Lunes" 
-                                               Text="L" 
-                                               FontSize="25"
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               IsEnabled="false"
-                                               FontAttributes="Bold"
-                                               TextColor="White"
-                                               XAlign="Center">
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Lunes}" Value="True">
-                                                    <Setter Property="BackgroundColor" Value="Green" />
-                                                </DataTrigger>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Lunes}" Value="False">
-                                                    <Setter Property="BackgroundColor" Value="Red" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
+                                    <BoxView Grid.Column="1" BackgroundColor="Transparent"/>
 
-                                        <Label x:Name="M" 
-                                               Text="M" 
-                                               FontSize="25"
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               IsEnabled="false"
-                                               FontAttributes="Bold"
-                                               TextColor="White"
-                                               XAlign="Center">
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Martes}" Value="True">
-                                                    <Setter Property="BackgroundColor" Value="Green" />
-                                                </DataTrigger>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Martes}" Value="False">
-                                                    <Setter Property="BackgroundColor" Value="Red" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
 
-                                        <Label x:Name="Miercoles" 
-                                               Text="M" 
-                                               FontSize="25"
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               IsEnabled="false"
-                                               FontAttributes="Bold"
-                                               TextColor="White"
-                                               XAlign="Center">
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Miercoles}" Value="True">
-                                                    <Setter Property="BackgroundColor" Value="Green" />
-                                                </DataTrigger>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Miercoles}" Value="False">
-                                                    <Setter Property="BackgroundColor" Value="Red" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
+                                    <Label x:Name="Lunes" Grid.Column="2"
+                                        Text="Lu"   
+                                           VerticalOptions="Center"
+                                        IsEnabled="false">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Lunes}" Value="True">
+                                                <Setter Property="FontAttributes" Value="Bold"/>
+                                                <Setter Property="TextColor" Value="#eb5a46" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Lunes}" Value="False">
+                                                <Setter Property="TextColor" Value="#707384" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
 
-                                        <Label x:Name="Jueves" 
-                                               Text="J" 
-                                               FontSize="25" 
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               IsEnabled="false"
-                                               FontAttributes="Bold"
-                                               TextColor="White"
-                                               XAlign="Center">
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Jueves}" Value="True">
-                                                    <Setter Property="BackgroundColor" Value="Green" />
-                                                </DataTrigger>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Jueves}" Value="False">
-                                                    <Setter Property="BackgroundColor" Value="Red" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
+                                    <Label x:Name="M"  Grid.Column="3"
+                                               Text="Ma" 
+                                           VerticalOptions="Center"
+                                               IsEnabled="false"  >
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Martes}" Value="True">
+                                                <Setter Property="FontAttributes" Value="Bold"/>
+                                                <Setter Property="TextColor" Value="#eb5a46" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Martes}" Value="False">
+                                                <Setter Property="TextColor" Value="#707384" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
 
-                                        <Label x:Name="Viernes" 
-                                               Text="V" 
-                                               FontSize="25"
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               IsEnabled="false"
-                                               FontAttributes="Bold"
-                                               TextColor="White"
-                                               XAlign="Center">
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Viernes}" Value="True">
-                                                    <Setter Property="BackgroundColor" Value="Green" />
-                                                </DataTrigger>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Viernes}" Value="False">
-                                                    <Setter Property="BackgroundColor" Value="Red" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
-                                        <Label x:Name="Sabado" 
-                                               Text="S" 
-                                               FontSize="25"
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               IsEnabled="false"
-                                               FontAttributes="Bold"
-                                               TextColor="White"
-                                               XAlign="Center">
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Sabado}" Value="True">
-                                                    <Setter Property="BackgroundColor" Value="Green" />
-                                                </DataTrigger>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Sabado}" Value="False">
-                                                    <Setter Property="BackgroundColor" Value="Red" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
-                                        <Label x:Name="Domingo" 
-                                               Text="D" 
-                                               FontSize="25"
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               IsEnabled="false"
-                                               FontAttributes="Bold"
-                                               TextColor="White"
-                                               XAlign="Center">
-                                            <Label.Triggers>
-                                                    <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="True">
-                                                    <Setter Property="BackgroundColor" Value="Green" />
-                                                </DataTrigger>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="False">
-                                                    <Setter Property="BackgroundColor" Value="Red" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
-                                    </StackLayout>
-                                </StackLayout>
-                                </StackLayout>
-                                <StackLayout HorizontalOptions="End">
+                                    <Label x:Name="Miercoles" Grid.Column="4"
+                                               Text="Mi"
+                                           VerticalOptions="Center" 
+                                               IsEnabled="false">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Miercoles}" Value="True">
+                                                <Setter Property="FontAttributes" Value="Bold"/>
+                                                <Setter Property="TextColor" Value="#eb5a46" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Miercoles}" Value="False">
+                                                <Setter Property="TextColor" Value="#707384" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+
+                                    <Label x:Name="Jueves" Grid.Column="5"
+                                               Text="Ju" 
+                                           VerticalOptions="Center"
+                                               IsEnabled="false">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Jueves}" Value="True">
+                                                <Setter Property="FontAttributes" Value="Bold"/>
+                                                <Setter Property="TextColor" Value="#eb5a46" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Jueves}" Value="False">
+                                                <Setter Property="TextColor" Value="#707384" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+
+                                    <Label x:Name="Viernes" Grid.Column="6"
+                                               Text="Vi" 
+                                           VerticalOptions="Center"
+                                               IsEnabled="false" >
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Viernes}" Value="True">
+                                                <Setter Property="FontAttributes" Value="Bold"/>
+                                                <Setter Property="TextColor" Value="#eb5a46" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Viernes}" Value="False">
+                                                <Setter Property="TextColor" Value="#707384" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label x:Name="Sabado" Grid.Column="7"
+                                               Text="Sa"  
+                                           VerticalOptions="Center"
+                                               IsEnabled="false"  >
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Sabado}" Value="True">
+                                                <Setter Property="FontAttributes" Value="Bold"/>
+                                                <Setter Property="TextColor" Value="#eb5a46" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Sabado}" Value="False">
+                                                <Setter Property="TextColor" Value="#707384" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label x:Name="Domingo" Grid.Column="8"
+                                               Text="Do" 
+                                           VerticalOptions="Center"
+                                               IsEnabled="false"   >
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="True">
+                                                <Setter Property="FontAttributes" Value="Bold"/>
+                                                <Setter Property="TextColor" Value="#eb5a46" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Domingo}" Value="False">
+                                                <Setter Property="TextColor" Value="#707384" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+
+                                   
+
+                                    <Switch x:Name="Activo" IsToggled="True" Grid.Column="9"  
+                                            VerticalOptions="Center"></Switch>
+                                </Grid>
+<!--
                                 <Button Image="trash.png"
-                                        BorderRadius="15"
-                                        BackgroundColor="White"
+                                        Grid.Row="2" 
+                                        HorizontalOptions="End" 
+                                        BackgroundColor="Transparent"
                                         Command="{Binding ComandoEliminarRecordatorio}">
                                 </Button>
-                                    <Switch x:Name="Activo" IsToggled="True"></Switch>
-                                </StackLayout>
-                            </StackLayout>
+
+                           -->
+                            </Grid>
+                            
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+           
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

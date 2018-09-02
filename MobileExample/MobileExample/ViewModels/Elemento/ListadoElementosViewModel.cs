@@ -37,6 +37,7 @@ namespace MobileExample.ViewModels
                     // Es un elemento nuevo
                     elemento = (Elemento)elementoViewModel;
                     DatabaseHelper.db.Insert(elemento);
+                    MessagingCenter.Send(this, "ElementoAgregado", elementoViewModel.Descripcion);
                 }
                 else
                 {
@@ -48,16 +49,17 @@ namespace MobileExample.ViewModels
                     elemento.Vinculado = elementoViewModel.Vinculado;
                     elemento.Descripcion = elementoViewModel.Descripcion;
                     DatabaseHelper.db.Update(elemento);
+                    // NOTIFICAR AL FILTRO QUE SE MODIFICO LA DESCRIPCION DE UN ELEMENTO
                 }
-
                 EjecutarComando();
             });
 
             MessagingCenter.Subscribe<ElementoViewModel, ElementoViewModel>(this, "EliminarElemento", (sender, elementoViewModel) =>
             {
-                Elemento elementoAEliminar = DatabaseHelper.db.Table<Elemento>().Where(e => e.Id.Equals(elementoViewModel.Id)).FirstOrDefault();
+                Elemento elementoAEliminar = DatabaseHelper.db.Get<Elemento>(elementoViewModel.Id);
                 DatabaseHelper.db.Delete(elementoAEliminar);
                 Elementos.Remove(elementoViewModel);
+                MessagingCenter.Send(this, "ElementoEliminado", elementoViewModel.Descripcion);
             });
         }
 

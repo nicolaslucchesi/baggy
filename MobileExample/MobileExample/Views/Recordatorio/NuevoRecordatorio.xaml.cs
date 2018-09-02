@@ -15,34 +15,23 @@ namespace MobileExample.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NuevoRecordatorio : ContentPage
     {
-        public RecordatorioViewModel recordatorioViewModel { get; set; }
+        public RecordatorioViewModel RecordatorioViewModel { get; set; }
         public MochilaViewModel Mochila { get; set; }
 
         public NuevoRecordatorio()
         {
             InitializeComponent();
 
-            recordatorioViewModel = new RecordatorioViewModel
-            {
-                Horario = new TimeSpan(12, 0, 0),
-                Elementos = new ListadoElementosRecordatorioViewModel(),
-                MochilaSeleccionada = new MochilaViewModel()
-            };
+            RecordatorioViewModel = new RecordatorioViewModel();
 
             ObtenerElementos();
 
-
             BindingContext = this;
-
-            MessagingCenter.Subscribe<SeleccionarMochilasPopup, MochilaViewModel>(this, "SeleccionarMochila", (sender, mochilaViewModel) =>
-            {
-                recordatorioViewModel.MochilaSeleccionada = Mochila = mochilaViewModel;
-            });
         }
 
         private void ObtenerElementos()
         {
-            recordatorioViewModel.Elementos.Elementos = ObtenerListadoElementos();
+            RecordatorioViewModel.Elementos.Elementos = ObtenerListadoElementos();
         }
 
         private List<ElementoViewModel> ObtenerListadoElementos()
@@ -71,8 +60,6 @@ namespace MobileExample.Views
         {
             // Acá se manda el mensaje con el modelo y el titulo para que el modelo de
             // listado ejecute el código de guardado.
-
-            // TODO: Revisar porqué no se mapea el timeSpan directamente.
             this.MapearDatos();
 
             if (!ValidarRecordatorio())
@@ -81,58 +68,19 @@ namespace MobileExample.Views
             }
             else
             {
-                MessagingCenter.Send(this, "AgregarRecordatorio", recordatorioViewModel);
+                MessagingCenter.Send(this, "AgregarRecordatorio", RecordatorioViewModel);
                 await Navigation.PopModalAsync();
             }
         }
 
         async void AbrirPopupSeleccionarElementos(object sender, EventArgs e)
         {
-            var PopupElementos = new SeleccionarElementosPopup(recordatorioViewModel.Elementos);
+            var PopupElementos = new SeleccionarElementosPopup(RecordatorioViewModel.Elementos);
 
-            var scaleAnimation = new ScaleAnimation
-            {
-                PositionIn = MoveAnimationOptions.Top,
-                PositionOut = MoveAnimationOptions.Bottom,
-                ScaleIn = 1.2,
-                ScaleOut = 0.8,
-                DurationIn = 400,
-                DurationOut = 800,
-                EasingIn = Easing.BounceIn,
-                EasingOut = Easing.CubicOut,
-                HasBackgroundAnimation = true
-            };
-
-            PopupElementos.Animation = scaleAnimation;
             PopupElementos.CloseWhenBackgroundIsClicked = false;
 
             await PopupNavigation.PushAsync(PopupElementos);
         }
-
-        async void AbrirPopupSeleccionarMochila(object sender, EventArgs e)
-        {
-            bool a = true;
-            var PopupMochilas = new SeleccionarMochilasPopup(recordatorioViewModel.MochilaSeleccionada);
-
-            var scaleAnimation = new ScaleAnimation
-            {
-                PositionIn = MoveAnimationOptions.Top,
-                PositionOut = MoveAnimationOptions.Bottom,
-                ScaleIn = 1.2,
-                ScaleOut = 0.8,
-                DurationIn = 400,
-                DurationOut = 800,
-                EasingIn = Easing.BounceIn,
-                EasingOut = Easing.CubicOut,
-                HasBackgroundAnimation = true
-            };
-
-            PopupMochilas.Animation = scaleAnimation;
-            PopupMochilas.CloseWhenBackgroundIsClicked = false;
-
-            await PopupNavigation.PushAsync(PopupMochilas);
-        }
-
 
         public void ApretarBotonDia(object sender, EventArgs e)
         {
@@ -167,36 +115,31 @@ namespace MobileExample.Views
 
         private void MapearDatos()
         {
-            recordatorioViewModel.Horario = Tiempo.Time;
-            recordatorioViewModel.HorarioStr = Tiempo.Time.ToString(@"hh\:mm");
-            recordatorioViewModel.Lunes = SwitchLunes.IsToggled;
-            recordatorioViewModel.Martes = SwitchMartes.IsToggled;
-            recordatorioViewModel.Miercoles = SwitchMiercoles.IsToggled;
-            recordatorioViewModel.Jueves = SwitchJueves.IsToggled;
-            recordatorioViewModel.Viernes = SwitchViernes.IsToggled;
-            recordatorioViewModel.Sabado = SwitchSabado.IsToggled;
-            recordatorioViewModel.Domingo = SwitchDomingo.IsToggled;
+            RecordatorioViewModel.HorarioStr = Tiempo.Time.ToString(@"hh\:mm");
         }
+
+       
+
 
         private bool ValidarRecordatorio()
         {
-            if (string.IsNullOrEmpty(recordatorioViewModel.HorarioStr))
+            if (string.IsNullOrEmpty(RecordatorioViewModel.HorarioStr))
             {
                 return false;
             }
 
-            if (!recordatorioViewModel.Elementos.Elementos.Any(e => e.Seleccionado))
+            if (!RecordatorioViewModel.Elementos.Elementos.Any(e => e.Seleccionado))
             {
                 return false;
             }
 
-            if (!recordatorioViewModel.Lunes
-              && !recordatorioViewModel.Martes
-              && !recordatorioViewModel.Miercoles
-              && !recordatorioViewModel.Jueves
-              && !recordatorioViewModel.Viernes
-              && !recordatorioViewModel.Sabado
-              && !recordatorioViewModel.Domingo)
+            if (!RecordatorioViewModel.Lunes
+              && !RecordatorioViewModel.Martes
+              && !RecordatorioViewModel.Miercoles
+              && !RecordatorioViewModel.Jueves
+              && !RecordatorioViewModel.Viernes
+              && !RecordatorioViewModel.Sabado
+              && !RecordatorioViewModel.Domingo)
             {
                 return false;
             }
