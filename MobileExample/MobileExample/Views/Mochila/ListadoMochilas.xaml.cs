@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using MobileExample.Tables;
 using MobileExample.Views;
 using MobileExample.ViewModels;
+using CarouselView.FormsPlugin.Abstractions;
+using System.Collections.ObjectModel;
 
 namespace MobileExample.Views
 {
@@ -23,7 +25,8 @@ namespace MobileExample.Views
             InitializeComponent();
 
             BindingContext = viewModel = new ListadoMochilasViewModel();
-
+            viewModel.ComandoCargarMochilas.Execute(null);
+        
             MessagingCenter.Subscribe<ListadoMochilasViewModel, string>(this, "EnviarAlerta", (sender, mensaje) =>
             {
                 DisplayAlert("Alarma", mensaje, "Aceptar");
