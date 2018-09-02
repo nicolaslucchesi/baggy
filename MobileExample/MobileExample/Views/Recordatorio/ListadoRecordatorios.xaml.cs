@@ -57,7 +57,7 @@ namespace MobileExample.Views
 
             if (ExchangeRow.Height.Value == 0)
             {
-                Flecha.RotateTo(90);
+                Flecha.RotateTo(-90);
 
                 GetExpandAnimation().Commit(this, ExpandAnimationName, 16,
                     100,
@@ -66,7 +66,7 @@ namespace MobileExample.Views
             }
             else
             {
-                Flecha.RotateTo(-90);
+                Flecha.RotateTo(90);
                 GetCollapssAnimation().Commit(this, CollapssAnimationName, 16,
                     100,
                     Easing.CubicInOut,

@@ -54,7 +54,7 @@
                             x:Name="Flecha"
                             HorizontalOptions="Start" 
                             VerticalOptions="Center" 
-                            Rotation="-90"
+                            Rotation="90"
                             BackgroundColor="Transparent"
                             Clicked="OnExpandExchange" />
                 </Grid>
