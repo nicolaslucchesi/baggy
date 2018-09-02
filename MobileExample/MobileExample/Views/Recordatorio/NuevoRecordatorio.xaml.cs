@@ -118,6 +118,9 @@ namespace MobileExample.Views
             RecordatorioViewModel.HorarioStr = Tiempo.Time.ToString(@"hh\:mm");
         }
 
+       
+
+
         private bool ValidarRecordatorio()
         {
             if (string.IsNullOrEmpty(RecordatorioViewModel.HorarioStr))
