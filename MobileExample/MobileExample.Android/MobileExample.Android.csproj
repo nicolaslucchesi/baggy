@@ -91,6 +91,7 @@
     <Compile Include="Clima\Response\Forecast.cs" />
     <Compile Include="Clima\Response\ForecastDay.cs" />
     <Compile Include="Clima\Response\Location.cs" />
+    <Compile Include="CustomEntryRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
