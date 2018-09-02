@@ -24,11 +24,14 @@ namespace MobileExample.ViewModels
 
         public Command ComandoEliminarElemento { get; set; }
 
+        public Command ComandoEditarElemento { get; set; }
+
         public int IdInterno { get; set; }
 
         public ElementoViewModel()
         {
             this.ComandoEliminarElemento = new Command(Eliminar);
+            this.ComandoEditarElemento = new Command(Editar);
         }
 
         void Eliminar()
@@ -36,7 +39,13 @@ namespace MobileExample.ViewModels
           MessagingCenter.Send(this, "EliminarElemento", this);          
         }
 
-        public static explicit operator Elemento(ElementoViewModel viewModel) {
+        void Editar()
+        {
+            MessagingCenter.Send(this, "EditarElemento", this);
+        }
+
+        public static explicit operator Elemento(ElementoViewModel viewModel)
+        {
             return new Elemento
             {
                 Descripcion = viewModel.Descripcion,
@@ -45,6 +54,19 @@ namespace MobileExample.ViewModels
                 RutaIcono = viewModel.RutaIcono,
                 UUID = viewModel.UUID,
                 Vinculado = viewModel.Vinculado
+            };
+        }
+
+        public static explicit operator ElementoViewModel(Elemento entity)
+        {
+            return new ElementoViewModel
+            {
+                Descripcion = entity.Descripcion,
+                Id = entity.Id,
+                Imprescindible = entity.Imprescindible,
+                RutaIcono = entity.RutaIcono,
+                UUID = entity.UUID,
+                Vinculado = entity.Vinculado
             };
         }
     }

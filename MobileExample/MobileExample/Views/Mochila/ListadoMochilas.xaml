@@ -1,97 +1,121 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:abstractions="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              x:Class="MobileExample.Views.ListadoMochilas"
               Title="{Binding Title}"
              Style="{StaticResource PageStyle}"
              x:Name="BrowseItemsPage">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem  Clicked="AgregarMochila_Clicked">
-            <ToolbarItem.Icon>
-                <FileImageSource File="mochila.png"></FileImageSource>
-            </ToolbarItem.Icon>
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
-    <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal" BackgroundColor="#222222" HorizontalOptions="FillAndExpand">
-                <StackLayout Padding="10,0,0,0" HorizontalOptions="StartAndExpand">
-                    <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
-                </StackLayout>
-                <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center">
-                    <Button Text="Nueva Mochila" Clicked="AgregarMochila_Clicked" 
-                        BackgroundColor="#222222" TextColor="White" HorizontalOptions="End"></Button>
-                </StackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.5" /> 
+        </Grid.RowDefinitions>
+
+        
+        <StackLayout Grid.Row="0" Orientation="Horizontal" BackgroundColor="#222222" HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="10,0,0,0" HorizontalOptions="StartAndExpand">
+                <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
             </StackLayout>
-            <ListView x:Name="ItemsListView" 
-                ItemsSource="{Binding Mochilas}"
-                VerticalOptions="FillAndExpand"
-                 HasUnevenRows="true"
-                 RefreshCommand="{Binding ComandoCargarMochilas}"
-                 IsPullToRefreshEnabled="true"
-                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                 CachingStrategy="RecycleElement"
-                      SeparatorColor="#2a2a2a">
-                <ListView.ItemTemplate>
+            <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center">
+                <Button Text="Nueva Mochila" Clicked="AgregarMochila_Clicked" 
+                        BackgroundColor="#222222" TextColor="White" HorizontalOptions="End"></Button>
+            </StackLayout>
+        </StackLayout>
+        
+        
+        <!--  Here will be CarouselView  -->
+        <ContentView Grid.Row="1">
+            <abstractions:CarouselViewControl ItemsSource="{Binding Mochilas}"
+                                          ShowIndicators="True"
+                                          ShowArrows="False"
+                                          IndicatorsTintColor="Blue"
+                                          CurrentPageIndicatorTintColor="Red">
+                <abstractions:CarouselViewControl.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                                <StackLayout Orientation="Horizontal" Padding="10" HorizontalOptions="FillAndExpand" 
-                                             BackgroundColor="#222222">
-                                <StackLayout Padding="10">
-                                    <Label  Text="{Binding Descripcion}" 
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="25" />
+                            </Grid.RowDefinitions>
+                            
+                            <Label Grid.Row="0" Text="{Binding Descripcion}" 
+                                   Grid.ColumnSpan="3"
                                             LineBreakMode="NoWrap"
                                             TextColor="White"
                                             Style="{DynamicResource ListItemTextStyle}" 
                                             FontSize="25" />
-                                    <Label  Text="{Binding UUID}" 
+                            
+                            <Label Grid.Row="0" Text="{Binding UUID}" 
                                             TextColor="White"
                                             LineBreakMode="NoWrap"
+                                   IsVisible="False"
                                             Style="{DynamicResource ListItemDetailTextStyle}"
                                             FontSize="12" />
-                                </StackLayout>
-                                <StackLayout Orientation="Horizontal"
-                                             HorizontalOptions="EndAndExpand">
-                                <Button 
+                            <Image Source="mochila.png" 
+                                   Grid.Row="1" Grid.ColumnSpan="4" > </Image>
+                            <Button Grid.Row="2" Grid.Column="0"
                                     Text="Activar" 
                                     Command="{Binding ComandoActivarMochila}" 
                                     BackgroundColor="Red"
                                     HorizontalOptions="CenterAndExpand"
                                     BorderRadius="15">
-                                    <Button.Triggers>
-                                        <DataTrigger TargetType="Button"
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button"
                                             Binding="{Binding Activa}"
                                             Value="True">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                            <Setter Property="BackgroundColor" Value="Green" />
-                                        </DataTrigger>
-                                    </Button.Triggers>
-                                </Button>
-                                    <Button 
+                                        <Setter Property="IsEnabled" Value="False" />
+                                        <Setter Property="BackgroundColor" Value="Green" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button 
                                     Image="alarm.png"
+                                Grid.Row="2" Grid.Column="1"
                                     Command="{Binding ComandoActivarAlarma}" 
                                     BackgroundColor="Red"
                                     HorizontalOptions="CenterAndExpand"
                                     BorderRadius="15">
-                                        <Button.Triggers>
-                                            <DataTrigger TargetType="Button"
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button"
                                             Binding="{Binding EstadoAlarma}"
                                             Value="True">
-                                                <Setter Property="BackgroundColor" Value="Green" />
-                                            </DataTrigger>
-                                        </Button.Triggers>
-                                    </Button>
-                                    <Button Image="trash.png" 
+                                        <Setter Property="BackgroundColor" Value="Green" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button Image="trash.png" 
+                                     Grid.Row="2" Grid.Column="2"
                                         Command="{Binding ComandoEliminarMochila}"
                                         HorizontalOptions="CenterAndExpand"
                                         BorderRadius="15"
                                         BackgroundColor="White">
-                                </Button>
-                                </StackLayout>
-                            </StackLayout> 
-                        </ViewCell>
+                            </Button>
+
+                            <Button Image="TabMochila.png" 
+                                    Grid.Row="2" Grid.Column="3" 
+                                    
+                                    HorizontalOptions="CenterAndExpand"
+                                    BorderRadius="15"
+                                    BackgroundColor="White">
+                            </Button>
+                            <BoxView Grid.Row="3" Grid.ColumnSpan="4"></BoxView>
+                        </Grid>
+                               
+                        
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </ContentPage.Content>
+                </abstractions:CarouselViewControl.ItemTemplate>
+            </abstractions:CarouselViewControl>
+        </ContentView>
+
+        <!--  Separator  -->
+        <BoxView Grid.Row="2" BackgroundColor="Blue" />
+
+        <!--  Buttons and label  -->
+      
+        
+    </Grid>
 </ContentPage>

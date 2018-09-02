@@ -16,7 +16,6 @@ namespace MobileExample.ViewModels
     public class ListadoElementosViewModel : BaseViewModel
     {
         public ObservableCollection<ElementoViewModel> Elementos { get; set; }
-
         public Command ComandoCargarElementos { get; set; }
         public Command ComandoDeseleccionarElementos { get; set; }
 
@@ -26,24 +25,33 @@ namespace MobileExample.ViewModels
             Elementos = new ObservableCollection<ElementoViewModel>();
 
             ComandoCargarElementos = new Command(() => EjecutarComando());
-             
+
             // Esto registra una especie de 'listener' para cuando agregamos mochilas.
             // La idea es que desde la vista de creación se envíe un mensaje con el texto
             // 'AgregarMochila' y el objeto viewModel, y de esa manera se ejecuta esta porçión de código.
-            MessagingCenter.Subscribe<NuevoElemento, ElementoViewModel>(this, "AgregarElemento", (obj, elementoViewModel) =>
+            MessagingCenter.Subscribe<CrearEditarElemento, ElementoViewModel>(this, "AgregarElemento", (obj, elementoViewModel) =>
             {
-                Elemento elemento = new Elemento
+                Elemento elemento;
+                if (elementoViewModel.Id == 0)
                 {
-                    Descripcion = elementoViewModel.Descripcion,
-                    RutaIcono = elementoViewModel.RutaIcono,
-                    Imprescindible = elementoViewModel.Imprescindible,
-                    Vinculado = elementoViewModel.Vinculado,
-                    UUID = elementoViewModel.UUID
-                };
-
-                DatabaseHelper.db.Insert(elemento);
-                Elementos.Add(elementoViewModel);
-                MessagingCenter.Send(this, "ElementoAgregado", elementoViewModel.Descripcion);
+                    // Es un elemento nuevo
+                    elemento = (Elemento)elementoViewModel;
+                    DatabaseHelper.db.Insert(elemento);
+                    MessagingCenter.Send(this, "ElementoAgregado", elementoViewModel.Descripcion);
+                }
+                else
+                {
+                    // Hay que actualizar
+                    elemento = DatabaseHelper.db.Get<Elemento>(elementoViewModel.Id);
+                    elemento.Imprescindible = elementoViewModel.Imprescindible;
+                    elemento.RutaIcono = elementoViewModel.RutaIcono;
+                    elemento.UUID = elementoViewModel.UUID;
+                    elemento.Vinculado = elementoViewModel.Vinculado;
+                    elemento.Descripcion = elementoViewModel.Descripcion;
+                    DatabaseHelper.db.Update(elemento);
+                    // NOTIFICAR AL FILTRO QUE SE MODIFICO LA DESCRIPCION DE UN ELEMENTO
+                }
+                EjecutarComando();
             });
 
             MessagingCenter.Subscribe<ElementoViewModel, ElementoViewModel>(this, "EliminarElemento", (sender, elementoViewModel) =>

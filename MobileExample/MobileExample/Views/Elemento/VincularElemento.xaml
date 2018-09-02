@@ -9,7 +9,7 @@
                     Margin="0"
                     BackgroundColor="WhiteSmoke" >
         <StackLayout BackgroundColor="#fd0900">
-            <Label Text="Introducir Elemento..." 
+            <Label Text="Introducí tu pertenencia etiquetada a la mochila" 
                    TextColor="White"
                    FontSize="72"
                    Font="Bold"/>

@@ -18,17 +18,18 @@ namespace MobileExample.ViewModels
         public ObservableCollection<MochilaViewModel> Mochilas { get; set; }
 
         public Command ComandoCargarMochilas { get; set; }
+        public ObservableCollection<Slide> Slides { get; }
 
         public ListadoMochilasViewModel()
         {
             Title = "Mis mochilas";
             Mochilas = new ObservableCollection<MochilaViewModel>();
             ComandoCargarMochilas = new Command(() => RefrescarMochilas());
-
-            // Esto registra una especie de 'listener' para cuando agregamos mochilas.
-            // La idea es que desde la vista de creación se envíe un mensaje con el texto
-            // 'AgregarMochila' y el objeto viewModel, y de esa manera se ejecuta esta porçión de código.
-            MessagingCenter.Subscribe<NuevaMochila, MochilaViewModel>(this, "AgregarMochila", (obj, mochilaViewModel) =>
+ 
+        // Esto registra una especie de 'listener' para cuando agregamos mochilas.
+        // La idea es que desde la vista de creación se envíe un mensaje con el texto
+        // 'AgregarMochila' y el objeto viewModel, y de esa manera se ejecuta esta porçión de código.
+        MessagingCenter.Subscribe<NuevaMochila, MochilaViewModel>(this, "AgregarMochila", (obj, mochilaViewModel) =>
             {
                 Mochila mochila = new Mochila
                 {

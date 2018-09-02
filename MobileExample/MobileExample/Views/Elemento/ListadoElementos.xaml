@@ -18,14 +18,14 @@
         <StackLayout>
             <StackLayout Orientation="Horizontal" BackgroundColor="#222222" HorizontalOptions="FillAndExpand">
                 <StackLayout Padding="10,0,0,0" HorizontalOptions="StartAndExpand">
-                <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
+                    <Image Source="Baggy.png" HeightRequest="64" WidthRequest="119" ></Image>
                 </StackLayout>
                 <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center">
                     <Button Text="Nuevo Elemento" Clicked="AgregarElemento_Clicked" 
                         BackgroundColor="#222222" TextColor="White" HorizontalOptions="End"></Button>
                 </StackLayout>
             </StackLayout>
-            
+
             <ListView   x:Name="ItemsListView3" 
                         BackgroundColor="{DynamicResource backgroundColor}"
                         ItemsSource="{Binding Elementos}"
@@ -40,29 +40,19 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="15" Orientation="Horizontal" BackgroundColor="#222222" HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding Id}" IsVisible="False"/>
                                 <RelativeLayout>
                                     <Image Source="{Binding RutaIcono}" 
                                            WidthRequest="120" 
                                            HeightRequest="120"
-                                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                              Property=Width,
-                                                                              Factor=0, 
-                                                                              Constant = 10}"  />
+                                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant = 10}"  />
 
                                     <Image x:Name="Vinculado" 
-                                               Source="Vinculado.png"
-                                                
-                                               WidthRequest="40" 
-                                            HeightRequest="40"
-                                               
-                                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                              Property=Width,
-                                                                              Factor=0, 
-                                                                              Constant = 100}" 
-                                               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
-                                                                              Factor=0, 
-                                                                              Property=Y, 
-                                                                              Constant=5}">
+                                           Source="Vinculado.png"
+                                           WidthRequest="40" 
+                                           HeightRequest="40"
+                                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant = 100}" 
+                                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=5}">
                                         <Image.Triggers>
                                             <DataTrigger TargetType="Image" Binding="{Binding Vinculado}" Value="True">
                                                 <Setter Property="IsVisible" Value="True" />
@@ -74,30 +64,23 @@
                                     </Image>
 
                                     <Label  Text="{Binding Descripcion}"
-                                                TextColor ="White"
-                                                FontAttributes="Bold" 
-                                                FontSize="25"  
-                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                              Property=Width,
-                                                                              Factor=0, 
-                                                                              Constant = 160}" 
-                                               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                            TextColor ="White"
+                                            FontAttributes="Bold" 
+                                            FontSize="25"  
+                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant = 160}" 
+                                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
                                                                               Factor=0, 
                                                                               Property=Y, 
                                                                               Constant=15}"/>
                                 </RelativeLayout>
                                 <StackLayout HorizontalOptions="End">
-                                
-
-
-
                                     <Label x:Name="Imprescindible" 
-                                               Text="Imprescindible" 
-                                               FontSize="25"
-                                               WidthRequest="300" 
-                                               FontAttributes="Bold"
-                                               XAlign="Center"
-                                               TextColor="White" >
+                                            Text="Imprescindible" 
+                                            FontSize="25"
+                                            WidthRequest="300" 
+                                            FontAttributes="Bold"
+                                            XAlign="Center"
+                                            TextColor="White" >
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label" Binding="{Binding Imprescindible}" Value="True">
                                                 <Setter Property="BackgroundColor" Value="Green" />
@@ -108,8 +91,10 @@
                                         </Label.Triggers>
                                     </Label>
 
-                                <Button Text="Eliminar" Command="{Binding ComandoEliminarElemento}"></Button>
-                            </StackLayout>
+                                    <Button Text="Editar" Command="{Binding ComandoEditarElemento}"></Button>
+                                    
+                                    <Button Text="Eliminar" Command="{Binding ComandoEliminarElemento}"></Button>
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
