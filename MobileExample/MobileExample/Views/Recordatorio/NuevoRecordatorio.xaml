@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MobileExample"
+             xmlns:local="clr-namespace:MobileExample.CustomElements"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="MobileExample.Views.NuevoRecordatorio"
 		     Title="Nuevo Recordatorio">
@@ -139,21 +139,16 @@
                        VerticalOptions="Center"
                        Grid.Row="6" Grid.Column="1"></Entry> 
                     
-                    
-                
-                
-
                 <Label Grid.Row="7" Grid.Column="0" Text="Seleccionar Elementos" FontSize="Medium" VerticalOptions="Center"></Label>
-                <Button         Image="TabElementos.png" 
-                                Grid.Row="7"
-                                Grid.Column="1"
-                                BorderRadius="30" BackgroundColor="White" 
-                                HeightRequest="60"  
-                                HorizontalOptions="End"
-                                VerticalOptions="Center"
-                                Clicked="AbrirPopupSeleccionarElementos"
-                                WidthRequest="60" 
-                               />
+                <Button Image="TabElementos.png" 
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        BorderRadius="30" BackgroundColor="White" 
+                        HeightRequest="60"  
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Clicked="AbrirPopupSeleccionarElementos"
+                        WidthRequest="60" />
 
                 <Label Grid.Row="8" Grid.Column="0" Text="Mochilas" VerticalOptions="Center" FontSize="Medium"/>
                 <Picker x:Name="ListaMochilas"
@@ -164,7 +159,7 @@
                         ItemsSource="{Binding RecordatorioViewModel.Mochilas}"
                         SelectedItem="{Binding RecordatorioViewModel.MochilaSeleccionada}" />
 
-                <local:CustomEntry Grid.Row="9" Grid.Column="0"  PlaceHolderColor="Red" PlaceHolder="Hola"></local:CustomEntry>
+                <local:CustomEntry Placeholder="Prueba" Grid.Row="9" Grid.Column="0"></local:CustomEntry>
                 
             </Grid>             
         </ScrollView>
