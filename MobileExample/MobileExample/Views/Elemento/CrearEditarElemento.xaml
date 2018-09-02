@@ -4,7 +4,7 @@
              xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:local="clr-namespace:MobileExample.ViewModels"
-             x:Class="MobileExample.Views.NuevoElemento"
+             x:Class="MobileExample.Views.CrearEditarElemento"
 		     Title="Nuevo Elemento">
     
     <ContentPage.ToolbarItems>
@@ -13,7 +13,8 @@
     <ContentPage.Content>
         <ScrollView>
             <RelativeLayout BackgroundColor="#f3f3f3">
-                 <Image      x:Name ="ImagenElemento"
+                <Label IsVisible="False" Text="{Binding ElementoViewModel.Id}"/>
+                <Image      x:Name ="ImagenElemento"
                             Source ="{Binding ElementoViewModel.RutaIcono}"                           
                             
                             HeightRequest="170" 

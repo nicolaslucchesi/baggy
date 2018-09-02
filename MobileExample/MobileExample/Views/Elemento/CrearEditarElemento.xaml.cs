@@ -17,14 +17,14 @@ using System.Threading.Tasks;
 namespace MobileExample.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NuevoElemento : ContentPage
+    public partial class CrearEditarElemento : ContentPage
     {
         public ElementoViewModel ElementoViewModel { get; set; }
 
         //public String Imagen;
         //public String UUID;
 
-        public NuevoElemento()
+        public CrearEditarElemento(int Id = 0)
         {
             InitializeComponent();
 
@@ -35,13 +35,14 @@ namespace MobileExample.Views
             indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy", BindingMode.OneWay);
             indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy", BindingMode.OneWay);
 
-            ElementoViewModel = new ElementoViewModel
+            ElementoViewModel = Id == 0 ?
+            new ElementoViewModel
             {
                 Descripcion = "",
                 RutaIcono = "AgregarObjeto.png",
                 Imprescindible = true,
                 Vinculado = false
-            };
+            } : (ElementoViewModel)DatabaseHelper.db.Get<Elemento>(Id);
 
             BindingContext = this;
 

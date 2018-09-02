@@ -15,8 +15,8 @@
     <Compile Update="Views\Elemento\ListadoElementos.xaml.cs">
       <DependentUpon>ListadoElementos.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Elemento\NuevoElemento.xaml.cs">
-      <DependentUpon>NuevoElemento.xaml</DependentUpon>
+    <Compile Update="Views\Elemento\CrearEditarElemento.xaml.cs">
+      <DependentUpon>CrearEditarElemento.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Elemento\VincularElemento.xaml.cs">
       <DependentUpon>VincularElemento.xaml</DependentUpon>

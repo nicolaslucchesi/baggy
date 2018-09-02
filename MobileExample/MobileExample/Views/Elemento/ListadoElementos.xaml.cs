@@ -20,14 +20,18 @@ namespace MobileExample.Views
 
         public ListadoElementos()
         {
-
             InitializeComponent();
             BindingContext = viewModel = new ListadoElementosViewModel();
+
+            MessagingCenter.Subscribe<ElementoViewModel, ElementoViewModel>(this, "EditarElemento", (sender, elementoViewModel) =>
+            {
+                Navigation.PushModalAsync(new NavigationPage(new CrearEditarElemento(elementoViewModel.Id)));
+            });
         }
 
         async void AgregarElemento_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NuevoElemento()));
+            await Navigation.PushModalAsync(new NavigationPage(new CrearEditarElemento()));
         }
 
         protected override void OnAppearing()
