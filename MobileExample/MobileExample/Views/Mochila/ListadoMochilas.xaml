@@ -41,7 +41,7 @@
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="25" />
                             </Grid.RowDefinitions>
-                            
+                            <Label Text="{Binding Id}" IsVisible="False"/>
                             <Label Grid.Row="0" Text="{Binding Descripcion}" 
                                    Grid.ColumnSpan="3"
                                             LineBreakMode="NoWrap"
@@ -87,6 +87,7 @@
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>
+                            <Button Text="Ver" Command="{Binding ComandoVerMochila}"></Button>
                             <Button Image="trash.png" 
                                      Grid.Row="2" Grid.Column="2"
                                         Command="{Binding ComandoEliminarMochila}"

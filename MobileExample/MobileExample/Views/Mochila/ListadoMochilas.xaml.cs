@@ -31,6 +31,11 @@ namespace MobileExample.Views
             {
                 DisplayAlert("Alarma", mensaje, "Aceptar");
             });
+
+            MessagingCenter.Subscribe<MochilaViewModel, MochilaViewModel>(this, "VerMochila", (sender, mochilaViewModel) =>
+            {
+                Navigation.PushModalAsync(new NavigationPage(new VerMochila(mochilaViewModel.Id)));
+            });
         }
 
         async void AgregarMochila_Clicked(object sender, EventArgs e)

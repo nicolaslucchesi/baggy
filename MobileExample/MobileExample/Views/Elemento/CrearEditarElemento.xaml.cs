@@ -21,9 +21,6 @@ namespace MobileExample.Views
     {
         public ElementoViewModel ElementoViewModel { get; set; }
 
-        //public String Imagen;
-        //public String UUID;
-
         public CrearEditarElemento(int Id = 0)
         {
             InitializeComponent();
@@ -32,6 +29,7 @@ namespace MobileExample.Views
             {
                 HorizontalOptions = LayoutOptions.CenterAndExpand
             };
+
             indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy", BindingMode.OneWay);
             indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy", BindingMode.OneWay);
 

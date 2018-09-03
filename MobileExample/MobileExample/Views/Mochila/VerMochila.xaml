@@ -5,10 +5,10 @@
              Title="{Binding Title}">
     <ScrollView>
         <StackLayout Spacing="20" Padding="15" >
-            <Label Text="Text:" FontSize="Medium" />
-            <Label Text="{Binding Item.Descripcion}" FontSize="Small"/>
-            <Label Text="Description:" FontSize="Medium" />
-            <Label Text="{Binding Item.Descripcion}" FontSize="Small"/>
+            <Label Text="Descripción:" FontSize="Medium" />
+            <Label Text="{Binding Descripcion}" FontSize="Small"/>
+            <Label Text="Código:" FontSize="Medium" />
+            <Label Text="{Binding UUID}" FontSize="Small"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

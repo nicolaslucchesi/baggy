@@ -136,13 +136,7 @@ namespace MobileExample.ViewModels
             List<MochilaViewModel> listadoMochilas = new List<MochilaViewModel>();
             foreach (Mochila mochila in DatabaseHelper.db.Table<Mochila>().ToList())
             {
-                MochilaViewModel mochilaViewModel = new MochilaViewModel();
-                mochilaViewModel.Activa = mochila.Activa;
-                mochilaViewModel.Descripcion = mochila.Descripcion;
-                mochilaViewModel.UUID = mochila.UUID;
-                mochilaViewModel.Id = mochila.Id;
-                mochilaViewModel.EstadoAlarma = mochila.EstadoAlarma;
-                listadoMochilas.Add(mochilaViewModel);
+                listadoMochilas.Add((MochilaViewModel)mochila);
             }
 
             return listadoMochilas;
