@@ -21,6 +21,7 @@ namespace MobileExample.Views
             MochilaViewModel = new MochilaViewModel
             {
                 Descripcion = "",
+                RutaIcono = "mochila.png",
                 UUID = ""
             };
 
@@ -52,6 +53,22 @@ namespace MobileExample.Views
                 }
                 else
                 {
+                    if (MochilaViewModel.UUID.StartsWith("1") )
+                    {
+                        MochilaViewModel.RutaIcono = "BaggyCartera.png";
+                    }
+                    else if (MochilaViewModel.UUID.StartsWith("2"))
+                    {
+                        MochilaViewModel.RutaIcono = "BolsoDeportivoBaggy.png";
+                    }
+                    else if (MochilaViewModel.UUID.StartsWith("3"))
+                    {
+                        MochilaViewModel.RutaIcono = "BaggyMochilaNene.png";
+                    }
+                    else
+                    {
+                        MochilaViewModel.RutaIcono = "mochila.png";
+                    }
                     MessagingCenter.Send(this, "AgregarMochila", MochilaViewModel);
                     await Navigation.PopModalAsync();
                 }

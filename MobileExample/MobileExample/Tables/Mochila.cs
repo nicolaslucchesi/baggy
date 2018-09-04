@@ -22,5 +22,7 @@ namespace MobileExample.Tables
         public bool Abierta { get; set; }
 
         public string Elementos { get; set; }
+
+        public string RutaIcono { get; set; }
     }
 }

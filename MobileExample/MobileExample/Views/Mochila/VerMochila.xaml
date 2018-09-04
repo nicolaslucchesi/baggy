@@ -16,13 +16,13 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Text="Mochila" />
 
-        <ff:CachedImage x:Name="Blurr" Source="mochila.png" Grid.Row="1" IsVisible="False">
+        <ff:CachedImage x:Name="Blurr" Source="{Binding RutaIcono}" Grid.Row="1" IsVisible="False">
             <ff:CachedImage.Transformations>
                 <fftransformation:BlurredTransformation Radius="200" />
             </ff:CachedImage.Transformations>  
         </ff:CachedImage>
 
-        <Image x:Name="MochilaCerrada" Source="mochila.png" Grid.Row="1">
+        <Image x:Name="MochilaCerrada" Source="{Binding RutaIcono}" Grid.Row="1">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer
                 Tapped="OnTapGestureRecognizerTapped"

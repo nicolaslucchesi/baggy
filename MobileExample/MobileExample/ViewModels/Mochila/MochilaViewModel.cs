@@ -28,6 +28,8 @@ namespace MobileExample.ViewModels
 
         public Command ComandoVerMochila { get; set; }
 
+        public string RutaIcono { get; set; }
+
         public MochilaViewModel()
         {
             this.ComandoEliminarMochila = new Command(Eliminar);
@@ -65,6 +67,7 @@ namespace MobileExample.ViewModels
                 EstadoAlarma = mochila.EstadoAlarma,
                 Id = mochila.Id,
                 UUID = mochila.UUID,
+                RutaIcono = mochila.RutaIcono,
                 Elementos = mochila.Elementos
             };
         }

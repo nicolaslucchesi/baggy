@@ -35,7 +35,8 @@ namespace MobileExample.ViewModels
                 {
                     Activa = false,
                     Descripcion = mochilaViewModel.Descripcion,
-                    UUID = mochilaViewModel.UUID
+                    UUID = mochilaViewModel.UUID,
+                    RutaIcono = mochilaViewModel.RutaIcono
                 };
 
                 DatabaseHelper.db.Insert(mochila);
