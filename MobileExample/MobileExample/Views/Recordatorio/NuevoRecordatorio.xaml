@@ -148,7 +148,7 @@
                 <Label Text="Descripción" Grid.Row="6" Grid.Column="0" FontSize="Medium" VerticalOptions="Center"></Label>
                 <local:CustomEntry Placeholder="Ninguna" 
                        PlaceholderColor="#eb5a46" TextColor="#eb5a46" 
-                       VerticalOptions="Center"
+                       VerticalOptions="Center" MaxLength="25"
                        Grid.Row="6" Grid.Column="1"></local:CustomEntry> 
                     
                 <Label Grid.Row="7" Grid.Column="0" Text="Seleccionar Elementos" FontSize="Medium" VerticalOptions="Center"></Label>

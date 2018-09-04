@@ -10,7 +10,7 @@
         <ScrollView>
             <StackLayout Spacing="20" Padding="15">
                 <Label Text="Descripción" FontSize="Medium" />
-                <Entry Text="{Binding MochilaViewModel.Descripcion}" FontSize="Small" Placeholder="Descripción" />
+                <Entry Text="{Binding MochilaViewModel.Descripcion}" MaxLength="25" FontSize="Small" Placeholder="Descripción" />
                 <Label Text="UUID" FontSize="Medium" />
                 <Editor Text="{Binding MochilaViewModel.UUID}" FontSize="Small" Margin="0" />
             </StackLayout>

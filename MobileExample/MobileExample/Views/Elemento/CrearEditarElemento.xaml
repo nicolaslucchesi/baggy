@@ -46,12 +46,12 @@
 
 
                 <Label Text="{Binding ElementoViewModel.Descripcion}" FontAttributes="Bold" FontSize="26"
-            HorizontalTextAlignment="Center"
+            HorizontalTextAlignment="Center" 
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=240}" 
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
                 
             <Entry  TextColor="White" 
-                    BackgroundColor="DarkRed"
+                    BackgroundColor="DarkRed" MaxLength="25"
                     Text="{Binding ElementoViewModel.Descripcion}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=280}" 
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
