@@ -1,14 +1,120 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              x:Class="MobileExample.Views.VerMochila"
              Title="{Binding Title}">
-    <ScrollView>
-        <StackLayout Spacing="20" Padding="15" >
-            <Label Text="Descripción:" FontSize="Medium" />
-            <Label Text="{Binding Descripcion}" FontSize="Small"/>
-            <Label Text="Código:" FontSize="Medium" />
-            <Label Text="{Binding UUID}" FontSize="Small"/>
-        </StackLayout>
-    </ScrollView>
+    <Grid Padding="10,10,10,10" BackgroundColor="#f3f3f3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/> 
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Text="Mochila" />
+
+        <ff:CachedImage x:Name="Blurr" Source="mochila.png" Grid.Row="1" IsVisible="False">
+            <ff:CachedImage.Transformations>
+                <fftransformation:BlurredTransformation Radius="200" />
+            </ff:CachedImage.Transformations>  
+        </ff:CachedImage>
+
+        <Image x:Name="MochilaCerrada" Source="mochila.png" Grid.Row="1">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer
+                Tapped="OnTapGestureRecognizerTapped"
+                NumberOfTapsRequired="1" />
+            </Image.GestureRecognizers>
+        </Image>
+        
+        <Grid x:Name="GridElementos" IsVisible="False" Grid.Row="1" WidthRequest="250" HeightRequest="250" HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer
+                Tapped="CerrarMochila"
+                NumberOfTapsRequired="1" />
+            </Grid.GestureRecognizers>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Descripción" FontSize="20" FontAttributes="Bold"/>
+            <Label Grid.Row="1" Text="{Binding Descripcion}" FontSize="18" TextColor="#eb5a46"/>
+            <Image Grid.Row="0" Grid.Column="1"  Grid.RowSpan="2" Source="Editar.png" 
+                       WidthRequest="45"
+                       HeightRequest="45"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Text="Código" FontSize="20" FontAttributes="Bold" />
+            <Label Grid.Row="1" Text="{Binding UUID}"  FontSize="18" TextColor="#eb5a46"/>
+            <Image Grid.Row="0" Grid.Column="1"  Grid.RowSpan="2" Source="Editar.png" 
+                       WidthRequest="45"
+                       HeightRequest="45"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+        </Grid>
+        
+       <!--
+        <Button Grid.Row="4" 
+                                    Text="Activar" 
+                                    Command="{Binding ComandoActivarMochila}" 
+                                    BackgroundColor="Red" 
+                                    BorderRadius="15">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                                            Binding="{Binding Activa}"
+                                            Value="True">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="BackgroundColor" Value="Green" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        -->
+        <Button 
+                                    Image="alarm.png"
+                                Grid.Row="4" 
+                                    Command="{Binding ComandoActivarAlarma}" 
+                                    BackgroundColor="Red" 
+                                    BorderRadius="15">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                                            Binding="{Binding EstadoAlarma}"
+                                            Value="True">
+                    <Setter Property="BackgroundColor" Value="Green" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+         
+        <Button Image="trash.png" 
+            Grid.Row="5" 
+            Command="{Binding ComandoEliminarMochila}" 
+            BorderRadius="15" 
+                BackgroundColor="Red">        
+        </Button>
+
+
+    </Grid>
 </ContentPage>

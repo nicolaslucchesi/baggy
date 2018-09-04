@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:abstractions="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              x:Class="MobileExample.Views.ListadoMochilas"
-              Title="{Binding Title}"
-             Style="{StaticResource PageStyle}"
+              Title="{Binding Title}" 
              x:Name="BrowseItemsPage">
     <Grid>
         <Grid.RowDefinitions>
@@ -24,14 +23,10 @@
             </StackLayout>
         </StackLayout>
         
-        
-        <!--  Here will be CarouselView  -->
         <ContentView Grid.Row="1">
             <abstractions:CarouselViewControl ItemsSource="{Binding Mochilas}"
                                           ShowIndicators="True"
-                                          ShowArrows="False"
-                                          IndicatorsTintColor="Blue"
-                                          CurrentPageIndicatorTintColor="Red">
+                                          ShowArrows="False" >
                 <abstractions:CarouselViewControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -42,21 +37,21 @@
                                 <RowDefinition Height="25" />
                             </Grid.RowDefinitions>
                             <Label Text="{Binding Id}" IsVisible="False"/>
+                            
                             <Label Grid.Row="0" Text="{Binding Descripcion}" 
                                    Grid.ColumnSpan="3"
-                                            LineBreakMode="NoWrap"
-                                            TextColor="White"
-                                            Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="25" />
+                                   LineBreakMode="NoWrap" 
+                                   FontSize="24" />
                             
                             <Label Grid.Row="0" Text="{Binding UUID}" 
-                                            TextColor="White"
                                             LineBreakMode="NoWrap"
                                    IsVisible="False"
                                             Style="{DynamicResource ListItemDetailTextStyle}"
                                             FontSize="12" />
+                            
                             <Image Source="mochila.png" 
                                    Grid.Row="1" Grid.ColumnSpan="4" > </Image>
+                            
                             <Button Grid.Row="2" Grid.Column="0"
                                     Text="Activar" 
                                     Command="{Binding ComandoActivarMochila}" 
@@ -87,7 +82,10 @@
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>
-                            <Button Text="Ver" Command="{Binding ComandoVerMochila}"></Button>
+                            <Button Text="Ver" 
+                                    Grid.Row="2" Grid.Column="2"
+                                    Command="{Binding ComandoVerMochila}"></Button>
+                            <!--
                             <Button Image="trash.png" 
                                      Grid.Row="2" Grid.Column="2"
                                         Command="{Binding ComandoEliminarMochila}"
@@ -96,6 +94,7 @@
                                         BackgroundColor="White">
                             </Button>
 
+                            -->
                             <Button Image="TabMochila.png" 
                                     Grid.Row="2" Grid.Column="3" 
                                     
@@ -104,9 +103,7 @@
                                     BackgroundColor="White">
                             </Button>
                             <BoxView Grid.Row="3" Grid.ColumnSpan="4"></BoxView>
-                        </Grid>
-                               
-                        
+                        </Grid>                  
                     </DataTemplate>
                 </abstractions:CarouselViewControl.ItemTemplate>
             </abstractions:CarouselViewControl>
