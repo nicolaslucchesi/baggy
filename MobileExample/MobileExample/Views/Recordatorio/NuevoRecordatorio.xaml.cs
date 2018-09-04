@@ -132,7 +132,6 @@ namespace MobileExample.Views
             {
                 return false;
             }
-
             if (!RecordatorioViewModel.Lunes
               && !RecordatorioViewModel.Martes
               && !RecordatorioViewModel.Miercoles
